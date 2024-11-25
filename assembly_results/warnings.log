@@ -1,0 +1,4 @@
+
+=== Error correction and assembling warnings:
+ * 0:06:15.568    12G / 1G    WARN    General                 (kmer_coverage_model.cpp   : 218)   Too many erroneous kmers, the estimates might be unreliable
+======= Warnings saved to /home/dtp/spades_assembly/warnings.log

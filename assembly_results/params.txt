@@ -1,0 +1,31 @@
+Command line: /usr/lib/spades/bin/spades.py	-1	/home/dtp/PSA-2017-01_1.fastq.gz	-2	/home/dtp/PSA-2017-01_2.fastq.gz	--only-assembler	-o	/home/dtp/spades_assembly	
+
+System information:
+  SPAdes version: 3.11.1
+  Python version: 2.7.17
+  OS: Linux-5.4.0-91-generic-x86_64-with-Ubuntu-18.04-bionic
+
+Output dir: /home/dtp/spades_assembly
+Mode: ONLY assembling (without read error correction)
+Debug mode is turned OFF
+
+Dataset parameters:
+  Multi-cell mode (you should set '--sc' flag if input data was obtained with MDA (single-cell) technology or --meta flag if processing metagenomic dataset)
+  Reads:
+    Library number: 1, library type: paired-end
+      orientation: fr
+      left reads: ['/home/dtp/PSA-2017-01_1.fastq.gz']
+      right reads: ['/home/dtp/PSA-2017-01_2.fastq.gz']
+      interlaced reads: not specified
+      single reads: not specified
+Assembly parameters:
+  k: automatic selection based on read length
+  Repeat resolution is enabled
+  Mismatch careful mode is turned OFF
+  MismatchCorrector will be SKIPPED
+  Coverage cutoff is turned OFF
+Other parameters:
+  Dir for temp files: /home/dtp/spades_assembly/tmp
+  Threads: 16
+  Memory limit (in Gb): 3
+

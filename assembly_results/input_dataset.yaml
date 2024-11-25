@@ -1,0 +1,6 @@
+- "left reads":
+  - "/home/dtp/PSA-2017-01_1.fastq.gz"
+  "orientation": "fr"
+  "right reads":
+  - "/home/dtp/PSA-2017-01_2.fastq.gz"
+  "type": "paired-end"
