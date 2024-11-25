@@ -6,8 +6,9 @@ Using the **terminal** means interacting with the computer by typing commands, r
 
 # **TABLE OF CONTENTS**
 - [1.1 Find and launch your terminal](#11-Find-and-launch-your-terminal)
-- [1.2 Creating directories (i.e. folders)](12-Creating-directories-(i.e.-folders))
-- [1.3 Creating files](13-Creating-files)
+- [1.2 Creating directories (i.e. folders)](#12-Creating-directories-(i.e.-folders))
+- [1.3 Creating files](#13-Creating-files)
+- [1.4 Searching within files](#14-Searching-within-files)
 
 
 ## 1.1 Find and launch your terminal
