@@ -1,21 +1,23 @@
 # DTC-Bioinformatic-Course
 
-# Part 1: Introduction to command line
+## Part 1: Introduction to command line
 Just like Windows, iOS, and Mac OS, Linux is an operating system (OS). It is in fact, one of the most popular platforms used, particularly in bioinformatics. **Linux** has a number of different versions to suit any type of user. These versions are called distributions (or, 'distros') and nearly every distribution of Linux can be downloaded for free, burned onto disk (or USB thumb drive), and installed (on as many machines as you like). We are using **UBUNTU**, which is a popular Linux distribution. Most bioinformatics tools run on Linux operating systems and/or on Mac OS since this is also a Unix-like operating system. Interacting with and running programs on Unix-like operating systems usually means using the Unix '**command line**' user interface, or '**terminal**'.
 Using the **terminal** means interacting with the computer by typing commands, rather than pointing and clicking. A familiarity with the use of the **command line** can be very helpful. Most bioinformatics programs run on the **Unix command line** and follow similar logic and rules, so they can easily be combined together. In this first practical you will learn some of the most commonly used commands, and how to produce a **bash script**. A **bash script** is a series of commands written in a file. These are read and executed by the bash program. The program executes line by line. This saves you time because you do not have to write certain commands again and again (so is a very handy bioinformatics tool to know!).
 
-# **TABLE OF CONTENTS**
+## **TABLE OF CONTENTS**
 - [1.1 Find and launch your terminal](#11-Find-and-launch-your-terminal)
 - [1.2 Creating directories (i.e. folders)](#12-Creating-directories-(i.e.-folders))
 - [1.3 Creating files](#13-Creating-files)
 - [1.4 Searching within files](#14-Searching-within-files)
+- [1.5 Deleting files and folders](#15-Deleting-files-and-folders)
+- [1.6 Writing a bash script](#16-Writing-a-bash-script)
+- [1.7 Manuals](#17-Manuals)
 
-
-## 1.1 Find and launch your terminal
+### 1.1 Find and launch your terminal
 The **terminal** can be accessed in different ways on different versions of Linux, but there should be either a menu entry or icon for '**console**' or '**terminal**'. We will be using Ubuntu and a **terminal** can be opened by clicking on activities at the top left of the screen, then typing the first few letters of either '**terminal**', '**command**', '**prompt**', or '**shell**' in the 'Type to search' box. If you want a faster way of bringing up a terminal, you can use the shortcut keys: **Ctrl+Alt+T**.
 
 Open the terminal and you should see a large mostly empty box area, with a space to type at the top.
-## 1.2 Creating directories (i.e. folders)
+### 1.2 Creating directories (i.e. folders)
 First, let's work out where we are. As said above, the terminal is just another way of interacting with your computer (so like how you can use your mouse and clicking to navigate through your folders.... you can use your terminal to do the same thing).
 Click the mouse into the window and type the following command (all in lowercase) then press the **Enter** key to run it:
 
@@ -185,7 +187,7 @@ cd /home/your_username/intro
 
 :rocket:**Output:**
 ```bash
-/home/beea/intro
+/home/bea/intro
 ```
 #
 **What happens if you want to create a directory with a space in its name?** Let's try it:
@@ -226,7 +228,7 @@ ls
 folder_two 
 ```
 
-## 1.3 Creating files
+### 1.3 Creating files
 A **FASTA** file is a text file that contains sequence data. Each sequence begins with a single-line sequence header, followed by lines of sequence data. The sequence header always starts with a '**>**', followed by a short sequence description header, then the sequence following below on a separate line. Everything beginning with '**>**' is a new sequence. This is a common format for sequence data, and a common input file type for a lot of bioinformatics software (e.g. blast). We are going to use our terminal to create our own example text file in a FASTA format.
 To do this, we can use the **vi editor** to create and write our own file.
 #
@@ -249,7 +251,6 @@ So, **let's use vi** to create and open a new file named 'example_sequence.fasta
 :pencil2: **Input:**
 ```bash 
 vi example_sequence_1.fasta
-ls
 ```
 
 You should see your terminal change to a largely blank file box, with "example_sequence_1.fasta" [New] at the bottom. 
@@ -335,7 +336,6 @@ To copy something we can use the **cp** (copy) command, where we specify what we
 :pencil2: **Input:**
 ```bash 
 cp example_sequence_1.fasta example_sequence_2.fasta
-ls
 ```
 
 The above command copies 'example_sequence_1.fasta' to a new file, named example_sequence_2.fasta, and using '**ls**' you should now see it exists within your directory.
@@ -438,7 +438,7 @@ ATCGGGGTA
 *Create your own fasta file using the **vi** editor called '**test_sequence.fasta**' that contains 3 short sequences of your choosing. Use '**head**' and '**cat**' to explore this file.
 #
 
-## 1.4 Searching within files
+### 1.4 Searching within files
 Occasionally, you might want to search for particular words, expressions or even an isolate or gene name in a document. Using Microsoft word or excel, you would use 'find' to search for this. An alternative to this in Linux is the **grep** command (Global Regular Expression Print). **grep** is a Linux / Unix command-line tool used to search for a string of characters in a specified file. The text search pattern is called regular expression. When it finds a match, it prints the line with the result. The **grep** command is a very handy when searching through large files.
 #
 Let's try searching for a particular (nucleotide) string in our fasta file:
@@ -552,7 +552,7 @@ example_sequence_2.fasta: 2
 Use grep to explore the fasta file (test_sequence.fasta) you made previously. How do you search for the lines that contain "AA"? How many sequences does it contain?
 #
 
-## 1.5 Deleting files and folders
+### 1.5 Deleting files and folders
 In this next section we are going to start deleting files and folders. To make absolutely certain that you do not accidentally delete anything in your home folder, use the **pwd** command to double-check that you are still in the **/intro** directory before proceeding.
 #
 To delete things, we can use the **rm** (remove) command.
@@ -590,12 +590,12 @@ What happened there? Well, it turns out that **rm** does have one little safety 
 
 :pencil2: **Input:**
 ```bash 
-rmdir folder_twoa
+rmdir folder_two
 ```
 
 *Note*: **rmdir** will only delete empty folders. Another small safety net to prevent you from accidentally deleting a folder full of files when you did not mean to. The addition of options to our **rm** or **rmdir** commands will let us perform more dangerous actions without the aid of a safety net. In the case of **rmdir** we can add a **-p** switch to tell it to also remove the parent directories. Think of it as the counterpoint to **mkdir -p**. 
 
-## 1.6 Writing a bash script
+### 1.6 Writing a bash script
 A **bash script** is a series of commands written in a file. These are read and executed by the bash program. The program executes line by line.
 For example, you can navigate to a certain path, create a folder and spawn a process inside it using the command line. You can do the same sequence of steps by saving the commands in a bash script and running it. You can **run the script** any number of times, and only need to **'press Enter' once**.
 **Bash scripts** effectively allow you to automate a series of commands so you do not have to type them all individually.
@@ -651,12 +651,14 @@ Hello World
 **EXERCISE**
 1. Create and execute a bash script that when executed creates a new folder called "bash"
 2. Create and execute a bash script that when executed does the following series of commands (these will need to be seperated by lines in the bash script):
-   2.1 Copy one of your previous fasta files into the new bash folder you created.
-   2.2 Changes directory into the new folder with the fasta file now in, then
-   2.3 searches the fasta file for line occurances of ">" and prints this output to a new text file.
-Check the script has completed properly by checking the new output text file within your 'bash' folder.
+   1. Copy one of your previous fasta files into the new bash folder you created.
+   2. Changes directory into the new folder with the fasta file now in,
+   3. then searches the fasta file for line occurances of ">" and prints this output to a new text file.
 
-## 1.7 Manuals
+Check the script has completed properly by checking the new output text file within your 'bash' folder.
+#
+
+### 1.7 Manuals
 Most Linux command line tools include a man page. Try taking a brief look at the pages for some of the commands you've already encountered: **man ls**, **man grep**, **man cp**, **man rmdir** and so on. There's even a man page for the man program itself, which is accessed using **man man**. e.g.:
 
 :pencil2: **Input:**
