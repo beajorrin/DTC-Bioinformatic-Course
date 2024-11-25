@@ -2,47 +2,89 @@
 The goal of the second part of this practical is to assemble a bacterial genome using sequencing reads. The genome will be assembled using short-read sequencing data to produce '**contigs**'. **Contigs** is a term that means contiguous DNA and refers to the consensus sequence that is formed when sequencing reads (usually from fastq files) are ‘stitched together’ to form regions of the genome. With short reads, repetitive sequences usually prevent complete closed genomes from being produced and instead the end result is usually smaller pieces of contiguous DNA that make up most of the genome. Hybrid assembly approaches (i.e. using long and short read sequencing data together) can be used to try and 'close the genome', to give you a complete genome where you know how everything fits together. For this practical we will be working with short reads only, obtained from illumina sequencing of a *Pseudomonas aeruginosa* genome.
 
 ## **TABLE OF CONTENTS**
-- [1.1 Find and launch your terminal](#11-Find-and-launch-your-terminal)
-- [1.2 Creating directories (i.e. folders)](#12-Creating-directories-(i.e.-folders))
+- [2.1 Manage data](#21-Manage-data)
+- [2.2 Running fastQC](#22-Running-fastQC)
 - [1.3 Creating files](#13-Creating-files)
 - [1.4 Searching within files](#14-Searching-within-files)
 - [1.5 Deleting files and folders](#15-Deleting-files-and-folders)
 - [1.6 Writing a bash script](#16-Writing-a-bash-script)
 - [1.7 Manuals](#17-Manuals)
 
+
+:pencil2:**code:**
+```bash
+pwd
+```
+*Explanation:* pwd is an abbreviation of 'print working directory'. All it does is print out the shell's current working directory. You should see a directory path printed out, something like '**/home/YOUR_USERNAME**'.
+
+:rocket:**Output:**
+```bash
+/home/bea
+```
+
 *Pseudomonas aeruginosa* is a Gram-negative bacterium and opportunistic pathogen. It is a major problem in clinical settings and is as a major caustive pathogen of ventilator-associated pneumonia. *P. aeruginosa* is becoming increasingly resistant to the antibiotics we use to treat it. Genome sequencing data is useful for understanding what the population of *P. aeruginosa* looks like, how many acquired antibiotic resistance genes this pathogen carries, and understanding how *P. aeruginosa* is evolving in clinically relevant environments (such as within ICU patients with pneumonia infections).
 
 ## 2.1 Manage data
+
 Let's first create a new directory (within our intro folder) to work in:
+
+:pencil2:**code:**
+```bash
 mkdir assembly
 cd assembly
+```
+
 Check you are now in your new folder.
 
-For the purposes of this practical, we will be using a pair of forward and reverse fastq.gz (comparessed gzipped fastq) files from P. aeruginosa available from the European Nucleotide Archive. 
+For the purposes of this practical, we will be using a pair of forward and reverse fastq.gz (comparessed gzipped fastq) files from *P. aeruginosa* available from the European Nucleotide Archive. 
 You can download this data using the command wget followed by the address to that file(s)
-wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_1.fastq.gz
-However, all the data needed for the first week of this course is already available in DTC computer in the followed location
-/usr/local/bioinformatics
 
+:pencil2:**code:**
+```bash
+wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_1.fastq.gz
+cd assembly
+```
+
+However, all the data needed for the first week of this course is already available in DTC computer in the followed location
+
+```bash
+/usr/local/bioinformatics
+```
 If you navigate to this location you will see four folders, one for each practical. 
 
-
 If you are working in your own computer / VM follow the next steps to get the pair of reads:
-wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_1.fastq.gz
 
+
+:pencil2:**code:**
+```bash
+wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_1.fastq.gz
 wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_2.fastq.gz
-To check that the files have downloaded we can use the ls -lh command (-l long; -h human-readable), which also allows us to check the size of the files:
+```
+
+To check that the files have downloaded we can use the **ls -lh** command (**-l** long; **-h** human-readable), which also allows us to check the size of the files:
+
+:pencil2:**code:**
+```bash
 ls -lh
-The files that we've downloaded are gzipped FASTQ files. Take a look at one of them:
+```
+
+The files that we've downloaded are gzipped **FASTQ** files. Take a look at one of them:
+
+```bash
 PSA-2017-01_1.fastq.gz
 PSA-2017-01_2.fastq.gz
+```
+
 We can use a combination of commands to view the first few lines of a compressed files. 
+
+```bash
 zcat /usr/local/bioinformatics/1-intro/PSA-2017-01_1.fastq.gz | head -n 20
-zcat decompress the file and shows it in the terminal. However, fastq files contained millions of reads, and we want to avoid “seing” the whole file in the terminal. In order to avoid this, we add another command, in this case head, after the symbol | which pipes the output zcat as an input of the next command head -n 20. In the end, you’ll see only the first 20 lines of the fastq.gz file. 
+```
+**zcat** decompress the file and shows it in the terminal. However, **fastq** files contained millions of reads, and we want to avoid “seing” the whole file in the terminal. In order to avoid this, we add another command, in this case head, after the symbol | which pipes the output zcat as an input of the next command head -n 20. In the end, you’ll see only the first 20 lines of the fastq.gz file. 
 
 How does it look like commpare to a fasta file?
 
-2.2 Running fastQC
+## 2.2 Running fastQC
 The tool fastqc assesses the quality scores across all of the reads in your data. You can read more about it here: https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf
 First, create a folder to save fastqc results
 mkdir fq-results
