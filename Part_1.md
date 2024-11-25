@@ -429,4 +429,244 @@ ATCGGGGTA
 *Create your own fasta file using the **vi** editor called '**test_sequence.fasta**' that contains 3 short sequences of your choosing. Use '**head**' and '**cat**' to explore this file.
 #
 
+## 1.4 Searching within files
+Occasionally, you might want to search for particular words, expressions or even an isolate or gene name in a document. Using Microsoft word or excel, you would use 'find' to search for this. An alternative to this in Linux is the **grep** command (Global Regular Expression Print). **grep** is a Linux / Unix command-line tool used to search for a string of characters in a specified file. The text search pattern is called regular expression. When it finds a match, it prints the line with the result. The **grep** command is a very handy when searching through large files.
+#
+Let's try searching for a particular (nucleotide) string in our fasta file:
 
+:pencil2: **Input:**
+```bash 
+grep "GTC" example_sequence_1.fasta
+```
+
+This will return the line that contains the search string "GTC", i.e. so you should see "AAGTCAACCT"
+
+:rocket:**Output:**
+```bash 
+>Seq_1
+AAGTCAACCT
+```
+
+What happens if we change the case used? Is this important?
+
+:pencil2: **Input:**
+```bash 
+grep "gtc" example_sequence_1.fasta
+```
+
+:rocket:**Output:**
+```bash 
+
+```
+
+Unix systems are case-sensitive, that is, they consider "GTC" and "gtc" to be different. This applies to file and folder names too.
+This leads to an important point however, in that you should avoid creating files and folders whose name only varies by case. Not only will it avoid confusion, but it will also prevent problems when working with different operating systems. Windows, for example, is case-insensitive, so it would treat file names that differ by case as a single file, potentially causing data loss or other problems. You might be tempted to just hit the Caps Lock key and use upper case for all your file names. But the **vast majority of shell commands are lower case**, so you would end up frequently having to turn it on and off as you type. Most seasoned command line users tend to stick primarily to lower case names for their files and directories so that they rarely have to worry about file name clashes, or which case to use for each letter in the name.
+#
+Now, let's try searching for sequence headers in our fasta file. Remember, sequence headers always begin with a '**>**' in fasta file format, which gives us an easy search term. Type the following and press Enter:
+
+:pencil2: **Input:**
+```bash 
+grep ">" example_sequence_1.fasta
+```
+
+This will return only the lines that contain the search string ">", i.e. so you should see > Seq_1 and > Seq_2 printed on your terminal screen.
+
+:rocket:**Output:**
+```bash 
+>Seq_1
+>Seq_2
+```
+
+**grep** can also be used to count the number of line occurrences of a string within a file. The option **-c** (count) is used for this. Count the number of lines that contain "**>**" within the fasta file. For this, you simply specify "**-c**" before the search terms:
+
+:pencil2: **Input:**
+```bash 
+grep -c ">" example_sequence_1.fasta
+```
+
+This should return the number 2. 
+
+:rocket:**Output:**
+```bash 
+2
+```
+#
+Now try in your combined fasta file:
+
+:pencil2: **Input:**
+```bash 
+grep -c ">" combined.fasta
+```
+
+This should return the number 4. 
+
+:rocket:**Output:**
+```bash 
+4
+```
+
+By FASTA format definition, we know that number of sequences in a file should be equal to the number of description lines. So by counting *>* in file, you can count the number of sequences in a fasta file.
+#
+What if you had lots of files and you wanted to perform the same count in all of your files and save the output of this to a new text file?
+You can use grep and the * wildcard to do this!
+
+Let's try counting the number of lines that contain ">" in all our files with the.fasta extension, and write/save this output to a new text file:
+
+:pencil2: **Input:**
+```bash 
+grep -c ">" *.fasta > output.txt
+ls
+```
+
+You are directing the output of this search to a new file (output.txt), the output is no longer returned to us on the terminal screen. Then using ls we see that this new file (output.txt) is now present in our directory.
+
+:rocket:**Output:**
+```bash 
+combined.fasta
+example_sequence_1.fasta
+example_sequence_2.fasta
+output.txt
+```
+
+Use the **vi editor** or **cat** to see the contents of this file. 
+
+You should see it lists all the files ending with the fasta extension and gives the count score for ">" line occurances.
+
+:rocket:**Output:**
+```bash 
+combined.fasta: 4
+example_sequence_1.fasta: 2
+example_sequence_2.fasta: 2
+```
+#
+**EXERCISE**
+Use grep to explore the fasta file (test_sequence.fasta) you made previously. How do you search for the lines that contain "AA"? How many sequences does it contain?
+#
+
+## 1.5 Deleting files and folders
+In this next section we are going to start deleting files and folders. To make absolutely certain that you do not accidentally delete anything in your home folder, use the **pwd** command to double-check that you are still in the **/intro** directory before proceeding.
+#
+To delete things, we can use the **rm** (remove) command.
+
+***Important warning:***
+Unlike in windows/mac where you might get a prompt asking if you are sure you want to delete something... this will not happen in command line. When you use **rm** and **press Enter**
+***- whatever you're trying to delete is deleted!***
+
+Similarly, unlike in windows/mac where the things you delete are moved to a folder called "trash" or similar.... **rm** will delete them totally, utterly, and irrevocably. You need to be careful with the parameters you use with **rm** to make sure you are only deleting the file(s) you intend to. You should take particular care when using wildcards (e.g. *****), as it is easy to accidentally delete more files than you intended. If you are at all uncertain use the **-i** (interactive) option to **rm**, which will prompt you to confirm the deletion of each file; enter **Y** to delete it, **N** to keep it, and press **Ctrl-C** to stop the operation entirely.
+#
+Let's try deleting one of the extra files we created earlier (example_sequence_2.fasta). First, double-check it is there in your current folder space using '**ls**', then type the following command and press Enter:
+
+:pencil2: **Input:**
+```bash 
+rm example_sequence_2.fasta
+```
+
+Using '**ls**' you should now be able to see that the *example_sequence_2.fasta* file has been deleted.
+#
+**What about folders?** Let's try deleting a folder we created earlier but didn't use (folder_two).
+
+:pencil2: **Input:**
+```bash 
+rm folder_twoa
+```
+
+When you press Enter, you should see your terminal return:
+
+:rocket:**Output:**
+```bash 
+rm folder_two: is a directory
+```
+
+What happened there? Well, it turns out that **rm** does have one little safety net to make sure you do not accidentally delete a directory and all of the files inside it with one single command. Luckily there's a **rmdir** (remove directory) command that will do the job for us instead:
+
+:pencil2: **Input:**
+```bash 
+rmdir folder_twoa
+```
+
+*Note*: **rmdir** will only delete empty folders. Another small safety net to prevent you from accidentally deleting a folder full of files when you did not mean to. The addition of options to our **rm** or **rmdir** commands will let us perform more dangerous actions without the aid of a safety net. In the case of **rmdir** we can add a **-p** switch to tell it to also remove the parent directories. Think of it as the counterpoint to **mkdir -p**. 
+
+## 1.6 Writing a bash script
+A **bash script** is a series of commands written in a file. These are read and executed by the bash program. The program executes line by line.
+For example, you can navigate to a certain path, create a folder and spawn a process inside it using the command line. You can do the same sequence of steps by saving the commands in a bash script and running it. You can **run the script** any number of times, and only need to **'press Enter' once**.
+**Bash scripts** effectively allow you to automate a series of commands so you do not have to type them all individually.
+By naming conventions, bash scipts end with a **.sh** file extension. Scripts are also identified by containing the path to the bash interpretor at the start (i.e. #!
+/bin/bash). This is known as a shebang statement, and will be the first line of the script.
+We are going to create a very simple **bash script** to give you a taste of how they work. We are going to create a script that when executed **echos Hello World** to the terminal console.
+#
+To create our bash script, we can again use the **vi editor**:
+
+:pencil2: **Input:**
+```bash 
+vi hellow_word.sh
+```
+
+As seen previously, this will open up a new file, and you will need to press '**i**' to enter insert mode. Once in insert mode, write the following into your new file:
+
+:pencil2: **Input:**
+```bash 
+#!bin/bash
+echo "Hello World"
+```
+
+Use **Esc** and **:wq** to save and quit your new file. Test it has been written and saved correctly by using **vi hello_world.sh** to reopen and check.
+
+In order to execute the script the file needs to be made **executable** by the use of **chmod u+x** filename:
+
+:pencil2: **Input:**
+```bash 
+chmod u+x hellow_word.sh
+```
+
+**chmod** modifies the existing rights of a file for a particular user. We are adding **+x** (make executable) to user **u**.
+You can now run the script in the following ways:
+
+:pencil2: **Input:**
+```bash 
+./hellow_word.sh 
+```
+
+or
+
+:pencil2: **Input:**
+```bash 
+bash hellow_word.sh 
+```
+Try them both, and you should see **Hello World** returned to you on the terminal console.
+
+:rocket:**Output:**
+```bash 
+Hello World
+```
+#
+**EXERCISE**
+1. Create and execute a bash script that when executed creates a new folder called "bash"
+2. Create and execute a bash script that when executed does the following series of commands (these will need to be seperated by lines in the bash script):
+   2.1 Copy one of your previous fasta files into the new bash folder you created.
+   2.2 Changes directory into the new folder with the fasta file now in, then
+   2.3 searches the fasta file for line occurances of ">" and prints this output to a new text file.
+Check the script has completed properly by checking the new output text file within your 'bash' folder.
+
+## 1.7 Manuals
+Most Linux command line tools include a man page. Try taking a brief look at the pages for some of the commands you've already encountered: **man ls**, **man grep**, **man cp**, **man rmdir** and so on. There's even a man page for the man program itself, which is accessed using **man man**. e.g.:
+
+:pencil2: **Input:**
+```bash 
+man grep 
+```
+
+:pencil2: **Input:**
+```bash 
+man ls 
+```
+
+:pencil2: **Input:**
+```bash 
+man cp 
+```
+
+Exit the manual pages by pressing '**q**' for quit!
+
+---
+END OF PRACTICAL PART 1
+--- 
