@@ -1,21 +1,22 @@
 # DTC-Bioinformatic-Course
 
 ## **TABLE OF CONTENTS**
-- [1 Part 1: Introduction to command line](#1-Part-1:-Introduction-to-command-line)
-- [1.1 Find and launch your terminal](#11-Find-and-launch-your-terminal)
-- [1.2 Creating directories (i.e. folders)](#12-Creating-directories-(i.e.-folders))
-- [1.3 Creating files](#13-Creating-files)
-- [1.4 Searching within files](#14-Searching-within-files)
-- [1.5 Deleting files and folders](#15-Deleting-files-and-folders)
-- [1.6 Writing a bash script](#16-Writing-a-bash-script)
-- [1.7 Manuals](#17-Manuals)
-- [2.1 Manage data](#21-Manage-data)
-- [2.2 Running fastQC](#22-Running-fastQC)
-- [2.3 Genome assembly](#23-Genome-assembly)
-- [2.4 Species identity check](#24-Species-identity-check)
-- [2.5 Extra - further data analysis](#25-Extra---further-data-analysis)
+- [1. Introduction to command line](#1-Introduction-to-command-line)
+   - [1.1 Find and launch your terminal](#11-Find-and-launch-your-terminal)
+   - [1.2 Creating directories (i.e. folders)](#12-Creating-directories-(i.e.-folders))
+   - [1.3 Creating files](#13-Creating-files)
+   - [1.4 Searching within files](#14-Searching-within-files)
+   - [1.5 Deleting files and folders](#15-Deleting-files-and-folders)
+   - [1.6 Writing a bash script](#16-Writing-a-bash-script)
+   - [1.7 Manuals](#17-Manuals)
+- [2. Bacterial genome assembly](#2-Bacterial-genome-assembly)
+   - [2.1 Manage data](#21-Manage-data)
+   - [2.2 Running fastQC](#22-Running-fastQC)
+   - [2.3 Genome assembly](#23-Genome-assembly)
+   - [2.4 Species identity check](#24-Species-identity-check)
+   - [2.5 Extra - further data analysis](#25-Extra---further-data-analysis)
 
-## 1 Part 1: Introduction to command line
+## 1. Introduction to command line
 Just like Windows, iOS, and Mac OS, Linux is an operating system (OS). It is in fact, one of the most popular platforms used, particularly in bioinformatics. **Linux** has a number of different versions to suit any type of user. These versions are called distributions (or, 'distros') and nearly every distribution of Linux can be downloaded for free, burned onto disk (or USB thumb drive), and installed (on as many machines as you like). We are using **UBUNTU**, which is a popular Linux distribution. Most bioinformatics tools run on Linux operating systems and/or on Mac OS since this is also a Unix-like operating system. Interacting with and running programs on Unix-like operating systems usually means using the Unix '**command line**' user interface, or '**terminal**'.
 Using the **terminal** means interacting with the computer by typing commands, rather than pointing and clicking. A familiarity with the use of the **command line** can be very helpful. Most bioinformatics programs run on the **Unix command line** and follow similar logic and rules, so they can easily be combined together. In this first practical you will learn some of the most commonly used commands, and how to produce a **bash script**. A **bash script** is a series of commands written in a file. These are read and executed by the bash program. The program executes line by line. This saves you time because you do not have to write certain commands again and again (so is a very handy bioinformatics tool to know!).
 
@@ -689,7 +690,7 @@ END OF PRACTICAL PART 1
 --- 
 
 
-# Part 2: Bacterial genome assembly
+# 2. Bacterial genome assembly
 The goal of the second part of this practical is to assemble a bacterial genome using sequencing reads. The genome will be assembled using short-read sequencing data to produce '**contigs**'. **Contigs** is a term that means contiguous DNA and refers to the consensus sequence that is formed when sequencing reads (usually from fastq files) are ‘stitched together’ to form regions of the genome. With short reads, repetitive sequences usually prevent complete closed genomes from being produced and instead the end result is usually smaller pieces of contiguous DNA that make up most of the genome. Hybrid assembly approaches (i.e. using long and short read sequencing data together) can be used to try and 'close the genome', to give you a complete genome where you know how everything fits together. For this practical we will be working with short reads only, obtained from illumina sequencing of a *Pseudomonas aeruginosa* genome.
 
 ## **TABLE OF CONTENTS**
