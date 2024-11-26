@@ -1,0 +1,54 @@
+/usr/local/lib/python2.7/dist-packages/quast-5.0.2-py2.7.egg/EGG-INFO/scripts/quast.py contigs.fasta
+
+Version: 5.0.2
+
+System information:
+  OS: Linux-5.4.0-91-generic-x86_64-with-Ubuntu-18.04-bionic (linux_64)
+  Python version: 2.7.17
+  CPUs number: 2
+
+Started: 2023-11-29 15:12:42
+
+Logging to /home/dtp/spades_assembly/quast_results/results_2023_11_29_15_12_42/quast.log
+NOTICE: Maximum number of threads is set to 1 (use --threads option to set it manually)
+
+CWD: /home/dtp/spades_assembly
+Main parameters: 
+  MODE: default, threads: 1, minimum contig length: 500, minimum alignment length: 65, \
+  ambiguity: one, threshold for extensive misassembly size: 1000
+
+WARNING: Can't draw plots: python-matplotlib is missing or corrupted.
+
+Contigs:
+  Pre-processing...
+  contigs.fasta ==> contigs
+
+2023-11-29 15:12:42
+Running Basic statistics processor...
+  Contig files: 
+    contigs
+  Calculating N50 and L50...
+    contigs, N50 = 11908, L50 = 161, Total length = 6562187, GC % = 66.44, # N's per 100 kbp =  0.00
+Done.
+
+NOTICE: Genes are not predicted by default. Use --gene-finding or --glimmer option to enable it.
+
+2023-11-29 15:12:43
+Creating large visual summaries...
+This may take a while: press Ctrl-C to skip this step..
+  1 of 1: Creating Icarus viewers...
+Done
+
+2023-11-29 15:12:43
+RESULTS:
+  Text versions of total report are saved to /home/dtp/spades_assembly/quast_results/results_2023_11_29_15_12_42/report.txt, report.tsv, and report.tex
+  Text versions of transposed total report are saved to /home/dtp/spades_assembly/quast_results/results_2023_11_29_15_12_42/transposed_report.txt, transposed_report.tsv, and transposed_report.tex
+  HTML version (interactive tables and plots) is saved to /home/dtp/spades_assembly/quast_results/results_2023_11_29_15_12_42/report.html
+  Icarus (contig browser) is saved to /home/dtp/spades_assembly/quast_results/results_2023_11_29_15_12_42/icarus.html
+  Log is saved to /home/dtp/spades_assembly/quast_results/results_2023_11_29_15_12_42/quast.log
+
+Finished: 2023-11-29 15:12:43
+Elapsed time: 0:00:01.129358
+NOTICEs: 2; WARNINGs: 1; non-fatal ERRORs: 0
+
+Thank you for using QUAST!
