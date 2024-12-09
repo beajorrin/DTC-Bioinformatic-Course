@@ -789,17 +789,17 @@ ls *fastqc*
 
 :rocket:**Output:**
 ```bash
-PSA-2017-01_1.fastqc.html
-PSA-2017-01_1.fastqc.zip
-PSA-2017-01_2.fastq.html
-PSA-2017-01_2.fastq.zip
+PSA-2017-01_1_fastqc.html
+PSA-2017-01_1_fastqc.zip
+PSA-2017-01_2_fastq.html
+PSA-2017-01_2_fastq.zip
 ```
 
 For each file, **fastQC** has produced both a .zip archive containing all the plots, and a html report. We can open the html files using a web browser: e.g.:
 
 :pencil2:**code:**
 ```bash
-google-chrome PSA-2017-01_1.fastqc.html&
+google-chrome PSA-2017-01_1_fastqc.html&
 ```
 
 For each position, a boxplot is drawn with:
