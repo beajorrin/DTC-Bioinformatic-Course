@@ -96,7 +96,7 @@ To move back up one directory (i.e. back to '/home/YOUR_USERNAME'), we can use '
 
 :pencil2:**code:**
 ```bash
-cd..
+cd ..
 ```
 Using '**cd ..**' makes you move back up one directory. You can use **ls** or **pwd** to check that you are now back in the directory that contains your intro folder, e.g.:
 
