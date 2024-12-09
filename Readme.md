@@ -459,7 +459,6 @@ This will return the line that contains the search string "GTC", i.e. so you sho
 
 :rocket:**Output:**
 ```bash 
->Seq_1
 AAGTCAACCT
 ```
 
