@@ -842,7 +842,7 @@ To run **SPAdes** to assemble our paired fastq reads PSA-2017-01_1.fastq.gz and 
 
 :pencil2:**code:**
 ```bash
-spades.py -1 [location-to-read-1] -2 [location-to-read-2] –only-assembler -o spades_assembly
+spades.py -1 [location-to-read-1] -2 [location-to-read-2] –-only-assembler -o spades_assembly
 ```
 
 replace the information in [ ] to the path of each fastq file. Wait for the command to run. **SPAdes** should give some output about what it is doing. At the end, you might see an assembly warning about erroneous kmer, that is OK for the sake of this exercise (re. run in assembly mode only).
