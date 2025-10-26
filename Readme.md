@@ -719,21 +719,6 @@ You can download this data using the command wget followed by the address to tha
 :pencil2:**code:**
 ```bash
 wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_1.fastq.gz
-```
-
-However, all the data needed for the first week of this course is already available in DTC computer in the followed location
-
-```bash
-/usr/local/bioinformatics
-```
-If you navigate to this location you will see four folders, one for each practical. 
-
-If you are working in your own computer / VM follow the next steps to get the pair of reads:
-
-
-:pencil2:**code:**
-```bash
-wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_1.fastq.gz
 wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_2.fastq.gz
 ```
 
@@ -754,7 +739,7 @@ PSA-2017-01_2.fastq.gz
 We can use a combination of commands to view the first few lines of a compressed files. 
 
 ```bash
-zcat /usr/local/bioinformatics/1-intro/PSA-2017-01_1.fastq.gz | head -n 20
+zcat PSA-2017-01_1.fastq.gz | head -n 20
 ```
 **zcat** decompress the file and shows it in the terminal. However, **fastq** files contained millions of reads, and we want to avoid “seing” the whole file in the terminal. In order to avoid this, we add another command, in this case head, after the symbol | which pipes the output zcat as an input of the next command head -n 20. In the end, you’ll see only the first 20 lines of the fastq.gz file. 
 
@@ -773,8 +758,8 @@ Let’s run fastqc on our 2 samples:
 
 :pencil2:**code:**
 ```bash
-fastqc /usr/local/bioinformatics/1-intro/PSA-2017-01_1.fastq.gz -o fq-results
-fastqc /usr/local/bioinformatics/1-intro/PSA-2017-01_2.fastq.gz -o fq-results
+fastqc PSA-2017-01_1.fastq.gz -o fq-results
+fastqc PSA-2017-01_2.fastq.gz -o fq-results
 ```
 
 **-o**: output directory. Location where the files will save.
@@ -799,7 +784,7 @@ For each file, **fastQC** has produced both a .zip archive containing all the pl
 
 :pencil2:**code:**
 ```bash
-google-chrome PSA-2017-01_1_fastqc.html&
+explorer.exe PSA-2017-01_1_fastqc.html&
 ```
 
 For each position, a boxplot is drawn with:
@@ -870,19 +855,17 @@ quast.py contigs.fasta
 
 After it has finished running, you should see a new folder with the results in has been created - '**quast_results**'.
 
-Navigate into this folder, and then into the new results (**results_data_hour**) sub-folder. In this folder use '**ls**' to check what is there. We are interested in the '**report.txt**' file, which is a summary report file.
-
-To see the contents, we can use the **vi editor** or **cat**:
+Navigate into this folder, and then into the new results (**results_data_hour**) sub-folder. In this folder use '**ls**' to check what is there. We are interested in the '**report.html**' file, which is a summary report file.
 
 :pencil2:**code:**
 ```bash
-cat report.txt
+explorer.exe report.html
 ```
 
 Looking at this report we can see there are a total of 864 contigs with a size of >= 1000bp. The total length is ~6.56Mb, which is within the size range we expect for a *P. aeruginosa* genome (5.5Mb - 7Mb). The GC is ~66%, which again is within the GC range we expect for a *P. aeruginosa genome*. The largest contig is ~47,000bp.
 
 ## 2.4 Species identity check
-A final step in our genome quality check is to confirm that the genome and the DNA it is composed of belongs to our species of interest and that it isn’t contaminated with DNA from another bacterium. There are a number of tools that can do this and this depends on whether you want to check your data before it has been assembled using software such as **KRAKEN** or after it has been assembled using tools such as **MASH**. We will query our assembled genome against a reference database called **rMLST** available on the online, publicly available website https://pubmlst.org/species-id.
+A final step in our genome quality check is to confirm that the genome and the DNA it is composed of belongs to our species of interest and that it is not contaminated with DNA from another bacterium. There are a number of tools that can do this and this depends on whether you want to check your data before it has been assembled using software such as **KRAKEN** or after it has been assembled using tools such as **MASH**. We will query our assembled genome against a reference database called **rMLST** available on the online, publicly available website https://pubmlst.org/species-id.
 
 Species identification in **rMLST** uses genes involved in the ribosome machinery which are core to all bacteria and for which sequence variations are associated with specific bacterial species. You can query your data by directly uploading your **contigs.fasta** file to the database via the webserver.
 
