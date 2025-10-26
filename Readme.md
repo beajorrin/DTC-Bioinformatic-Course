@@ -784,7 +784,7 @@ For each file, **fastQC** has produced both a .zip archive containing all the pl
 
 :pencil2:**code:**
 ```bash
-explorer.exe PSA-2017-01_1_fastqc.html&
+explorer.exe PSA-2017-01_1_fastqc.html
 ```
 
 For each position, a boxplot is drawn with:
