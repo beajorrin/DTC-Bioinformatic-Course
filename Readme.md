@@ -9,7 +9,7 @@
    - [1.5 Deleting files and folders](#15-Deleting-files-and-folders)
    - [1.6 Writing a bash script](#16-Writing-a-bash-script)
    - [1.7 Manuals](#17-Manuals)
-- [2. Conda installation](#2-Conda-installation)
+- [2. Conda](#2-Conda)
    - [2.1 Install Miniconda](#21-Insatll-miniconda)
    - [2.2 Create a conda environment](#22-Create-conda-environment)
 - [3. Bacterial genome assembly](#3-Bacterial-genome-assembly)
@@ -691,9 +691,9 @@ Exit the manual pages by pressing '**q**' for quit!
 END OF PRACTICAL PART 1
 --- 
 
-# 2. Conda installation
+# 2. Conda 
 
-Description of what is conda and why is it usefull
+Miniconda is a lightweight installer for conda, an open-source package and environment manager used to install software and their dependencies across Linux, macOS, and Windows (including WSL) without needing admin rights. With conda you create isolated environments—self-contained sandboxes—so different projects can use different versions of Python/R and bioinformatics tools without conflicts. It solves dependency hell, makes setups reproducible (via environment.yml), and lets you swap or pin versions easily. Miniconda gives you just conda and Python (no extra bundles), so installs are faster and smaller, and you can pull exactly what you need from channels like conda-forge and bioconda.
 
 ## **TABLE OF CONTENTS**
 - [2.1 Install Miniconda](#21-Insatll-miniconda)
@@ -702,16 +702,19 @@ Description of what is conda and why is it usefull
 ## 2.1 Install Miniconda
 
 **Update ubuntu**
-This updates the ubuntu version in your wsl to be ready to install conda
+Refreshes package lists and upgrades core tools so the installer works smoothly.
 
 :pencil2: **Input:**
 ```bash 
 sudo apt update && sudo apt -y upgrade 
 sudo apt -y install wget git 
 ```
+:eyes: What you’ll see: A lot of lines starting with Get: and Hit: during apt update.
+A summary such as X upgraded, Y newly installed... for apt -y upgrade.
+wget and git will show as setting up ... if they weren’t already installed.
 
 **Download and install miniconda**
-
+We download the Linux installer and start the text-based setup.
 :pencil2: **Input:**
 ```bash 
 cd ~
@@ -719,31 +722,38 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
 
-:pencil2: **Input:**
-```bash 
-Press enter to continue 
-```
+👀: What you’ll see
 
-Accept terms
+A prompt like:
+*In order to continue the installation process, please review the license agreement. Please, press ENTER to continue
+→ Press **ENTER** to show the license text (pages will scroll).*
 
-:pencil2: **Input:**
-```bash 
-yes
-```
+After the license text:
+*Do you accept the license terms? [yes|no]
+→ Type yes and press **ENTER**.*
 
-:pencil2: **Input:**
-```bash 
-Press enter to run unstallation
-```
+Install location prompt (default is your home, e.g. /home/<you>/miniconda3):
+*Press **ENTER** to confirm the location, CTRL-C to abort, or specify a different location
+→ Press **ENTER** to accept the default.*
 
-Reload your shell
+Initialization prompt:
+*Do you wish the installer to initialize Miniconda3 by running conda init? [yes|no]
+→ Type yes and press **ENTER**.*
+
+When it finishes you’ll see something like:
+Thank you for installing Miniconda3!
+
+
+Reload your shell so conda is on PATH
 
 :pencil2: **Input:**
 ```bash 
 exec bash
 ```
+If exec bash isn’t available or you still get “conda: command not found”, run source ~/.bashrc or simply close and reopen the terminal.
 
-verify conda is install
+Verify the installation
+
 :pencil2: **Input:**
 ```bash 
 conda --version
@@ -753,8 +763,8 @@ conda --version
 conda 25.7.0
 ```
 
-Accept terms of Service
-
+Accept terms of Service (toS)
+Some installs pull packages from Anaconda’s default channels, which now require ToS acceptance. Safe to do now.
 :pencil2: **Input:**
 ```bash 
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
