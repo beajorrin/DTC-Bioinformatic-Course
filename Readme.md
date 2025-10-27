@@ -9,12 +9,14 @@
    - [1.5 Deleting files and folders](#15-Deleting-files-and-folders)
    - [1.6 Writing a bash script](#16-Writing-a-bash-script)
    - [1.7 Manuals](#17-Manuals)
-- [2. Bacterial genome assembly](#2-Bacterial-genome-assembly)
-   - [2.1 Manage data](#21-Manage-data)
-   - [2.2 Running fastQC](#22-Running-fastQC)
-   - [2.3 Genome assembly](#23-Genome-assembly)
-   - [2.4 Species identity check](#24-Species-identity-check)
-   - [2.5 Extra - further data analysis](#25-Extra---further-data-analysis)
+- [2. Conda installation]
+   - [2.1 section](#21-Manage-data)
+- [3. Bacterial genome assembly](#3-Bacterial-genome-assembly)
+   - [3.1 Manage data](#31-Manage-data)
+   - [3.2 Running fastQC](#32-Running-fastQC)
+   - [3.3 Genome assembly](#33-Genome-assembly)
+   - [3.4 Species identity check](#34-Species-identity-check)
+   - [3.5 Extra - further data analysis](#35-Extra---further-data-analysis)
 
 ## 1. Introduction to command line
 Just like Windows, iOS, and Mac OS, Linux is an operating system (OS). It is in fact, one of the most popular platforms used, particularly in bioinformatics. **Linux** has a number of different versions to suit any type of user. These versions are called distributions (or, 'distros') and nearly every distribution of Linux can be downloaded for free, burned onto disk (or USB thumb drive), and installed (on as many machines as you like). We are using **UBUNTU**, which is a popular Linux distribution. Most bioinformatics tools run on Linux operating systems and/or on Mac OS since this is also a Unix-like operating system. Interacting with and running programs on Unix-like operating systems usually means using the Unix '**command line**' user interface, or '**terminal**'.
@@ -688,20 +690,72 @@ Exit the manual pages by pressing '**q**' for quit!
 END OF PRACTICAL PART 1
 --- 
 
+# 2. Conda installation
 
-# 2. Bacterial genome assembly
+Description of what is conda and why is it usefull
+
+## **TABLE OF CONTENTS**
+
+**Update ubuntu**
+This updates the ubuntu version in your wsl to be ready to install conda
+
+:pencil2: **Input:**
+```bash 
+sudo apt update && sudo apt -y upgrade 
+sudo apt -y install wget git 
+```
+
+**Download and install miniconda**
+
+:pencil2: **Input:**
+```bash 
+cd ~
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+
+Press enter to continue 
+
+Accept terms
+
+:pencil2: **Input:**
+```bash 
+yes
+```
+
+Press enter to run unstallation
+
+Reload your shell
+
+:pencil2: **Input:**
+```bash 
+exec bash
+```
+
+verify conda is install
+:pencil2: **Input:**
+```bash 
+conda --version
+```
+:rocket:**Output:**
+```bash 
+conda 25.7.0
+```
+
+
+# 3. Bacterial genome assembly
 The goal of the second part of this practical is to assemble a bacterial genome using sequencing reads. The genome will be assembled using short-read sequencing data to produce '**contigs**'. **Contigs** is a term that means contiguous DNA and refers to the consensus sequence that is formed when sequencing reads (usually from fastq files) are ‘stitched together’ to form regions of the genome. With short reads, repetitive sequences usually prevent complete closed genomes from being produced and instead the end result is usually smaller pieces of contiguous DNA that make up most of the genome. Hybrid assembly approaches (i.e. using long and short read sequencing data together) can be used to try and 'close the genome', to give you a complete genome where you know how everything fits together. For this practical we will be working with short reads only, obtained from illumina sequencing of a *Pseudomonas aeruginosa* genome.
 
 ## **TABLE OF CONTENTS**
-- [2.1 Manage data](#21-Manage-data)
-- [2.2 Running fastQC](#22-Running-fastQC)
-- [2.3 Genome assembly](#23-Genome-assembly)
-- [2.4 Species identity check](#24-Species-identity-check)
-- [2.5 Extra - further data analysis](#25-Extra---further-data-analysis)
+- [3.1 Manage data](#31-Manage-data)
+- [3.2 Running fastQC](#32-Running-fastQC)
+- [3.3 Genome assembly](#33-Genome-assembly)
+- [3.4 Species identity check](#34-Species-identity-check)
+- [3.5 Extra - further data analysis](#35-Extra---further-data-analysis)
 
 *Pseudomonas aeruginosa* is a Gram-negative bacterium and opportunistic pathogen. It is a major problem in clinical settings and is as a major caustive pathogen of ventilator-associated pneumonia. *P. aeruginosa* is becoming increasingly resistant to the antibiotics we use to treat it. Genome sequencing data is useful for understanding what the population of *P. aeruginosa* looks like, how many acquired antibiotic resistance genes this pathogen carries, and understanding how *P. aeruginosa* is evolving in clinically relevant environments (such as within ICU patients with pneumonia infections).
 
-## 2.1 Manage data
+## 3.1 Manage data
 
 Let's first create a new directory (within our intro folder) to work in:
 
@@ -745,7 +799,7 @@ zcat PSA-2017-01_1.fastq.gz | head -n 20
 
 How does it look like commpare to a fasta file?
 
-## 2.2 Running fastQC
+## 3.2 Running fastQC
 The tool **fastqc** assesses the quality scores across all of the reads in your data. You can read more about it here: https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf
 First, create a folder to save fastqc results
 
@@ -807,7 +861,7 @@ Low quality sequences and adapters can be removed used programs such as trimmoma
 Whether you should do this can depend on the objective of your sequencing experiments (e.g. read more here: https://dnatech.genomecenter.ucdavis.edu/faqs/when-should-i- trim-my-illumina-reads-and-how-should-i-do-it/).
 We will not do this today, but you should be aware of it for genome assemblies in the future.
 
-## 2.3 Genome assembly
+## 3.3 Genome assembly
 **SPAdes** is one of a number of de novo assemblers that uses short read sets as input (e.g. Illumina Reads). When a genome is sequenced, it is fragmented into lots of short sequencing fragments called ‘**reads**’. Assembling the genome means putting the pieces back together. The assembly method **SPAdes** uses is based on de Bruijn graphs, which you can read about on wikipedia: they use overlaps between reads to build up the genome.
 So in simple words, assembling a genome means putting together the sequenced random fragments (known as **reads**) into longer sequences (called **contigs**).
 The **SPAdes** program has several options (read more here: https://github.com/ablab/spades), which can be listed if you test **spades.py** and press **Enter**. The most basic options to specify are:
@@ -876,7 +930,7 @@ Once you have navigated to this page, click in the '**select FASTA file**' box, 
 Your sequence data will be compared against all of the >400,000 genomes present in the **rMLST** database to see how closely it matches in its ribosome sequences to ones defined in the database.
 Does the output match your expectations? (*Pseudomonas aeruginosa*)
 
-## 2.5 Extra - further data analysis
+## 3.5 Extra - further data analysis
 Here is an (optional) data analysis exercise you can try to explore your assembled genome:
 
 1. Does your assembled genome contain any acquired antibiotic resistance genes? (hint: try finding some antibiotic resistance gene databases and blasting these gene fasta sequences against your genome using blastn in command line)
