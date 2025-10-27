@@ -774,6 +774,7 @@ conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 ## 2.2 Create a conda environment
 
 **Configure conda**
+
 Why: libmamba is much faster; channels tell conda where to get packages; strict priority avoids mixing.
 
 :pencil2: **Input:**
@@ -794,6 +795,7 @@ Writing to /home/<you>/.condarc
 ```
 
 **Create the dtc-bio conda environment**
+
 One clean place with all the tools needed for this practical
 *(Note the regular hyphen -y, not a long dash.)*
 
@@ -854,6 +856,7 @@ QUAST v5.2.0
 ```
 
 ** Close conda environment**
+
 When you finish, deactivate the environment so your shell goes back to its previous PATH.
 
 :pencil2: **Input:**
@@ -1042,15 +1045,16 @@ explorer.exe report.html
 
 Looking at this report we can see there are a total of 864 contigs with a size of >= 1000bp. The total length is ~6.56Mb, which is within the size range we expect for a *P. aeruginosa* genome (5.5Mb - 7Mb). The GC is ~66%, which again is within the GC range we expect for a *P. aeruginosa genome*. The largest contig is ~47,000bp.
 
-## 2.4 Species identity check
+## 3.4 Species identity check
 A final step in our genome quality check is to confirm that the genome and the DNA it is composed of belongs to our species of interest and that it is not contaminated with DNA from another bacterium. There are a number of tools that can do this and this depends on whether you want to check your data before it has been assembled using software such as **KRAKEN** 
 
-# Download *Pseudomonas* type genomes
+### Download *Pseudomonas* type genomes
 
 In order for kraken to work it needs a database of genomes to compare the assembly to. Here we are going to download from the NCBI the genomes of type strain for each species. 
 
 **Create the PATHS**
-:pencil2:**code:**
+
+:pencil2:code:
 ```bash
 # paths
 SRC=~/genomes/pseudomonas_type
@@ -1067,16 +1071,124 @@ mkdir -p "$SRC" "$STAGE" "$DB"/library
 
 **Download the *Pseudomonas* genomes from NCBI**
 
+:pencil2:**code:**
+```bash
+conda run -n base ncbi-genome-download bacteria --section genbank --genera "Pseudomonas" --assembly-levels chromosome,complete,scaffold --type-materials type,neotype,proxytype,synonym --formats fasta --parallel 4 --no-cache --output-folder "$SRC"
+```
 
-or after it has been assembled using tools such as **MASH**. We will query our assembled genome against a reference database called **rMLST** available on the online, publicly available website https://pubmlst.org/species-id.
+**Check you have the files**
 
-Species identification in **rMLST** uses genes involved in the ribosome machinery which are core to all bacteria and for which sequence variations are associated with specific bacterial species. You can query your data by directly uploading your **contigs.fasta** file to the database via the webserver.
+:pencil2:**code:**
+```bash
+find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) | wc -l
+```
+*It should print **226***
 
-Search '**identify species pubmlst**' using google or (https://pubmlst.org/bigsdb? db=pubmlst_rmlst_seqdef_kiosk)
-Once you have navigated to this page, click in the '**select FASTA file**' box, navigate to where the **SPAdes** assembled 'contigs.fasta' file is and select this file, then click
-**Submit**.
+**Decompress the fastas**
 
-Your sequence data will be compared against all of the >400,000 genomes present in the **rMLST** database to see how closely it matches in its ribosome sequences to ones defined in the database.
+why? Kraken2 needs plain .fna (not fna.gz) when adding to the library. 
+Decompress *fna.gz --> .fna using gzip
+
+:pencil2:**code:**
+```bash
+while IFS= read -r -d '' f; do
+  out="$STAGE/$(basename "$f" .gz)"
+  gzip -dc -- "$f" > "$out"
+done < <(find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) -print0)
+```
+
+sanity check
+:pencil2:**code:**
+```bash
+grep -c '^>' "$STAGE"/*.fna | head
+```
+*Should show counts >0*
+
+### Build a Kraken2 database
+
+Why: index k-mers from your staged genomes + the NCBI taxonomy.
+
+:pencil2:**code:**
+```bash
+rm -rf "$DB"; mkdir -p "$DB/library"
+```
+
+Add staged FASTAs
+
+:pencil2:**code:**
+```bash
+find "$STAGE" -type f -name "*.fna" -print0 \
+  | xargs -0 -I{} kraken2-build --add-to-library "{}" --db "$DB"
+ 
+kraken2-build --download-taxonomy --db "$DB"
+kraken2-build --build --threads "$THREADS" --db "$DB"
+kraken2-build --clean --db "$DB"   # optional
+```
+
+Quick verify
+
+:pencil2:**code:**
+```bash
+du -sh "$DB"
+kraken2-inspect --db "$DB" | head
+```
+
+### Classify your assembly
+
+Why: assign each contig to a taxon and then read the species-level summary.
+
+**1) Maximise hits (no confidence filter yet)** 
+
+:pencil2:**code:**
+```bash
+kraken2 --db "$DB" --threads "$THREADS" --use-names --report k2_pseudo.report --output k2_pseudo.out contigs.fasta
+```
+
+:rocket:**output:**
+```bash
+Loading database information... done.
+2464 sequences (6.93 Mbp) processed in 0.331s (446.5 Kseq/m, 1256.68 Mbp/m).
+  2385 sequences classified (96.79%)
+  79 sequences unclassified (3.21%)
+```
+Show the top species lines (column 1 is % of contigs)
+
+:pencil2:**code:**
+```bash
+grep $'\tS\t' k2_pseudo.report | sort -nr -k1,1 | head
+```
+
+:rocket:**output:**
+```bash
+92.29  2274    2176    S       287                         Pseudomonas aeruginosa
+  1.38  34      34      S       2994495                     Pseudomonas paraeruginosa
+  0.45  11      11      S       78327                       Pseudomonas mosselii
+  0.32  8       8       S       2961893                   Pseudomonas triclosanedens
+  0.16  4       4       S       46680                         Pseudomonas nitroreducens
+  0.12  3       3       S       2906062                   Pseudomonas wenzhouensis
+  0.08  2       2       S       706570                    Pseudomonas flexibilis
+  0.08  2       2       S       53408                       Pseudomonas citronellolis
+  0.08  2       2       S       2320867                   Pseudomonas cavernae
+  0.08  2       0       S       76759                       Pseudomonas monteilii
+```
+
+**2) Strict, confidence filter on 0.1**
+
+:pencil2:**code:**
+```bash
+kraken2 --db "$DB" --threads "$THREADS" --use-names –quick --confidence 0.1 --minimum-hit-groups 3 -report k2_pseudo_fast.report --output k2_pseudo_fast.out contigs.fasta
+```
+
+:rocket:**output:**
+```bash
+89.61  2208    2207    S       287                         Pseudomonas aeruginosa
+  0.85  21      21      S       2994495                     Pseudomonas paraeruginosa
+  0.28  7       7       S       78327                       Pseudomonas mosselii
+  0.08  2       2       S       2961893                   Pseudomonas triclosanedens
+  0.04  1       1       S       53408                       Pseudomonas citronellolis
+```
+
+
 Does the output match your expectations? (*Pseudomonas aeruginosa*)
 
 ## 3.5 Extra - further data analysis
