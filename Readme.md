@@ -10,8 +10,8 @@
    - [1.6 Writing a bash script](#16-Writing-a-bash-script)
    - [1.7 Manuals](#17-Manuals)
 - [2. Conda](#2-Conda)
-   - [2.1 Install Miniconda](#21-Insatll-miniconda)
-   - [2.2 Create a conda environment](#22-Create-conda-environment)
+   - [2.1 Install Miniconda](#21-Install-miniconda)
+   - [2.2 Create a conda environment](#22-Create-a-conda-environment)
 - [3. Bacterial genome assembly](#3-Bacterial-genome-assembly)
    - [3.1 Manage data](#31-Manage-data)
    - [3.2 Running fastQC](#32-Running-fastQC)
@@ -696,8 +696,8 @@ END OF PRACTICAL PART 1
 Miniconda is a lightweight installer for conda, an open-source package and environment manager used to install software and their dependencies across Linux, macOS, and Windows (including WSL) without needing admin rights. With conda you create isolated environments—self-contained sandboxes—so different projects can use different versions of Python/R and bioinformatics tools without conflicts. It solves dependency hell, makes setups reproducible (via environment.yml), and lets you swap or pin versions easily. Miniconda gives you just conda and Python (no extra bundles), so installs are faster and smaller, and you can pull exactly what you need from channels like conda-forge and bioconda.
 
 ## **TABLE OF CONTENTS**
-- [2.1 Install Miniconda](#21-Insatll-miniconda)
-- [2.2 Create a conda environment](#22-Create-conda-environment)
+- [2.1 Install Miniconda](#21-Install-miniconda)
+- [2.2 Create a conda environment](#22-Create-a-conda-environment)
 
 ## 2.1 Install Miniconda
 
@@ -773,7 +773,8 @@ conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
 ## 2.2 Create a conda environment
 
-Configure channels
+**Configure conda**
+Why: libmamba is much faster; channels tell conda where to get packages; strict priority avoids mixing.
 
 :pencil2: **Input:**
 ```bash 
@@ -785,18 +786,49 @@ conda config --add channels defaults
 conda config --set channel_priority strict
 ```
 
-Create the conda environment
+:rocket: **What you'll see:**
+```bash
+Solving environment: done
+...
+Writing to /home/<you>/.condarc
+```
+
+**Create the dtc-bio conda environment**
+One clean place with all the tools needed for this practical
+*(Note the regular hyphen -y, not a long dash.)*
+
 :pencil2: **Input:**
 ```bash 
 conda create -n dtc-bio –y -c conda-forge -c bioconda --strict-channel-priority python=3.10 fastqc spades kraken2 bwa samtools quast=5.2.* ncbi-datasets-cli ncbi-genome-download pigz unzip
 ```
-Activate conda environment
+
+:rocket: **what you'll see:**
+```bash 
+Collecting package metadata: done
+Solving environment: done
+## Package Plan ##
+  environment location: /home/<you>/miniconda3/envs/dtc-bio
+Proceed ([y]/n)?  --> auto-yes because -y
+Downloading and Extracting Packages ...
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+```
+
+**Activate dtc-bio environment**
+
 :pencil2: **Input:**
 ```bash 
 conda activate dtc-bio
 ```
 
-Check for software installation in conda environment
+:rocket: **Output:**
+```bash 
+(dtc-bio) <you>@<machine>:~$
+```
+
+**Check the tools are available**
+
 :pencil2: **Input:**
 ```bash 
 ncbi-genome-download --version
@@ -809,16 +841,30 @@ samtools --version | head -n1
 quast.py --version
 ```
 
-:rocket:**Output:**
+:rocket:**Output:** ❗CHECK!!!!!!!!
 ```bash 
-ncbi X
-python 3.10.14
-FastQC v0.12.1
-SPAdes genome assembler v4.0.0
-Kraken version 2.1.3
-bwa x
-samtools x
+ncbi-genome-download 0.x.x
+Python 3.10.x
+FastQC v0.12.x
+SPAdes genome assembler v4.0.x
+Kraken version 2.1.x
+Program: bwa (alignment)   # first line from bwa help
+samtools 1.1x
 QUAST v5.2.0
+```
+
+** Close conda environment**
+When you finish, deactivate the environment so your shell goes back to its previous PATH.
+
+:pencil2: **Input:**
+```bash 
+conda deactivate
+```
+
+:rocket:**Output:**
+```bash
+(dtc-bio) you@host:~$ conda deactivate
+you@host:~$            # prompt no longer shows (dtc-bio); often switches to (base) or no prefix
 ```
 
 # 3. Bacterial genome assembly
@@ -997,7 +1043,32 @@ explorer.exe report.html
 Looking at this report we can see there are a total of 864 contigs with a size of >= 1000bp. The total length is ~6.56Mb, which is within the size range we expect for a *P. aeruginosa* genome (5.5Mb - 7Mb). The GC is ~66%, which again is within the GC range we expect for a *P. aeruginosa genome*. The largest contig is ~47,000bp.
 
 ## 2.4 Species identity check
-A final step in our genome quality check is to confirm that the genome and the DNA it is composed of belongs to our species of interest and that it is not contaminated with DNA from another bacterium. There are a number of tools that can do this and this depends on whether you want to check your data before it has been assembled using software such as **KRAKEN** or after it has been assembled using tools such as **MASH**. We will query our assembled genome against a reference database called **rMLST** available on the online, publicly available website https://pubmlst.org/species-id.
+A final step in our genome quality check is to confirm that the genome and the DNA it is composed of belongs to our species of interest and that it is not contaminated with DNA from another bacterium. There are a number of tools that can do this and this depends on whether you want to check your data before it has been assembled using software such as **KRAKEN** 
+
+# Download *Pseudomonas* type genomes
+
+In order for kraken to work it needs a database of genomes to compare the assembly to. Here we are going to download from the NCBI the genomes of type strain for each species. 
+
+**Create the PATHS**
+:pencil2:**code:**
+```bash
+# paths
+SRC=~/genomes/pseudomonas_type
+STAGE=~/genomes/pseudomonas_type_fna
+DB=~/dbs/k2_pseudomonas_type
+THREADS=8
+```
+
+**Create the corresponding folder to these PATHS**
+:pencil2:**code:**
+```bash
+mkdir -p "$SRC" "$STAGE" "$DB"/library
+```
+
+**Download the *Pseudomonas* genomes from NCBI**
+
+
+or after it has been assembled using tools such as **MASH**. We will query our assembled genome against a reference database called **rMLST** available on the online, publicly available website https://pubmlst.org/species-id.
 
 Species identification in **rMLST** uses genes involved in the ribosome machinery which are core to all bacteria and for which sequence variations are associated with specific bacterial species. You can query your data by directly uploading your **contigs.fasta** file to the database via the webserver.
 
