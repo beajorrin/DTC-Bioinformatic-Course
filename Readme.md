@@ -695,6 +695,10 @@ END OF PRACTICAL PART 1
 Description of what is conda and why is it usefull
 
 ## **TABLE OF CONTENTS**
+- [2.1 Install Miniconda](#21-Insatll-miniconda)
+- [2.2 Create a conda environment](#22-Create-conda-environment)
+
+# 2.1 Install Miniconda
 
 **Update ubuntu**
 This updates the ubuntu version in your wsl to be ready to install conda
@@ -714,7 +718,10 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
 
+:pencil2: **Input:**
+```bash 
 Press enter to continue 
+```
 
 Accept terms
 
@@ -723,7 +730,10 @@ Accept terms
 yes
 ```
 
+:pencil2: **Input:**
+```bash 
 Press enter to run unstallation
+```
 
 Reload your shell
 
@@ -742,6 +752,63 @@ conda --version
 conda 25.7.0
 ```
 
+Accept terms of Service
+
+:pencil2: **Input:**
+```bash 
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+```
+
+# 2.2 Create a conda environment
+
+Configure channels
+
+:pencil2: **Input:**
+```bash 
+conda install -n base -y conda-libmamba-solver
+conda config --set solver libmamba
+conda config --add channels conda-forge
+conda config --add channels bioconda
+conda config --add channels defaults
+conda config --set channel_priority strict
+```
+
+Create the conda environment
+:pencil2: **Input:**
+```bash 
+conda create -n dtc-bio –y -c conda-forge -c bioconda --strict-channel-priority python=3.10 fastqc spades kraken2 bwa samtools quast=5.2.* ncbi-datasets-cli ncbi-genome-download pigz unzip
+```
+Activate conda environment
+:pencil2: **Input:**
+```bash 
+conda activate dtc-bio
+```
+
+Check for software installation in conda environment
+:pencil2: **Input:**
+```bash 
+ncbi-genome-download --version
+python --version
+fastqc --version
+spades.py --version
+kraken2 --version
+bwa 2>&1 | head -n1
+samtools --version | head -n1
+quast.py --version
+```
+
+:rocket:**Output:**
+```bash 
+ncbi X
+python 3.10.14
+FastQC v0.12.1
+SPAdes genome assembler v4.0.0
+Kraken version 2.1.3
+bwa x
+samtools x
+QUAST v5.2.0
+```
 
 # 3. Bacterial genome assembly
 The goal of the second part of this practical is to assemble a bacterial genome using sequencing reads. The genome will be assembled using short-read sequencing data to produce '**contigs**'. **Contigs** is a term that means contiguous DNA and refers to the consensus sequence that is formed when sequencing reads (usually from fastq files) are ‘stitched together’ to form regions of the genome. With short reads, repetitive sequences usually prevent complete closed genomes from being produced and instead the end result is usually smaller pieces of contiguous DNA that make up most of the genome. Hybrid assembly approaches (i.e. using long and short read sequencing data together) can be used to try and 'close the genome', to give you a complete genome where you know how everything fits together. For this practical we will be working with short reads only, obtained from illumina sequencing of a *Pseudomonas aeruginosa* genome.
