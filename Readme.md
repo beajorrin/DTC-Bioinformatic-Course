@@ -9,7 +9,7 @@
    - [1.5 Deleting files and folders](#15-Deleting-files-and-folders)
    - [1.6 Writing a bash script](#16-Writing-a-bash-script)
    - [1.7 Manuals](#17-Manuals)
-- [2. Conda installation]
+- [2. Conda installation](#2-Conda-installation)
    - [2.1 Install Miniconda](#21-Insatll-miniconda)
    - [2.2 Create a conda environment](#22-Create-conda-environment)
 - [3. Bacterial genome assembly](#3-Bacterial-genome-assembly)
