@@ -699,7 +699,7 @@ Description of what is conda and why is it usefull
 - [2.1 Install Miniconda](#21-Insatll-miniconda)
 - [2.2 Create a conda environment](#22-Create-conda-environment)
 
-# 2.1 Install Miniconda
+## 2.1 Install Miniconda
 
 **Update ubuntu**
 This updates the ubuntu version in your wsl to be ready to install conda
@@ -761,7 +761,7 @@ conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/ma
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 ```
 
-# 2.2 Create a conda environment
+## 2.2 Create a conda environment
 
 Configure channels
 
