@@ -19,96 +19,108 @@
    - [3.4 Species identity check](#34-Species-identity-check)
    - [3.5 Extra - further data analysis](#35-Extra---further-data-analysis)
 
-## 1. Introduction to command line
-Just like Windows, iOS, and Mac OS, Linux is an operating system (OS). It is in fact, one of the most popular platforms used, particularly in bioinformatics. **Linux** has a number of different versions to suit any type of user. These versions are called distributions (or, 'distros') and nearly every distribution of Linux can be downloaded for free, burned onto disk (or USB thumb drive), and installed (on as many machines as you like). We are using **UBUNTU**, which is a popular Linux distribution. Most bioinformatics tools run on Linux operating systems and/or on Mac OS since this is also a Unix-like operating system. Interacting with and running programs on Unix-like operating systems usually means using the Unix '**command line**' user interface, or '**terminal**'.
-Using the **terminal** means interacting with the computer by typing commands, rather than pointing and clicking. A familiarity with the use of the **command line** can be very helpful. Most bioinformatics programs run on the **Unix command line** and follow similar logic and rules, so they can easily be combined together. In this first practical you will learn some of the most commonly used commands, and how to produce a **bash script**. A **bash script** is a series of commands written in a file. These are read and executed by the bash program. The program executes line by line. This saves you time because you do not have to write certain commands again and again (so is a very handy bioinformatics tool to know!).
+## 1. Introduction to command line (with WSL)
+Just like Windows and macOS, Linux is an operating system (OS). It is hugely popular in bioinformatics because most tools are built for Unix-like systems. Linux comes in many versions called distributions (“distros”). In this course we will use Ubuntu—a widely used distro—running inside Windows Subsystem for Linux (WSL). WSL gives you a real Ubuntu environment on your Windows machine without a virtual machine.
+You will interact with Ubuntu using the command line (also called the terminal or shell): instead of pointing and clicking, you type commands. This is powerful because bioinformatics programs share similar Unix conventions, so you can chain them together and make reproducible workflows. You will also write a bash script—a text file containing a series of commands that bash executes line by line—so you do not have to retype long command sequences.
+>*From now on, run commands in the Ubuntu (WSL) terminal, not in PowerShell or CMD, unless the instructions say otherwise.*
 
-### 1.1 Find and launch your terminal
-The **terminal** can be accessed in different ways on different versions of Linux, but there should be either a menu entry or icon for '**console**' or '**terminal**'. We will be using Ubuntu and a **terminal** can be opened by clicking on activities at the top left of the screen, then typing the first few letters of either '**terminal**', '**command**', '**prompt**', or '**shell**' in the 'Type to search' box. If you want a faster way of bringing up a terminal, you can use the shortcut keys: **Ctrl+Alt+T**.
+### 1.1 Open the Ubuntu (WSL) terminal
+Pick any one of these:
+- Start menu: Press Win → type Ubuntu → open Ubuntu.
+- Start menu: Press Win → type WSL → open WSL.
 
-Open the terminal and you should see a large mostly empty box area, with a space to type at the top.
+:desktop_computer:
+```ruby
+you@PC:~$
+```
+
+>[!TIP]
+>- Your Linux home is **/home/you**. Keep course files under your Linux home for speed and fewer permission issues (avoid working inside /mnt/c/... when possible).
+>- Paste in Windows Terminal with **Ctrl+V** (some Linux terminals use Ctrl+Shift+V).
+>- The prompt shows your active folder; ~ means your home directory.
+
 ### 1.2 Creating directories (i.e. folders)
 First, let's work out where we are. As said above, the terminal is just another way of interacting with your computer (so like how you can use your mouse and clicking to navigate through your folders.... you can use your terminal to do the same thing).
 Click the mouse into the window and type the following command (all in lowercase) then press the **Enter** key to run it:
 
-:pencil2:**code:**
-```bash
+:keyboard:
+```
 pwd
 ```
-*Explanation:* pwd is an abbreviation of 'print working directory'. All it does is print out the shell's current working directory. You should see a directory path printed out, something like '**/home/YOUR_USERNAME**'.
+>Explanation: **pwd** is an abbreviation of 'print working directory'. All it does is print out the shell's current working directory. You should see a directory path printed out, something like '**/home/YOUR_USERNAME**'.
 
-:rocket:**Output:**
-```bash
+:desktop_computer:
+```r
 /home/bea
 ```
 #
 **Now let's create a new directory** (i.e. folder) to work in. Type the following command then press the **Enter** key to run it: 
 
-:pencil2:**code:**
-```bash
+:keyboard:
+```
 mkdir intro
 ```
 This should create a new directory (mkdir - '**mk** (make) **dir** (directory)') within the directory you are currently in called '**intro**'. 
 #
 **Now let's check it is there**. We can list everything contained within our current directory using the **ls** (list).
 
-:pencil2:**code:**
-```bash
+:keyboard:
+```
 ls
 ```
 You should see your terminal return the name of the directory you just made (**intro**).
 
-:rocket:**Output:**
-```bash
+:desktop_computer:
+```
 intro
 ```
 #
 You can **change directories** using the **cd** (change directory) command. Let's try this:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 cd intro
 ```
 We can check we have successfully changed directory by using **pwd** again:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 pwd
 ```
 You should see a directory path printed out, which now ends in intro, something like '**/home/YOUR_USERNAME/intro**'.
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash
 /home/bea/intro
 ```
 #
 If we try using the **ls** (list):
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 ls
 ```
 You should see your terminal return an empty directory, because you haven't added anything to your intro directory.
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash
 
 ```
 #
 To move back up one directory (i.e. back to '/home/YOUR_USERNAME'), we can use '**cd**':
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 cd ..
 ```
 Using '**cd ..**' makes you move back up one directory. You can use **ls** or **pwd** to check that you are now back in the directory that contains your intro folder, e.g.:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 pwd
 ```
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash
 /home/bea
 ```
@@ -119,19 +131,19 @@ You can also use **cd** to specify a directory to move to using the path descrip
 #
 Move back into your intro folder:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 cd intro
 ```
 Check you are there:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 pwd
 ```
 You should see a directory path printed out, which now ends in intro, something like '/home/YOUR_USERNAME/intro'.
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash
 /home/bea/intro
 ```
@@ -139,30 +151,30 @@ You should see a directory path printed out, which now ends in intro, something 
 **What about creating multiple directories?**
 You can also use **mkdir** to make multiple directories and name them all in one command. Let's try that, creating multiple directories named *dir1* *dir2* and *dir3*:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 mkdir dir1 dir2 dir3
 ```
 Confirm they have been created:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 ls
 ```
 You should see your terminal return the names of the three new directories you made just now (*dir1*, *dir2*, *dir3*).
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash
 dir1 dir2 dir3
 ```
 You can get more information if:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 ls -l
 ```
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash
 total 0
 drwxr-xr-x 2 bea staff 64 28 Nov 15:25 dir1
@@ -174,13 +186,13 @@ Notice that mkdir created all the folders in one directory. It did not create *d
 #
 **Create nested directories**
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 mkdir -p dir4/dir5/dir6
 ls
 ```
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash
 dir1 dir2 dir3 dir4
 ```
@@ -190,25 +202,25 @@ The '**-p**' that we used is called an option or a switch (in this case it means
 **Navigate in your terminal** [e.g. using 'cd' 'pwd' and 'cd ..'] to enter *dir4* and *dir5* and check the appropriate folders are there.
 Make sure you return back to within your intro folder before proceeding, e.g.:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 cd /home/your_username/intro
 ```
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash
 /home/bea/intro
 ```
 #
 **What happens if you want to create a directory with a space in its name?** Let's try it:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 mkdir folder two
 ls
 ```
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 folder
 two 
@@ -216,24 +228,24 @@ two
 You should see your terminal has actually returned two new directories, one named 'folder' and one named 'two'. 
 If you want to work with spaces in directory or file names, you need to 'escape' them. Escaping is a computing term that refers to using special codes to tell the computer to treat particular characters differently to normal. Try the following:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 mkdir "folder two"
 ls 
 ```
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 folder two 
 ```
 Although the command line can be used to work with files and folders with spaces in their names, the need to escape them with quote marks or backslashes makes things more difficult. You can often tell a person who uses the command line a lot just from their file names: they will tend to stick to letters and numbers, and use underscores ('**_**') or hyphens ('**-**') instead of spaces. Try the following:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 mkdir "folder_two" 
 ls
 ```
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 folder_two 
 ```
@@ -258,14 +270,14 @@ It is easy to invoke **vi**. At the command line, you type **vi** to create a ne
 #
 So, **let's use vi** to create and open a new file named 'example_sequence.fasta'. Type the following command and press Enter:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 vi example_sequence_1.fasta
 ```
 
 You should see your terminal change to a largely blank file box, with "example_sequence_1.fasta" [New] at the bottom. 
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 ~
 ~
@@ -276,12 +288,12 @@ You should see your terminal change to a largely blank file box, with "example_s
 ```
 We need to use '**i**' to switch to **Insert mode**, which will allow us to write in this new file. Press the "**i**" on your keyboard, [you do not need to press Enter afterwards]
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 i
 ```
 At the bottom of your terminal, you should now see it is in Insert mode "-- INSERT -- ".
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 ~
 ~
@@ -292,7 +304,7 @@ At the bottom of your terminal, you should now see it is in Insert mode "-- INSE
 ```
 Type the following into your file (i.e. two sequence headers followed by short sequences, seperated by lines):
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 > Seq_1
 AAGTCAACCT
@@ -301,7 +313,7 @@ ATCGGGGTA
 ```
 We now want to switch to **command mode**, to save and quit our new file. To do this, press the **Esc key**. You will see "**--INSERT--**" has disappeared from the bottom of your terminal. Now type **:wq**, which means save and quit, and then press the **Enter key**:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 :wq
 ```
@@ -309,13 +321,13 @@ We now want to switch to **command mode**, to save and quit our new file. To do 
 You will now see you are out of the file, and back into your previous directory in the terminal. You can use **ls** again to check your new file is there.
 To check the contents of your new file have been saved properly and are correct, you can use the cat (concatenate) command, which will print the specified file. Try:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 cat example_sequence_1.fasta
 ```
 You should see the two fasta sequences you wrote printed out:
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 > Seq_1
 AAGTCAACCT
@@ -325,15 +337,14 @@ ATCGGGGTA
 
 We can also explore files using the '**head**' command, which will return the first lines of a file, depending on the options we specify. The default is the first 10 lines, but we can use **-n** (num) to specify the first '**num**' line instead of this default.
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 head -1 example_sequence_1.fasta
 ```
 
 You should now only see the first line printed out:
 
-
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 > Seq_1 
 ```
@@ -343,19 +354,19 @@ The **cat** (concatenate) command is more than just a file viewer - the name com
 **Let's try copying this file** to create a second fasta file, and using cat to merge the two together.
 To copy something we can use the **cp** (copy) command, where we specify what we want to copy and where we want to copy it to. 
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 cp example_sequence_1.fasta example_sequence_2.fasta
 ```
 
 The above command copies 'example_sequence_1.fasta' to a new file, named example_sequence_2.fasta, and using '**ls**' you should now see it exists within your directory.
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 ls
 ```
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 example_sequence_1.fasta
 example_sequence_2.fasta 
@@ -363,14 +374,14 @@ example_sequence_2.fasta
 
 Check the contents of the new file using cat:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 cat example_sequence_2.fasta
 ```
 
 You should see the two fasta sequences you wrote printed out.
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 >Seq_1
 AAGTCAACCT
@@ -381,12 +392,12 @@ ATCGGGGTA
 
 **cat** can also be used to print the contents of multiple files at once, so we can now try both:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 cat example_sequence_1.fasta example_sequence_2.fasta
 ```
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 >Seq_1
 AAGTCAACCT
@@ -401,15 +412,15 @@ ATCGGGGTA
 #
 If you want to pass multiple file names to a single command, there are some useful shortcuts that can save a lot of typing if the files have similar names. For example - a question mark ('**?**') can be used to indicate 'any single character' within the file name. An asterisk ('*****') can be used to indicate 'zero or more characters'. These are sometimes referred to as 'wildcard' characters. The following commands all do the same thing but using wildcards, try them out:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 cat example_sequence_1.fasta example_sequence_2.fasta
 ```
-:pencil2: **Input:**
+:keyboard:*
 ```bash 
 cat example_sequence_?.fasta
 ```
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 cat *.fasta
 ```
@@ -417,7 +428,7 @@ cat *.fasta
 #
 So now let's use the **cat** to **merge** our new files together into a single new file. The command below will concatenate the two files into a new file named "**combined.fasta**". Type the following and press Enter:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 cat example_sequence_1.fasta example_sequence_2.fasta > combined.fasta
 ```
@@ -425,14 +436,14 @@ cat example_sequence_1.fasta example_sequence_2.fasta > combined.fasta
 The output is redirected into combined.fasta by using "**>**" 
 View the contents of combined.fasta using **cat** again:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 cat combined.fasta
 ```
 
 You should see the one file (**combined.fasta**) has two copies of Seq_1 and Seq_2.
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 >Seq_1
 AAGTCAACCT
@@ -453,26 +464,26 @@ Occasionally, you might want to search for particular words, expressions or even
 #
 Let's try searching for a particular (nucleotide) string in our fasta file:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 grep "GTC" example_sequence_1.fasta
 ```
 
 This will return the line that contains the search string "GTC", i.e. so you should see "AAGTCAACCT"
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 AAGTCAACCT
 ```
 
 What happens if we change the case used? Is this important?
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 grep "gtc" example_sequence_1.fasta
 ```
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 
 ```
@@ -482,14 +493,14 @@ This leads to an important point however, in that you should avoid creating file
 #
 Now, let's try searching for sequence headers in our fasta file. Remember, sequence headers always begin with a '**>**' in fasta file format, which gives us an easy search term. Type the following and press Enter:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 grep ">" example_sequence_1.fasta
 ```
 
 This will return only the lines that contain the search string ">", i.e. so you should see > Seq_1 and > Seq_2 printed on your terminal screen.
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 >Seq_1
 >Seq_2
@@ -497,28 +508,28 @@ This will return only the lines that contain the search string ">", i.e. so you 
 
 **grep** can also be used to count the number of line occurrences of a string within a file. The option **-c** (count) is used for this. Count the number of lines that contain "**>**" within the fasta file. For this, you simply specify "**-c**" before the search terms:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 grep -c ">" example_sequence_1.fasta
 ```
 
 This should return the number 2. 
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 2
 ```
 #
 Now try in your combined fasta file:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 grep -c ">" combined.fasta
 ```
 
 This should return the number 4. 
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 4
 ```
@@ -530,7 +541,7 @@ You can use grep and the * wildcard to do this!
 
 Let's try counting the number of lines that contain ">" in all our files with the.fasta extension, and write/save this output to a new text file:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 grep -c ">" *.fasta > output.txt
 ls
@@ -538,7 +549,7 @@ ls
 
 You are directing the output of this search to a new file (output.txt), the output is no longer returned to us on the terminal screen. Then using ls we see that this new file (output.txt) is now present in our directory.
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 combined.fasta
 example_sequence_1.fasta
@@ -550,7 +561,7 @@ Use the **vi editor** or **cat** to see the contents of this file.
 
 You should see it lists all the files ending with the fasta extension and gives the count score for ">" line occurances.
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 combined.fasta: 4
 example_sequence_1.fasta: 2
@@ -574,7 +585,7 @@ Similarly, unlike in windows/mac where the things you delete are moved to a fold
 #
 Let's try deleting one of the extra files we created earlier (example_sequence_2.fasta). First, double-check it is there in your current folder space using '**ls**', then type the following command and press Enter:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 rm example_sequence_2.fasta
 ```
@@ -583,21 +594,21 @@ Using '**ls**' you should now be able to see that the *example_sequence_2.fasta*
 #
 **What about folders?** Let's try deleting a folder we created earlier but didn't use (folder_two).
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 rm folder_twoa
 ```
 
 When you press Enter, you should see your terminal return:
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 rm folder_two: is a directory
 ```
 
 What happened there? Well, it turns out that **rm** does have one little safety net to make sure you do not accidentally delete a directory and all of the files inside it with one single command. Luckily there's a **rmdir** (remove directory) command that will do the job for us instead:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 rmdir folder_two
 ```
@@ -614,14 +625,14 @@ We are going to create a very simple **bash script** to give you a taste of how 
 #
 To create our bash script, we can again use the **vi editor**:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 vi hellow_word.sh
 ```
 
 As seen previously, this will open up a new file, and you will need to press '**i**' to enter insert mode. Once in insert mode, write the following into your new file:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 #!bin/bash
 echo "Hello World"
@@ -631,7 +642,7 @@ Use **Esc** and **:wq** to save and quit your new file. Test it has been written
 
 In order to execute the script the file needs to be made **executable** by the use of **chmod u+x** filename:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 chmod u+x hellow_word.sh
 ```
@@ -639,20 +650,20 @@ chmod u+x hellow_word.sh
 **chmod** modifies the existing rights of a file for a particular user. We are adding **+x** (make executable) to user **u**.
 You can now run the script in the following ways:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 ./hellow_word.sh 
 ```
 
 or
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 bash hellow_word.sh 
 ```
 Try them both, and you should see **Hello World** returned to you on the terminal console.
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 Hello World
 ```
@@ -670,17 +681,17 @@ Check the script has completed properly by checking the new output text file wit
 ### 1.7 Manuals
 Most Linux command line tools include a man page. Try taking a brief look at the pages for some of the commands you've already encountered: **man ls**, **man grep**, **man cp**, **man rmdir** and so on. There's even a man page for the man program itself, which is accessed using **man man**. e.g.:
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 man grep 
 ```
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 man ls 
 ```
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 man cp 
 ```
@@ -704,7 +715,7 @@ Miniconda is a lightweight installer for conda, an open-source package and envir
 **Update ubuntu**
 Refreshes package lists and upgrades core tools so the installer works smoothly.
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 sudo apt update && sudo apt -y upgrade 
 sudo apt -y install wget git 
@@ -715,7 +726,7 @@ wget and git will show as setting up ... if they weren’t already installed.
 
 **Download and install miniconda**
 We download the Linux installer and start the text-based setup.
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 cd ~
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -746,7 +757,7 @@ Thank you for installing Miniconda3!
 
 Reload your shell so conda is on PATH
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 exec bash
 ```
@@ -754,18 +765,18 @@ If exec bash isn’t available or you still get “conda: command not found”, 
 
 Verify the installation
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 conda --version
 ```
-:rocket:**Output:**
+:desktop_computer:
 ```bash 
 conda 25.7.0
 ```
 
 Accept terms of Service (toS)
 Some installs pull packages from Anaconda’s default channels, which now require ToS acceptance. Safe to do now.
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
@@ -777,7 +788,7 @@ conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
 Why: libmamba is much faster; channels tell conda where to get packages; strict priority avoids mixing.
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 conda install -n base -y conda-libmamba-solver
 conda config --set solver libmamba
@@ -787,7 +798,7 @@ conda config --add channels defaults
 conda config --set channel_priority strict
 ```
 
-:rocket: **What you'll see:**
+:desktop_computer:
 ```bash
 Solving environment: done
 ...
@@ -799,12 +810,12 @@ Writing to /home/<you>/.condarc
 One clean place with all the tools needed for this practical
 *(Note the regular hyphen -y, not a long dash.)*
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 conda create -n dtc-bio –y -c conda-forge -c bioconda --strict-channel-priority python=3.10 fastqc spades kraken2 bwa samtools quast=5.2.* ncbi-datasets-cli ncbi-genome-download pigz unzip
 ```
 
-:rocket: **what you'll see:**
+:desktop_computer:
 ```bash 
 Collecting package metadata: done
 Solving environment: done
@@ -819,19 +830,19 @@ Executing transaction: done
 
 **Activate dtc-bio environment**
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 conda activate dtc-bio
 ```
 
-:rocket: **Output:**
+:desktop_computer:
 ```bash 
 (dtc-bio) <you>@<machine>:~$
 ```
 
 **Check the tools are available**
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 ncbi-genome-download --version
 python --version
@@ -843,7 +854,7 @@ samtools --version | head -n1
 quast.py --version
 ```
 
-:rocket:**Output:** ❗CHECK!!!!!!!!
+:desktop_computer:❗CHECK!!!!!!!!
 ```bash 
 ncbi-genome-download 0.x.x
 Python 3.10.x
@@ -859,12 +870,12 @@ QUAST v5.2.0
 
 When you finish, deactivate the environment so your shell goes back to its previous PATH.
 
-:pencil2: **Input:**
+:keyboard:
 ```bash 
 conda deactivate
 ```
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash
 (dtc-bio) you@host:~$ conda deactivate
 you@host:~$            # prompt no longer shows (dtc-bio); often switches to (base) or no prefix
@@ -886,7 +897,7 @@ The goal of the second part of this practical is to assemble a bacterial genome 
 
 Let's first create a new directory (within our intro folder) to work in:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 mkdir assembly
 cd assembly
@@ -897,7 +908,7 @@ Check you are now in your new folder.
 For the purposes of this practical, we will be using a pair of forward and reverse fastq.gz (comparessed gzipped fastq) files from *P. aeruginosa* available from the European Nucleotide Archive. 
 You can download this data using the command wget followed by the address to that file(s)
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_1.fastq.gz
 wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_2.fastq.gz
@@ -905,7 +916,7 @@ wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_2.fastq.gz
 
 To check that the files have downloaded we can use the **ls -lh** command (**-l** long; **-h** human-readable), which also allows us to check the size of the files:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 ls -lh
 ```
@@ -918,7 +929,7 @@ PSA-2017-01_2.fastq.gz
 ```
 
 We can use a combination of commands to view the first few lines of a compressed files. 
-
+:keyboard:
 ```bash
 zcat PSA-2017-01_1.fastq.gz | head -n 20
 ```
@@ -930,14 +941,14 @@ How does it look like commpare to a fasta file?
 The tool **fastqc** assesses the quality scores across all of the reads in your data. You can read more about it here: https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf
 First, create a folder to save fastqc results
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 mkdir fq-results
 ```
 
 Let’s run fastqc on our 2 samples:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 fastqc PSA-2017-01_1.fastq.gz -o fq-results
 fastqc PSA-2017-01_2.fastq.gz -o fq-results
@@ -947,13 +958,13 @@ fastqc PSA-2017-01_2.fastq.gz -o fq-results
 
 View the files that have been generated:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 cd fq-results
 ls *fastqc*
 ```
 
-:rocket:**Output:**
+:desktop_computer:
 ```bash
 PSA-2017-01_1_fastqc.html
 PSA-2017-01_1_fastqc.zip
@@ -963,7 +974,7 @@ PSA-2017-01_2_fastq.zip
 
 For each file, **fastQC** has produced both a .zip archive containing all the plots, and a html report. We can open the html files using a web browser: e.g.:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 explorer.exe PSA-2017-01_1_fastqc.html
 ```
@@ -1006,7 +1017,7 @@ For the sake of time, we are going to run **SPAdes** in assembler mode only (run
 
 To run **SPAdes** to assemble our paired fastq reads PSA-2017-01_1.fastq.gz and PSA-2017-01_2.fastq.gz in assembly mode only:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 spades.py -1 [location-to-read-1] -2 [location-to-read-2] –-only-assembler -o spades_assembly
 ```
@@ -1015,7 +1026,7 @@ replace the information in [ ] to the path of each fastq file. Wait for the comm
 
 Navigate into your spades_assembly output folder and check whats there:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 cd spades_assembly
 ```
@@ -1029,7 +1040,7 @@ How many contigs (sequences) have the result of the assembly (*contigs.fasta*)
 
 We can run *QUAST* (QUality ASsessment Tool) for an overview of our assembly metrics. You can read more about QUAST here: https://quast.sourceforge.net/docs/manual.html:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 quast.py contigs.fasta
 ```
@@ -1038,7 +1049,7 @@ After it has finished running, you should see a new folder with the results in h
 
 Navigate into this folder, and then into the new results (**results_data_hour**) sub-folder. In this folder use '**ls**' to check what is there. We are interested in the '**report.html**' file, which is a summary report file.
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 explorer.exe report.html
 ```
@@ -1054,7 +1065,7 @@ In order for kraken to work it needs a database of genomes to compare the assemb
 
 **Create the PATHS**
 
-:pencil2:code:
+:keyboard:
 ```bash
 # paths
 SRC=~/genomes/pseudomonas_type
@@ -1064,21 +1075,21 @@ THREADS=8
 ```
 
 **Create the corresponding folder to these PATHS**
-:pencil2:**code:**
+:keyboard:
 ```bash
 mkdir -p "$SRC" "$STAGE" "$DB"/library
 ```
 
 **Download the *Pseudomonas* genomes from NCBI**
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 conda run -n base ncbi-genome-download bacteria --section genbank --genera "Pseudomonas" --assembly-levels chromosome,complete,scaffold --type-materials type,neotype,proxytype,synonym --formats fasta --parallel 4 --no-cache --output-folder "$SRC"
 ```
 
 **Check you have the files**
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) | wc -l
 ```
@@ -1089,7 +1100,7 @@ find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) | wc -l
 why? Kraken2 needs plain .fna (not fna.gz) when adding to the library. 
 Decompress *fna.gz --> .fna using gzip
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 while IFS= read -r -d '' f; do
   out="$STAGE/$(basename "$f" .gz)"
@@ -1098,7 +1109,7 @@ done < <(find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) 
 ```
 
 sanity check
-:pencil2:**code:**
+:keyboard:
 ```bash
 grep -c '^>' "$STAGE"/*.fna | head
 ```
@@ -1108,14 +1119,14 @@ grep -c '^>' "$STAGE"/*.fna | head
 
 Why: index k-mers from your staged genomes + the NCBI taxonomy.
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 rm -rf "$DB"; mkdir -p "$DB/library"
 ```
 
 Add staged FASTAs
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 find "$STAGE" -type f -name "*.fna" -print0 \
   | xargs -0 -I{} kraken2-build --add-to-library "{}" --db "$DB"
@@ -1127,7 +1138,7 @@ kraken2-build --clean --db "$DB"   # optional
 
 Quick verify
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 du -sh "$DB"
 kraken2-inspect --db "$DB" | head
@@ -1139,12 +1150,12 @@ Why: assign each contig to a taxon and then read the species-level summary.
 
 **1) Maximise hits (no confidence filter yet)** 
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 kraken2 --db "$DB" --threads "$THREADS" --use-names --report k2_pseudo.report --output k2_pseudo.out contigs.fasta
 ```
 
-:rocket:**output:**
+:desktop_computer:
 ```bash
 Loading database information... done.
 2464 sequences (6.93 Mbp) processed in 0.331s (446.5 Kseq/m, 1256.68 Mbp/m).
@@ -1153,12 +1164,12 @@ Loading database information... done.
 ```
 Show the top species lines (column 1 is % of contigs)
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 grep $'\tS\t' k2_pseudo.report | sort -nr -k1,1 | head
 ```
 
-:rocket:**output:**
+:desktop_computer:
 ```bash
 92.29  2274    2176    S       287                         Pseudomonas aeruginosa
   1.38  34      34      S       2994495                     Pseudomonas paraeruginosa
@@ -1174,12 +1185,12 @@ grep $'\tS\t' k2_pseudo.report | sort -nr -k1,1 | head
 
 **2) Strict, confidence filter on 0.1**
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 kraken2 --db "$DB" --threads "$THREADS" --use-names –quick --confidence 0.1 --minimum-hit-groups 3 -report k2_pseudo_fast.report --output k2_pseudo_fast.out contigs.fasta
 ```
 
-:rocket:**output:**
+:desktop_computer:
 ```bash
 89.61  2208    2207    S       287                         Pseudomonas aeruginosa
   0.85  21      21      S       2994495                     Pseudomonas paraeruginosa
@@ -1199,14 +1210,14 @@ Here is an (optional) data analysis exercise you can try to explore your assembl
 As with the webserver, you can run **blastn** queries against a database (quick start here: https://www.ncbi.nlm.nih.gov/books/NBK569856/) or against another file.
 To list these options available:
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 blastn -help
 ```
 
 A basic quickstart on how to query one file (e.g. an antibiotic resistance gene) against another (e.g. a genome):
 
-:pencil2:**code:**
+:keyboard:
 ```bash
 blastn -query queryfilename.fasta – subject subjectfilename.fasta -out outputfilename.txt
 ```
