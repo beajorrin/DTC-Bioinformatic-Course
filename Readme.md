@@ -19,10 +19,14 @@
    - [3.4 Species identity check](#34-Species-identity-check)
    - [3.5 Extra - further data analysis](#35-Extra---further-data-analysis)
 
+---
+
 ## 1. Introduction to command line (with WSL)
 Just like Windows and macOS, Linux is an operating system (OS). It is hugely popular in bioinformatics because most tools are built for Unix-like systems. Linux comes in many versions called distributions (“distros”). In this course we will use Ubuntu—a widely used distro—running inside Windows Subsystem for Linux (WSL). WSL gives you a real Ubuntu environment on your Windows machine without a virtual machine.
 You will interact with Ubuntu using the command line (also called the terminal or shell): instead of pointing and clicking, you type commands. This is powerful because bioinformatics programs share similar Unix conventions, so you can chain them together and make reproducible workflows. You will also write a bash script—a text file containing a series of commands that bash executes line by line—so you do not have to retype long command sequences.
 >From now on, run commands in the Ubuntu (WSL) terminal, not in PowerShell or CMD, unless the instructions say otherwise.
+
+---
 
 ### 1.1 Open the Ubuntu (WSL) terminal
 Pick any one of these:
@@ -39,6 +43,8 @@ you@PC:~$
 >- Paste in Windows Terminal with **Ctrl+V** (some Linux terminals use Ctrl+Shift+V).
 >- The prompt shows your active folder; ~ means your home directory.
 
+---
+
 ### 1.2 Creating directories (i.e. folders)
 First, let's work out where we are. As said above, the terminal is just another way of interacting with your computer (so like how you can use your mouse and clicking to navigate through your folders.... you can use your terminal to do the same thing).
 Click the mouse into the window and type the following command (all in lowercase) then press the **Enter** key to run it:
@@ -51,16 +57,18 @@ pwd
 
 :desktop_computer:
 ```r
-/home/bea
+/home/teaching
 ```
 #
-**Now let's create a new directory** (i.e. folder) to work in. Type the following command then press the **Enter** key to run it: 
+**Now let's create a new directory** (i.e. folder) to work in. 
+
+Type the following command then press the **Enter** key to run it: 
 
 :keyboard:
 ```bash
 mkdir intro
 ```
-This should create a new directory (mkdir - '**mk** (make) **dir** (directory)') within the directory you are currently in called '**intro**'. 
+>This should create a new directory (mkdir - '**mk** (make) **dir** (directory)') within the directory you are currently in called '**intro**'. 
 #
 **Now let's check it is there**. We can list everything contained within our current directory using the **ls** (list).
 
@@ -91,7 +99,7 @@ You should see a directory path printed out, which now ends in intro, something 
 
 :desktop_computer:
 ```r
-/home/bea/intro
+/home/teaching/intro
 ```
 #
 If we try using the **ls** (list):
@@ -100,7 +108,7 @@ If we try using the **ls** (list):
 ```bash
 ls
 ```
-You should see your terminal return an empty directory, because you haven't added anything to your intro directory.
+You should see your terminal return an empty directory, because you have not added anything to your intro directory.
 
 :desktop_computer:
 ```r
@@ -149,6 +157,7 @@ You should see a directory path printed out, which now ends in intro, something 
 ```
 #
 **What about creating multiple directories?**
+
 You can also use **mkdir** to make multiple directories and name them all in one command. Let's try that, creating multiple directories named *dir1* *dir2* and *dir3*:
 
 :keyboard:
@@ -181,8 +190,7 @@ drwxr-xr-x 2 bea staff 64 28 Nov 15:25 dir1
 drwxr-xr-x 2 bea staff 64 28 Nov 15:25 dir2
 drwxr-xr-x 2 bea staff 64 28 Nov 15:25 dir3
 ```
-
-Notice that mkdir created all the folders in one directory. It did not create *dir3* inside *dir2* inside *dir1*, or any other nested structure. But sometimes it is handy to be able to do exactly that, and **mkdir** does have a way
+>Notice that mkdir created all the folders in one directory. It did not create *dir3* inside *dir2* inside *dir1*, or any other nested structure. But sometimes it is handy to be able to do exactly that, and **mkdir** does have a way
 #
 **Create nested directories**
 
@@ -198,7 +206,7 @@ dir1 dir2 dir3 dir4
 ```
 This time you will see that only *dir4* has been added to the list, because *dir5* is inside it, and *dir6* is inside *dir5*.
 The '**-p**' that we used is called an option or a switch (in this case it means 'create the parent directories too, and do not give an error if the directories already exist'). Options are used to modify the way in which a command operates, allowing a single command to behave in a variety of different ways. Options can take different forms in different commands. You will often see them as single characters preceded by a hyphen (as in this case), or as longer words preceded by two hyphens.
-
+#
 **Navigate in your terminal** [e.g. using 'cd' 'pwd' and 'cd ..'] to enter *dir4* and *dir5* and check the appropriate folders are there.
 Make sure you return back to within your intro folder before proceeding, e.g.:
 
@@ -248,6 +256,8 @@ ls
 folder_two 
 ```
 
+---
+
 ### 1.3 Creating files
 A **FASTA** file is a text file that contains sequence data. Each sequence begins with a single-line sequence header, followed by lines of sequence data. The sequence header always starts with a '**>**', followed by a short sequence description header, then the sequence following below on a separate line. Everything beginning with '**>**' is a new sequence. This is a common format for sequence data, and a common input file type for a lot of bioinformatics software (e.g. blast). We are going to use our terminal to create our own example text file in a FASTA format.
 To do this, we can use the **vi editor** to create and write our own file.
@@ -291,6 +301,7 @@ We need to use '**i**' to switch to **Insert mode**, which will allow us to writ
 i
 ```
 At the bottom of your terminal, you should now see it is in Insert mode "-- INSERT -- ".
+
 :desktop_computer:
 ```r
 ~
@@ -347,7 +358,7 @@ You should now only see the first line printed out:
 > Seq_1 
 ```
 
-The **cat** (concatenate) command is more than just a file viewer - the name comes from concatenate, meaning to link together. 
+>The **cat** (concatenate) command is more than just a file viewer - the name comes from concatenate, meaning to link together. 
 #
 **Let's try copying this file** to create a second fasta file, and using cat to merge the two together.
 To copy something we can use the **cp** (copy) command, where we specify what we want to copy and where we want to copy it to. 
@@ -422,7 +433,7 @@ cat example_sequence_?.fasta
 ```bash
 cat *.fasta
 ```
-*what are the outputs**
+*what are the outputs?*
 #
 So now let's use the **cat** to **merge** our new files together into a single new file. The command below will concatenate the two files into a new file named "**combined.fasta**". Type the following and press Enter:
 
@@ -453,9 +464,11 @@ AAGTCAACCT
 ATCGGGGTA
 ```
 #
-**EXERCISE**
-*Create your own fasta file using the **vi** editor called '**test_sequence.fasta**' that contains 3 short sequences of your choosing. Use '**head**' and '**cat**' to explore this file.
-#
+>[!NOTE]
+>**EXERCISE**
+>*Create your own fasta file using the **vi** editor called '**test_sequence.fasta**' that contains 3 short sequences of your choosing. Use '**head**' and '**cat**' to >explore this file.
+
+---
 
 ### 1.4 Searching within files
 Occasionally, you might want to search for particular words, expressions or even an isolate or gene name in a document. Using Microsoft word or excel, you would use 'find' to search for this. An alternative to this in Linux is the **grep** command (Global Regular Expression Print). **grep** is a Linux / Unix command-line tool used to search for a string of characters in a specified file. The text search pattern is called regular expression. When it finds a match, it prints the line with the result. The **grep** command is a very handy when searching through large files.
@@ -466,14 +479,13 @@ Let's try searching for a particular (nucleotide) string in our fasta file:
 ```bash 
 grep "GTC" example_sequence_1.fasta
 ```
-
 This will return the line that contains the search string "GTC", i.e. so you should see "AAGTCAACCT"
 
 :desktop_computer:
 ```bash 
 AAGTCAACCT
 ```
-
+#
 What happens if we change the case used? Is this important?
 
 :keyboard:
@@ -482,7 +494,7 @@ grep "gtc" example_sequence_1.fasta
 ```
 
 :desktop_computer:
-```bash 
+```bash
 
 ```
 
@@ -556,7 +568,11 @@ output.txt
 ```
 
 Use the **vi editor** or **cat** to see the contents of this file. 
-
+:keyboard:
+```bash 
+vi output.txt
+ls
+```
 You should see it lists all the files ending with the fasta extension and gives the count score for ">" line occurances.
 
 :desktop_computer:
@@ -566,18 +582,20 @@ example_sequence_1.fasta: 2
 example_sequence_2.fasta: 2
 ```
 #
-**EXERCISE**
-Use grep to explore the fasta file (test_sequence.fasta) you made previously. How do you search for the lines that contain "AA"? How many sequences does it contain?
-#
+> [!NOTE]
+> **EXERCISE**
+>Use grep to explore the fasta file (test_sequence.fasta) you made previously. How do you search for the lines that contain "AA"? How many sequences does it contain?
+
+---
 
 ### 1.5 Deleting files and folders
 In this next section we are going to start deleting files and folders. To make absolutely certain that you do not accidentally delete anything in your home folder, use the **pwd** command to double-check that you are still in the **/intro** directory before proceeding.
 #
 To delete things, we can use the **rm** (remove) command.
 
-***Important warning:***
-Unlike in windows/mac where you might get a prompt asking if you are sure you want to delete something... this will not happen in command line. When you use **rm** and **press Enter**
-***- whatever you're trying to delete is deleted!***
+>[!WARNING]
+>Unlike in windows/mac where you might get a prompt asking if you are sure you want to delete something... this will not happen in command line. When you use **rm** and **press Enter**
+>***- whatever you're trying to delete is deleted!***
 
 Similarly, unlike in windows/mac where the things you delete are moved to a folder called "trash" or similar.... **rm** will delete them totally, utterly, and irrevocably. You need to be careful with the parameters you use with **rm** to make sure you are only deleting the file(s) you intend to. You should take particular care when using wildcards (e.g. *****), as it is easy to accidentally delete more files than you intended. If you are at all uncertain use the **-i** (interactive) option to **rm**, which will prompt you to confirm the deletion of each file; enter **Y** to delete it, **N** to keep it, and press **Ctrl-C** to stop the operation entirely.
 #
@@ -611,7 +629,10 @@ What happened there? Well, it turns out that **rm** does have one little safety 
 rmdir folder_two
 ```
 
-*Note*: **rmdir** will only delete empty folders. Another small safety net to prevent you from accidentally deleting a folder full of files when you did not mean to. The addition of options to our **rm** or **rmdir** commands will let us perform more dangerous actions without the aid of a safety net. In the case of **rmdir** we can add a **-p** switch to tell it to also remove the parent directories. Think of it as the counterpoint to **mkdir -p**. 
+>[!NOTE]
+>**rmdir** will only delete empty folders. Another small safety net to prevent you from accidentally deleting a folder full of files when you did not mean to. The addition of options to our **rm** or **rmdir** commands will let us perform more dangerous actions without the aid of a safety net. In the case of **rmdir** we can add a **-p** switch to tell it to also remove the parent directories. Think of it as the counterpoint to **mkdir -p**. 
+
+---
 
 ### 1.6 Writing a bash script
 A **bash script** is a series of commands written in a file. These are read and executed by the bash program. The program executes line by line.
@@ -674,7 +695,8 @@ Hello World
    3. then searches the fasta file for line occurances of ">" and prints this output to a new text file.
 
 Check the script has completed properly by checking the new output text file within your 'bash' folder.
-#
+
+---
 
 ### 1.7 Manuals
 Most Linux command line tools include a man page. Try taking a brief look at the pages for some of the commands you've already encountered: **man ls**, **man grep**, **man cp**, **man rmdir** and so on. There's even a man page for the man program itself, which is accessed using **man man**. e.g.:
@@ -697,16 +719,19 @@ man cp
 Exit the manual pages by pressing '**q**' for quit!
 
 ---
-END OF PRACTICAL PART 1
---- 
+
 
 # 2. Conda 
 
 Miniconda is a lightweight installer for conda, an open-source package and environment manager used to install software and their dependencies across Linux, macOS, and Windows (including WSL) without needing admin rights. With conda you create isolated environments—self-contained sandboxes—so different projects can use different versions of Python/R and bioinformatics tools without conflicts. It solves dependency hell, makes setups reproducible (via environment.yml), and lets you swap or pin versions easily. Miniconda gives you just conda and Python (no extra bundles), so installs are faster and smaller, and you can pull exactly what you need from channels like conda-forge and bioconda.
 
+---
+
 ## **TABLE OF CONTENTS**
 - [2.1 Install Miniconda](#21-Install-miniconda)
 - [2.2 Create a conda environment](#22-Create-a-conda-environment)
+
+---
 
 ## 2.1 Install Miniconda
 
@@ -718,11 +743,12 @@ Refreshes package lists and upgrades core tools so the installer works smoothly.
 sudo apt update && sudo apt -y upgrade 
 sudo apt -y install wget git 
 ```
-:eyes: What you’ll see: A lot of lines starting with Get: and Hit: during apt update.
-A summary such as X upgraded, Y newly installed... for apt -y upgrade.
-wget and git will show as setting up ... if they weren’t already installed.
+>You will see lot of lines starting with Get: and Hit: during apt update.
+>A summary such as X upgraded, Y newly installed... for apt -y upgrade.
+>wget and git will show as setting up ... if they were not already installed.
 
 **Download and install miniconda**
+
 We download the Linux installer and start the text-based setup.
 :keyboard:
 ```bash 
@@ -730,12 +756,9 @@ cd ~
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
-
-👀: What you’ll see
-
-A prompt like:
-*In order to continue the installation process, please review the license agreement. Please, press ENTER to continue
-→ Press **ENTER** to show the license text (pages will scroll).*
+>You will see a prompt like:
+>*In order to continue the installation process, please review the license agreement. Please, press ENTER to continue
+>→ Press **ENTER** to show the license text (pages will scroll).*
 
 After the license text:
 *Do you accept the license terms? [yes|no]
@@ -774,11 +797,14 @@ conda 25.7.0
 
 Accept terms of Service (toS)
 Some installs pull packages from Anaconda’s default channels, which now require ToS acceptance. Safe to do now.
+
 :keyboard:
 ```bash 
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 ```
+
+---
 
 ## 2.2 Create a conda environment
 
@@ -802,7 +828,7 @@ Solving environment: done
 ...
 Writing to /home/<you>/.condarc
 ```
-
+#
 **Create the dtc-bio conda environment**
 
 One clean place with all the tools needed for this practical
@@ -825,7 +851,7 @@ Preparing transaction: done
 Verifying transaction: done
 Executing transaction: done
 ```
-
+#
 **Activate dtc-bio environment**
 
 :keyboard:
@@ -837,7 +863,7 @@ conda activate dtc-bio
 ```bash 
 (dtc-bio) <you>@<machine>:~$
 ```
-
+#
 **Check the tools are available**
 
 :keyboard:
@@ -863,7 +889,7 @@ Program: bwa (alignment)   # first line from bwa help
 samtools 1.1x
 QUAST v5.2.0
 ```
-
+#
 ** Close conda environment**
 
 When you finish, deactivate the environment so your shell goes back to its previous PATH.
@@ -878,9 +904,14 @@ conda deactivate
 (dtc-bio) you@host:~$ conda deactivate
 you@host:~$            # prompt no longer shows (dtc-bio); often switches to (base) or no prefix
 ```
+#
+
+---
 
 # 3. Bacterial genome assembly
 The goal of the second part of this practical is to assemble a bacterial genome using sequencing reads. The genome will be assembled using short-read sequencing data to produce '**contigs**'. **Contigs** is a term that means contiguous DNA and refers to the consensus sequence that is formed when sequencing reads (usually from fastq files) are ‘stitched together’ to form regions of the genome. With short reads, repetitive sequences usually prevent complete closed genomes from being produced and instead the end result is usually smaller pieces of contiguous DNA that make up most of the genome. Hybrid assembly approaches (i.e. using long and short read sequencing data together) can be used to try and 'close the genome', to give you a complete genome where you know how everything fits together. For this practical we will be working with short reads only, obtained from illumina sequencing of a *Pseudomonas aeruginosa* genome.
+
+---
 
 ## **TABLE OF CONTENTS**
 - [3.1 Manage data](#31-Manage-data)
@@ -889,7 +920,9 @@ The goal of the second part of this practical is to assemble a bacterial genome 
 - [3.4 Species identity check](#34-Species-identity-check)
 - [3.5 Extra - further data analysis](#35-Extra---further-data-analysis)
 
-*Pseudomonas aeruginosa* is a Gram-negative bacterium and opportunistic pathogen. It is a major problem in clinical settings and is as a major caustive pathogen of ventilator-associated pneumonia. *P. aeruginosa* is becoming increasingly resistant to the antibiotics we use to treat it. Genome sequencing data is useful for understanding what the population of *P. aeruginosa* looks like, how many acquired antibiotic resistance genes this pathogen carries, and understanding how *P. aeruginosa* is evolving in clinically relevant environments (such as within ICU patients with pneumonia infections).
+>*Pseudomonas aeruginosa* is a Gram-negative bacterium and opportunistic pathogen. It is a major problem in clinical settings and is as a major caustive pathogen of ventilator-associated pneumonia. *P. aeruginosa* is becoming increasingly resistant to the antibiotics we use to treat it. Genome sequencing data is useful for understanding what the population of *P. aeruginosa* looks like, how many acquired antibiotic resistance genes this pathogen carries, and understanding how *P. aeruginosa* is evolving in clinically relevant environments (such as within ICU patients with pneumonia infections).
+
+---
 
 ## 3.1 Manage data
 
@@ -972,6 +1005,8 @@ PSA-2017-01_2_fastq.zip
 
 For each file, **fastQC** has produced both a .zip archive containing all the plots, and a html report. We can open the html files using a web browser: e.g.:
 
+>[!WARNING]
+>CHECK!!!
 :keyboard:
 ```bash
 explorer.exe PSA-2017-01_1_fastqc.html
@@ -990,12 +1025,14 @@ For each position, a boxplot is drawn with:
 The y-axis shows the quality scores. The higher the score, the better the base call. The background of the graph divides the y-axis into very good quality scores (green), scores of reasonable quality (orange), and reads of poor quality (red). It is normal with all Illumina sequencers for the median quality score to start lower over the first 5-7 bases and to then rise. The quality of reads on most platforms will drop at the end of the read. This is often due to signal decay or phasing during the sequencing run. We can see that our sequence length is 35-250bp. This makes sense, because this was sequenced with a 250 bp paired-end sequencing run on an Illumina MiSeq sequencer. The sequencing reads have a %GC of 65, this is within the expected
 %GC range for Pseudomonas aeruginosa (which has a highly GC biased genome). Anything above a score of 25 is usually considered good quality, so we can see these are reasonable quality reads.
 Check the fastqc reports for both files, which file is of better quality?
-
-
+#
 **Optional step: trimming & filtering data**
+
 Low quality sequences and adapters can be removed used programs such as trimmomatic (read more here: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4103590/ , https://www.melbournebioinformatics.org.au/tutorials/tutorials/assembly/assembly- protocol/).
 Whether you should do this can depend on the objective of your sequencing experiments (e.g. read more here: https://dnatech.genomecenter.ucdavis.edu/faqs/when-should-i- trim-my-illumina-reads-and-how-should-i-do-it/).
 We will not do this today, but you should be aware of it for genome assemblies in the future.
+
+---
 
 ## 3.3 Genome assembly
 **SPAdes** is one of a number of de novo assemblers that uses short read sets as input (e.g. Illumina Reads). When a genome is sequenced, it is fragmented into lots of short sequencing fragments called ‘**reads**’. Assembling the genome means putting the pieces back together. The assembly method **SPAdes** uses is based on de Bruijn graphs, which you can read about on wikipedia: they use overlaps between reads to build up the genome.
@@ -1054,9 +1091,11 @@ explorer.exe report.html
 
 Looking at this report we can see there are a total of 864 contigs with a size of >= 1000bp. The total length is ~6.56Mb, which is within the size range we expect for a *P. aeruginosa* genome (5.5Mb - 7Mb). The GC is ~66%, which again is within the GC range we expect for a *P. aeruginosa genome*. The largest contig is ~47,000bp.
 
+---
+
 ## 3.4 Species identity check
 A final step in our genome quality check is to confirm that the genome and the DNA it is composed of belongs to our species of interest and that it is not contaminated with DNA from another bacterium. There are a number of tools that can do this and this depends on whether you want to check your data before it has been assembled using software such as **KRAKEN** 
-
+#
 ### Download *Pseudomonas* type genomes
 
 In order for kraken to work it needs a database of genomes to compare the assembly to. Here we are going to download from the NCBI the genomes of type strain for each species. 
@@ -1071,20 +1110,21 @@ STAGE=~/genomes/pseudomonas_type_fna
 DB=~/dbs/k2_pseudomonas_type
 THREADS=8
 ```
-
+#
 **Create the corresponding folder to these PATHS**
+
 :keyboard:
 ```bash
 mkdir -p "$SRC" "$STAGE" "$DB"/library
 ```
-
+#
 **Download the *Pseudomonas* genomes from NCBI**
 
 :keyboard:
 ```bash
 conda run -n base ncbi-genome-download bacteria --section genbank --genera "Pseudomonas" --assembly-levels chromosome,complete,scaffold --type-materials type,neotype,proxytype,synonym --formats fasta --parallel 4 --no-cache --output-folder "$SRC"
 ```
-
+#
 **Check you have the files**
 
 :keyboard:
@@ -1092,7 +1132,7 @@ conda run -n base ncbi-genome-download bacteria --section genbank --genera "Pseu
 find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) | wc -l
 ```
 *It should print **226***
-
+#
 **Decompress the fastas**
 
 why? Kraken2 needs plain .fna (not fna.gz) when adding to the library. 
@@ -1105,14 +1145,14 @@ while IFS= read -r -d '' f; do
   gzip -dc -- "$f" > "$out"
 done < <(find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) -print0)
 ```
+> this bit need to be explained
 
-sanity check
-:keyboard:
+:keyboard: sanity check
 ```bash
 grep -c '^>' "$STAGE"/*.fna | head
 ```
-*Should show counts >0*
-
+>Should show counts >0
+#
 ### Build a Kraken2 database
 
 Why: index k-mers from your staged genomes + the NCBI taxonomy.
@@ -1122,9 +1162,7 @@ Why: index k-mers from your staged genomes + the NCBI taxonomy.
 rm -rf "$DB"; mkdir -p "$DB/library"
 ```
 
-Add staged FASTAs
-
-:keyboard:
+:keyboard:Add staged FASTAs
 ```bash
 find "$STAGE" -type f -name "*.fna" -print0 \
   | xargs -0 -I{} kraken2-build --add-to-library "{}" --db "$DB"
@@ -1134,19 +1172,19 @@ kraken2-build --build --threads "$THREADS" --db "$DB"
 kraken2-build --clean --db "$DB"   # optional
 ```
 
-Quick verify
-
-:keyboard:
+:keyboard:Quick verify
 ```bash
 du -sh "$DB"
 kraken2-inspect --db "$DB" | head
 ```
-
+#
 ### Classify your assembly
 
 Why: assign each contig to a taxon and then read the species-level summary.
 
-**1) Maximise hits (no confidence filter yet)** 
+> I need to explain here the kraken options as done with spades
+
+**Step 1) Maximise hits (no confidence filter yet)** 
 
 :keyboard:
 ```bash
@@ -1160,9 +1198,8 @@ Loading database information... done.
   2385 sequences classified (96.79%)
   79 sequences unclassified (3.21%)
 ```
-Show the top species lines (column 1 is % of contigs)
 
-:keyboard:
+:keyboard:Show the top species lines (column 1 is % of contigs)
 ```bash
 grep $'\tS\t' k2_pseudo.report | sort -nr -k1,1 | head
 ```
@@ -1180,8 +1217,8 @@ grep $'\tS\t' k2_pseudo.report | sort -nr -k1,1 | head
   0.08  2       2       S       2320867                   Pseudomonas cavernae
   0.08  2       0       S       76759                       Pseudomonas monteilii
 ```
-
-**2) Strict, confidence filter on 0.1**
+#
+**Step 2) Strict, confidence filter on 0.1**
 
 :keyboard:
 ```bash
@@ -1197,8 +1234,9 @@ kraken2 --db "$DB" --threads "$THREADS" --use-names –quick --confidence 0.1 --
   0.04  1       1       S       53408                       Pseudomonas citronellolis
 ```
 
+>Does the output match your expectations? (*Pseudomonas aeruginosa*)
 
-Does the output match your expectations? (*Pseudomonas aeruginosa*)
+---
 
 ## 3.5 Extra - further data analysis
 Here is an (optional) data analysis exercise you can try to explore your assembled genome:
