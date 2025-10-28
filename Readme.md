@@ -22,7 +22,7 @@
 ## 1. Introduction to command line (with WSL)
 Just like Windows and macOS, Linux is an operating system (OS). It is hugely popular in bioinformatics because most tools are built for Unix-like systems. Linux comes in many versions called distributions (“distros”). In this course we will use Ubuntu—a widely used distro—running inside Windows Subsystem for Linux (WSL). WSL gives you a real Ubuntu environment on your Windows machine without a virtual machine.
 You will interact with Ubuntu using the command line (also called the terminal or shell): instead of pointing and clicking, you type commands. This is powerful because bioinformatics programs share similar Unix conventions, so you can chain them together and make reproducible workflows. You will also write a bash script—a text file containing a series of commands that bash executes line by line—so you do not have to retype long command sequences.
->*From now on, run commands in the Ubuntu (WSL) terminal, not in PowerShell or CMD, unless the instructions say otherwise.*
+>From now on, run commands in the Ubuntu (WSL) terminal, not in PowerShell or CMD, unless the instructions say otherwise.
 
 ### 1.1 Open the Ubuntu (WSL) terminal
 Pick any one of these:
@@ -30,7 +30,7 @@ Pick any one of these:
 - Start menu: Press Win → type WSL → open WSL.
 
 :desktop_computer:
-```ruby
+```r
 you@PC:~$
 ```
 
@@ -44,10 +44,10 @@ First, let's work out where we are. As said above, the terminal is just another 
 Click the mouse into the window and type the following command (all in lowercase) then press the **Enter** key to run it:
 
 :keyboard:
-```
+```bash
 pwd
 ```
->Explanation: **pwd** is an abbreviation of 'print working directory'. All it does is print out the shell's current working directory. You should see a directory path printed out, something like '**/home/YOUR_USERNAME**'.
+>**pwd** is an abbreviation of 'print working directory'. All it does is print out the shell's current working directory. You should see a directory path printed out, something like '**/home/YOUR_USERNAME**'.
 
 :desktop_computer:
 ```r
@@ -57,7 +57,7 @@ pwd
 **Now let's create a new directory** (i.e. folder) to work in. Type the following command then press the **Enter** key to run it: 
 
 :keyboard:
-```
+```bash
 mkdir intro
 ```
 This should create a new directory (mkdir - '**mk** (make) **dir** (directory)') within the directory you are currently in called '**intro**'. 
@@ -65,13 +65,13 @@ This should create a new directory (mkdir - '**mk** (make) **dir** (directory)')
 **Now let's check it is there**. We can list everything contained within our current directory using the **ls** (list).
 
 :keyboard:
-```
+```bash
 ls
 ```
 You should see your terminal return the name of the directory you just made (**intro**).
 
 :desktop_computer:
-```
+```ruby
 intro
 ```
 #
@@ -90,7 +90,7 @@ pwd
 You should see a directory path printed out, which now ends in intro, something like '**/home/YOUR_USERNAME/intro**'.
 
 :desktop_computer:
-```bash
+```r
 /home/bea/intro
 ```
 #
@@ -103,7 +103,7 @@ ls
 You should see your terminal return an empty directory, because you haven't added anything to your intro directory.
 
 :desktop_computer:
-```bash
+```r
 
 ```
 #
@@ -121,7 +121,7 @@ pwd
 ```
 
 :desktop_computer:
-```bash
+```r
 /home/bea
 ```
 The two full stops after **cd** are important, and say to only go back one. If you leave out the two full stops and just use '**cd**', it goes to your 'upper most' directory (i.e. that contains everything). 
@@ -144,7 +144,7 @@ pwd
 You should see a directory path printed out, which now ends in intro, something like '/home/YOUR_USERNAME/intro'.
 
 :desktop_computer:
-```bash
+```r
 /home/bea/intro
 ```
 #
@@ -164,7 +164,7 @@ ls
 You should see your terminal return the names of the three new directories you made just now (*dir1*, *dir2*, *dir3*).
 
 :desktop_computer:
-```bash
+```r
 dir1 dir2 dir3
 ```
 You can get more information if:
@@ -175,7 +175,7 @@ ls -l
 ```
 
 :desktop_computer:
-```bash
+```r
 total 0
 drwxr-xr-x 2 bea staff 64 28 Nov 15:25 dir1
 drwxr-xr-x 2 bea staff 64 28 Nov 15:25 dir2
@@ -193,7 +193,7 @@ ls
 ```
 
 :desktop_computer:
-```bash
+```r
 dir1 dir2 dir3 dir4
 ```
 This time you will see that only *dir4* has been added to the list, because *dir5* is inside it, and *dir6* is inside *dir5*.
@@ -208,7 +208,7 @@ cd /home/your_username/intro
 ```
 
 :desktop_computer:
-```bash
+```r
 /home/bea/intro
 ```
 #
@@ -219,9 +219,8 @@ cd /home/your_username/intro
 mkdir folder two
 ls
 ```
-
 :desktop_computer:
-```bash 
+```r
 folder
 two 
 ```
@@ -229,24 +228,23 @@ You should see your terminal has actually returned two new directories, one name
 If you want to work with spaces in directory or file names, you need to 'escape' them. Escaping is a computing term that refers to using special codes to tell the computer to treat particular characters differently to normal. Try the following:
 
 :keyboard:
-```bash 
+```bash
 mkdir "folder two"
 ls 
 ```
-
 :desktop_computer:
-```bash 
+```r
 folder two 
 ```
 Although the command line can be used to work with files and folders with spaces in their names, the need to escape them with quote marks or backslashes makes things more difficult. You can often tell a person who uses the command line a lot just from their file names: they will tend to stick to letters and numbers, and use underscores ('**_**') or hyphens ('**-**') instead of spaces. Try the following:
 
 :keyboard:
-```bash 
+```bash
 mkdir "folder_two" 
 ls
 ```
 :desktop_computer:
-```bash 
+```r
 folder_two 
 ```
 
@@ -271,14 +269,14 @@ It is easy to invoke **vi**. At the command line, you type **vi** to create a ne
 So, **let's use vi** to create and open a new file named 'example_sequence.fasta'. Type the following command and press Enter:
 
 :keyboard:
-```bash 
+```bash
 vi example_sequence_1.fasta
 ```
 
 You should see your terminal change to a largely blank file box, with "example_sequence_1.fasta" [New] at the bottom. 
 
 :desktop_computer:
-```bash 
+```r
 ~
 ~
 ~
@@ -289,12 +287,12 @@ You should see your terminal change to a largely blank file box, with "example_s
 We need to use '**i**' to switch to **Insert mode**, which will allow us to write in this new file. Press the "**i**" on your keyboard, [you do not need to press Enter afterwards]
 
 :keyboard:
-```bash 
+```bash
 i
 ```
 At the bottom of your terminal, you should now see it is in Insert mode "-- INSERT -- ".
 :desktop_computer:
-```bash 
+```r
 ~
 ~
 ~
@@ -305,7 +303,7 @@ At the bottom of your terminal, you should now see it is in Insert mode "-- INSE
 Type the following into your file (i.e. two sequence headers followed by short sequences, seperated by lines):
 
 :keyboard:
-```bash 
+```bash
 > Seq_1
 AAGTCAACCT
 > Seq_2
@@ -314,7 +312,7 @@ ATCGGGGTA
 We now want to switch to **command mode**, to save and quit our new file. To do this, press the **Esc key**. You will see "**--INSERT--**" has disappeared from the bottom of your terminal. Now type **:wq**, which means save and quit, and then press the **Enter key**:
 
 :keyboard:
-```bash 
+```bash
 :wq
 ```
 #
@@ -322,13 +320,13 @@ You will now see you are out of the file, and back into your previous directory 
 To check the contents of your new file have been saved properly and are correct, you can use the cat (concatenate) command, which will print the specified file. Try:
 
 :keyboard:
-```bash 
+```bash
 cat example_sequence_1.fasta
 ```
 You should see the two fasta sequences you wrote printed out:
 
 :desktop_computer:
-```bash 
+```r
 > Seq_1
 AAGTCAACCT
 > Seq_2
@@ -338,14 +336,14 @@ ATCGGGGTA
 We can also explore files using the '**head**' command, which will return the first lines of a file, depending on the options we specify. The default is the first 10 lines, but we can use **-n** (num) to specify the first '**num**' line instead of this default.
 
 :keyboard:
-```bash 
+```bash
 head -1 example_sequence_1.fasta
 ```
 
 You should now only see the first line printed out:
 
 :desktop_computer:
-```bash 
+```r
 > Seq_1 
 ```
 
@@ -355,19 +353,19 @@ The **cat** (concatenate) command is more than just a file viewer - the name com
 To copy something we can use the **cp** (copy) command, where we specify what we want to copy and where we want to copy it to. 
 
 :keyboard:
-```bash 
+```bash
 cp example_sequence_1.fasta example_sequence_2.fasta
 ```
 
 The above command copies 'example_sequence_1.fasta' to a new file, named example_sequence_2.fasta, and using '**ls**' you should now see it exists within your directory.
 
 :keyboard:
-```bash 
+```bash
 ls
 ```
 
 :desktop_computer:
-```bash 
+```r
 example_sequence_1.fasta
 example_sequence_2.fasta 
 ```
@@ -375,14 +373,14 @@ example_sequence_2.fasta
 Check the contents of the new file using cat:
 
 :keyboard:
-```bash 
+```bash
 cat example_sequence_2.fasta
 ```
 
 You should see the two fasta sequences you wrote printed out.
 
 :desktop_computer:
-```bash 
+```r
 >Seq_1
 AAGTCAACCT
 >Seq_2
@@ -393,12 +391,12 @@ ATCGGGGTA
 **cat** can also be used to print the contents of multiple files at once, so we can now try both:
 
 :keyboard:
-```bash 
+```bash
 cat example_sequence_1.fasta example_sequence_2.fasta
 ```
 
 :desktop_computer:
-```bash 
+```r
 >Seq_1
 AAGTCAACCT
 >Seq_2
@@ -413,15 +411,15 @@ ATCGGGGTA
 If you want to pass multiple file names to a single command, there are some useful shortcuts that can save a lot of typing if the files have similar names. For example - a question mark ('**?**') can be used to indicate 'any single character' within the file name. An asterisk ('*****') can be used to indicate 'zero or more characters'. These are sometimes referred to as 'wildcard' characters. The following commands all do the same thing but using wildcards, try them out:
 
 :keyboard:
-```bash 
+```bash
 cat example_sequence_1.fasta example_sequence_2.fasta
 ```
 :keyboard:*
-```bash 
+```bash
 cat example_sequence_?.fasta
 ```
 :keyboard:
-```bash 
+```bash
 cat *.fasta
 ```
 *what are the outputs**
@@ -429,7 +427,7 @@ cat *.fasta
 So now let's use the **cat** to **merge** our new files together into a single new file. The command below will concatenate the two files into a new file named "**combined.fasta**". Type the following and press Enter:
 
 :keyboard:
-```bash 
+```bash
 cat example_sequence_1.fasta example_sequence_2.fasta > combined.fasta
 ```
 
@@ -437,14 +435,14 @@ The output is redirected into combined.fasta by using "**>**"
 View the contents of combined.fasta using **cat** again:
 
 :keyboard:
-```bash 
+```bash
 cat combined.fasta
 ```
 
 You should see the one file (**combined.fasta**) has two copies of Seq_1 and Seq_2.
 
 :desktop_computer:
-```bash 
+```r
 >Seq_1
 AAGTCAACCT
 >Seq_2
