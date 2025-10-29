@@ -46,7 +46,7 @@ you@PC:~$
 ---
 
 ### 1.2 Creating directories (i.e. folders)
-First, let's work out where we are. As said above, the terminal is just another way of interacting with your computer (so like how you can use your mouse and clicking to navigate through your folders.... you can use your terminal to do the same thing).
+First, let's work out where we are. As said above, the terminal is just another way of interacting with your computer. So like how you can use your mouse and clicking to navigate through your folders, you can use your terminal to do the same thing.
 Click the mouse into the window and type the following command (all in lowercase) then press the **Enter** key to run it:
 
 :keyboard:
