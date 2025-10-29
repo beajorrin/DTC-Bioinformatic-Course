@@ -9,7 +9,7 @@
    - [1.5 Deleting files and folders](#15-Deleting-files-and-folders)
    - [1.6 Writing a bash script](#16-Writing-a-bash-script)
    - [1.7 Manuals](#17-Manuals)
-- [2. Conda](#2-Conda)
+- [2. Miniconda](#2-Miniconda)
    - [2.1 Install Miniconda](#21-Install-miniconda)
    - [2.2 Create a conda environment](#22-Create-a-conda-environment)
 - [3. Bacterial genome assembly](#3-Bacterial-genome-assembly)
@@ -614,8 +614,11 @@ rmdir folder_two
 
 ### 1.6 Writing a bash script
 A **bash script** is a series of commands written in a file. These are read and executed by the bash program. The program executes line by line.
+
 For example, you can navigate to a certain path, create a folder and spawn a process inside it using the command line. You can do the same sequence of steps by saving the commands in a bash script and running it. You can **run the script** any number of times, and only need to **'press Enter' once**.
+
 **Bash scripts** effectively allow you to automate a series of commands so you do not have to type them all individually.
+
 By naming conventions, bash scipts end with a **.sh** file extension. Scripts are also identified by containing the path to the bash interpretor at the start (i.e. #!
 /bin/bash). This is known as a shebang statement, and will be the first line of the script.
 We are going to create a very simple **bash script** to give you a taste of how they work. We are going to create a script that when executed **echos Hello World** to the terminal console.
@@ -627,9 +630,9 @@ To create our bash script, we can again use the **vi editor**:
 vi hellow_word.sh
 ```
 
-As seen previously, this will open up a new file, and you will need to press '**i**' to enter insert mode. Once in insert mode, write the following into your new file:
+As seen previously, this will open up a new file, and you will need to press '**i**' to enter insert mode. 
 
-:keyboard:
+:keyboard: Once in insert mode, write the following into your new file:
 ```bash 
 #!bin/bash
 echo "Hello World"
@@ -641,22 +644,23 @@ In order to execute the script the file needs to be made **executable** by the u
 
 :keyboard:
 ```bash 
-chmod u+x hellow_word.sh
+chmod u+x hellow_world.sh
 ```
 
-**chmod** modifies the existing rights of a file for a particular user. We are adding **+x** (make executable) to user **u**.
+>**chmod** modifies the existing rights of a file for a particular user. We are adding **+x** (make executable) to user **u**.
+
 You can now run the script in the following ways:
 
 :keyboard:
 ```bash 
-./hellow_word.sh 
+./hellow_world.sh 
 ```
 
 or
 
 :keyboard:
 ```bash 
-bash hellow_word.sh 
+bash hellow_world.sh 
 ```
 Try them both, and you should see **Hello World** returned to you on the terminal console.
 
@@ -699,7 +703,7 @@ Exit the manual pages by pressing '**q**' for quit!
 ---
 
 
-# 2. Conda 
+# 2. Miniconda 
 
 Miniconda is a lightweight installer for conda, an open-source package and environment manager used to install software and their dependencies across Linux, macOS, and Windows (including WSL) without needing admin rights. With conda you create isolated environments—self-contained sandboxes—so different projects can use different versions of Python/R and bioinformatics tools without conflicts. It solves dependency hell, makes setups reproducible (via environment.yml), and lets you swap or pin versions easily. Miniconda gives you just conda and Python (no extra bundles), so installs are faster and smaller, and you can pull exactly what you need from channels like conda-forge and bioconda.
 
@@ -724,18 +728,19 @@ sudo apt -y install wget git
 >You will see lot of lines starting with Get: and Hit: during apt update.
 >A summary such as X upgraded, Y newly installed... for apt -y upgrade.
 >wget and git will show as setting up ... if they were not already installed.
-
+#
 **Download and install miniconda**
 
 We download the Linux installer and start the text-based setup.
+
 :keyboard:
 ```bash 
 cd ~
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
->You will see a prompt like:
->*In order to continue the installation process, please review the license agreement. Please, press ENTER to continue
+You will see a prompt like:
+*In order to continue the installation process, please review the license agreement. Please, press ENTER to continue
 >→ Press **ENTER** to show the license text (pages will scroll).*
 
 After the license text:
