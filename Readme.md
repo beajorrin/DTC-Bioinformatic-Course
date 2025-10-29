@@ -403,7 +403,7 @@ AAGTCAACCT
 ATCGGGGTA
 ```
 #
-If you want to pass multiple file names to a single command, there are some useful shortcuts that can save a lot of typing if the files have similar names. For example - a question mark ('**?**') can be used to indicate 'any single character' within the file name. An asterisk ('*****') can be used to indicate 'zero or more characters'. These are sometimes referred to as 'wildcard' characters. The following commands all do the same thing but using wildcards, try them out:
+If you want to pass multiple file names to a single command, there are some useful shortcuts that can save a lot of typing if the files have similar names. For example - a question mark ('**?**') can be used to indicate 'any single character' within the file name. An asterisk (**'*'**) can be used to indicate 'zero or more characters'. These are sometimes referred to as 'wildcard' characters. The following commands all do the same thing but using wildcards, try them out:
 
 :keyboard:
 ```bash
@@ -524,7 +524,7 @@ grep -c ">" combined.fasta
 By FASTA format definition, we know that number of sequences in a file should be equal to the number of description lines. So by counting *>* in file, you can count the number of sequences in a fasta file.
 #
 What if you had lots of files and you wanted to perform the same count in all of your files and save the output of this to a new text file?
-You can use grep and the ***** wildcard to do this!
+You can use grep and the **'*'** wildcard to do this!
 
 Let's try counting the number of lines that contain ">" in all our files with the.fasta extension, and write/save this output to a new text file:
 
@@ -574,22 +574,23 @@ To delete things, we can use the **rm** (remove) command.
 >Unlike in windows/mac where you might get a prompt asking if you are sure you want to delete something... this will not happen in command line. When you use **rm** and **press Enter**
 >***- whatever you're trying to delete is deleted!***
 
-Similarly, unlike in windows/mac where the things you delete are moved to a folder called "trash" or similar.... **rm** will delete them totally, utterly, and irrevocably. You need to be careful with the parameters you use with **rm** to make sure you are only deleting the file(s) you intend to. You should take particular care when using wildcards (e.g. *****), as it is easy to accidentally delete more files than you intended. If you are at all uncertain use the **-i** (interactive) option to **rm**, which will prompt you to confirm the deletion of each file; enter **Y** to delete it, **N** to keep it, and press **Ctrl-C** to stop the operation entirely.
+>[!TIP]
+>Similarly, unlike in windows/mac where the things you delete are moved to a folder called "trash" or similar, **rm** will delete them totally, utterly, and irrevocably. You need to be careful with the parameters you use with **rm** to make sure you are only deleting the file(s) you intend to. You should take particular care when using wildcards (e.g. **'*'**), as it is easy to accidentally delete more files than you intended. If you are at all uncertain use the **-i** (interactive) option to **rm**, which will prompt you to confirm the deletion of each file; enter **Y** to delete it, **N** to keep it, and press **Ctrl-C** to stop the operation entirely.
 #
-Let's try deleting one of the extra files we created earlier (example_sequence_2.fasta). First, double-check it is there in your current folder space using '**ls**', then type the following command and press Enter:
+Let's try deleting one of the extra files we created earlier (example_sequence_2.fasta). 
 
-:keyboard:
+:keyboard: First, double-check it is there in your current folder space using '**ls**'
 ```bash 
 rm example_sequence_2.fasta
 ```
 
 Using '**ls**' you should now be able to see that the *example_sequence_2.fasta* file has been deleted.
 #
-**What about folders?** Let's try deleting a folder we created earlier but didn't use (folder_two).
+**What about folders?** 
 
-:keyboard:
+:keyboard:Let's try deleting a folder we created earlier but didn't use (folder_two).
 ```bash 
-rm folder_twoa
+rm folder_two
 ```
 
 When you press Enter, you should see your terminal return:
