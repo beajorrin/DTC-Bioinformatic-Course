@@ -39,7 +39,7 @@ you@PC:~$
 ```
 
 >[!TIP]
->- Your Linux home is **/home/you**. Keep course files under your Linux home for speed and fewer permission issues (avoid working inside /mnt/c/... when possible).
+>- Your Linux home is **/home/you**. Keep course files under your Linux home for speed and fewer permission issues..
 >- Paste in Windows Terminal with **Ctrl+V** (some Linux terminals use Ctrl+Shift+V).
 >- The prompt shows your active folder; ~ means your home directory.
 
@@ -47,9 +47,8 @@ you@PC:~$
 
 ### 1.2 Creating directories (i.e. folders)
 First, let's work out where we are. As said above, the terminal is just another way of interacting with your computer. So like how you can use your mouse and clicking to navigate through your folders, you can use your terminal to do the same thing.
-Click the mouse into the window and type the following command (all in lowercase) then press the **Enter** key to run it:
 
-:keyboard:
+:keyboard:Click the mouse into the window and type the following command (all in lowercase) then press the **Enter** key to run it:
 ```bash
 pwd
 ```
@@ -57,33 +56,29 @@ pwd
 
 :desktop_computer:
 ```r
-/home/teaching
+/home/$USER
 ```
 #
 **Now let's create a new directory** (i.e. folder) to work in. 
 
-Type the following command then press the **Enter** key to run it: 
-
-:keyboard:
+:keyboard:Type the following command then press the **Enter** key to run it: 
 ```bash
 mkdir intro
 ```
 >This should create a new directory (mkdir - '**mk** (make) **dir** (directory)') within the directory you are currently in called '**intro**'. 
 #
-**Now let's check it is there**. We can list everything contained within our current directory using the **ls** (list).
-
-:keyboard:
+**Now let's check it is there**. 
+:keyboard:We can list everything contained within our current directory using the **ls** (list).
 ```bash
 ls
 ```
-You should see your terminal return the name of the directory you just made (**intro**).
 
-:desktop_computer:
+:desktop_computer:You should see your terminal return the name of the directory you just made (**intro**).
 ```ruby
 intro
 ```
 #
-You can **change directories** using the **cd** (change directory) command. Let's try this:
+You can **change directories** using the **cd** (change directory) command.
 
 :keyboard:
 ```bash
@@ -95,11 +90,11 @@ We can check we have successfully changed directory by using **pwd** again:
 ```bash
 pwd
 ```
-You should see a directory path printed out, which now ends in intro, something like '**/home/YOUR_USERNAME/intro**'.
+You should see a directory path printed out, which now ends in intro, something like '**/home/$USER/intro**'.
 
 :desktop_computer:
 ```r
-/home/teaching/intro
+/home/$USER/intro
 ```
 #
 If we try using the **ls** (list):
@@ -115,13 +110,13 @@ You should see your terminal return an empty directory, because you have not add
 
 ```
 #
-To move back up one directory (i.e. back to '/home/YOUR_USERNAME'), we can use '**cd**':
+To move back up one directory (i.e. back to '/home/$USER'), we can use '**cd**':
 
 :keyboard:
 ```bash
 cd ..
 ```
-Using '**cd ..**' makes you move back up one directory. You can use **ls** or **pwd** to check that you are now back in the directory that contains your intro folder, e.g.:
+>Using '**cd ..**' makes you move back up one directory. You can use **ls** or **pwd** to check that you are now back in the directory that contains your intro folder, e.g.:
 
 :keyboard:
 ```bash
@@ -130,26 +125,24 @@ pwd
 
 :desktop_computer:
 ```r
-/home/bea
+/home/$USER
 ```
-The two full stops after **cd** are important, and say to only go back one. If you leave out the two full stops and just use '**cd**', it goes to your 'upper most' directory (i.e. that contains everything). 
+>The two full stops after '**cd ..**' are important, and say to only go back one. If you leave out the two full stops and just use '**cd**', it goes to your 'upper most' directory (i.e. /home/$USER). 
 
-You can also use **cd** to specify a directory to move to using the path description as is given by **pwd** (e.g. cd /home/YOUR_USERNAME/intro). Play with 'cd', 'cd..' and 'cd /home/YOUR_USERNAME/intro'
+You can also use **cd** to specify a directory to move to using the path description as is given by **pwd** (e.g. cd /home/$USER/intro). Play with 'cd', 'cd ..' and 'cd /home/$USER/intro'
 
 #
-Move back into your intro folder:
 
-:keyboard:
+:keyboard:Move back into your intro folder:
 ```bash
 cd intro
 ```
-Check you are there:
 
-:keyboard:
+:keyboard:Check you are there:
 ```bash
 pwd
 ```
-You should see a directory path printed out, which now ends in intro, something like '/home/YOUR_USERNAME/intro'.
+>You should see a directory path printed out, which now ends in intro, something like '/home/$USER/intro'.
 
 :desktop_computer:
 ```r
@@ -158,19 +151,18 @@ You should see a directory path printed out, which now ends in intro, something 
 #
 **What about creating multiple directories?**
 
-You can also use **mkdir** to make multiple directories and name them all in one command. Let's try that, creating multiple directories named *dir1* *dir2* and *dir3*:
+You can also use **mkdir** to make multiple directories and name them all in one command. Let's try that. 
 
-:keyboard:
+:keyboard:Create multiple directories named *dir1* *dir2* and *dir3*:
 ```bash
 mkdir dir1 dir2 dir3
 ```
-Confirm they have been created:
 
-:keyboard:
+:keyboard:Confirm they have been created:
 ```bash
 ls
 ```
-You should see your terminal return the names of the three new directories you made just now (*dir1*, *dir2*, *dir3*).
+>You should see your terminal return the names of the three new directories you made just now (*dir1*, *dir2*, *dir3*).
 
 :desktop_computer:
 ```r
@@ -182,7 +174,7 @@ You can get more information if:
 ```bash
 ls -l
 ```
-
+> ls -l does
 :desktop_computer:
 ```r
 total 0
@@ -205,19 +197,18 @@ ls
 dir1 dir2 dir3 dir4
 ```
 This time you will see that only *dir4* has been added to the list, because *dir5* is inside it, and *dir6* is inside *dir5*.
-The '**-p**' that we used is called an option or a switch (in this case it means 'create the parent directories too, and do not give an error if the directories already exist'). Options are used to modify the way in which a command operates, allowing a single command to behave in a variety of different ways. Options can take different forms in different commands. You will often see them as single characters preceded by a hyphen (as in this case), or as longer words preceded by two hyphens.
+>The '**-p**' that we used is called an option or a switch (in this case it means 'create the parent directories too, and do not give an error if the directories already exist'). Options are used to modify the way in which a command operates, allowing a single command to behave in a variety of different ways. Options can take different forms in different commands. You will often see them as single characters preceded by a hyphen (as in this case), or as longer words preceded by two hyphens.
 #
 **Navigate in your terminal** [e.g. using 'cd' 'pwd' and 'cd ..'] to enter *dir4* and *dir5* and check the appropriate folders are there.
-Make sure you return back to within your intro folder before proceeding, e.g.:
 
-:keyboard:
+:keyboard:Make sure you return back to within your intro folder before proceeding, e.g.:
 ```bash
-cd /home/your_username/intro
+cd /home/$USER/intro
 ```
 
 :desktop_computer:
 ```r
-/home/bea/intro
+/home/$USER/intro
 ```
 #
 **What happens if you want to create a directory with a space in its name?** Let's try it:
