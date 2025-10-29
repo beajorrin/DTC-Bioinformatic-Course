@@ -174,7 +174,8 @@ You can get more information if:
 ```bash
 ls -l
 ```
-> ls -l does
+> ls -l shows a **long** listing: one file per line with the file type and permissions, link count, owner, group, size (bytes), last-modified time, and then the filename.
+
 :desktop_computer:
 ```r
 total 0
@@ -319,15 +320,14 @@ We now want to switch to **command mode**, to save and quit our new file. To do 
 ```
 #
 You will now see you are out of the file, and back into your previous directory in the terminal. You can use **ls** again to check your new file is there.
-To check the contents of your new file have been saved properly and are correct, you can use the cat (concatenate) command, which will print the specified file. Try:
+To check the contents of your new file have been saved properly and are correct, you can use the **cat** (concatenate) command, which will print the specified file. Try:
 
 :keyboard:
 ```bash
 cat example_sequence_1.fasta
 ```
-You should see the two fasta sequences you wrote printed out:
 
-:desktop_computer:
+:desktop_computer:You should see the two fasta sequences you wrote printed out:
 ```r
 > Seq_1
 AAGTCAACCT
@@ -342,9 +342,7 @@ We can also explore files using the '**head**' command, which will return the fi
 head -1 example_sequence_1.fasta
 ```
 
-You should now only see the first line printed out:
-
-:desktop_computer:
+:desktop_computer:You should now only see the first line printed out:
 ```r
 > Seq_1 
 ```
@@ -372,16 +370,12 @@ example_sequence_1.fasta
 example_sequence_2.fasta 
 ```
 
-Check the contents of the new file using cat:
-
-:keyboard:
+:keyboard:Check the contents of the new file using cat:
 ```bash
 cat example_sequence_2.fasta
 ```
 
-You should see the two fasta sequences you wrote printed out.
-
-:desktop_computer:
+:desktop_computer:You should see the two fasta sequences you wrote printed out.
 ```r
 >Seq_1
 AAGTCAACCT
@@ -389,7 +383,6 @@ AAGTCAACCT
 ATCGGGGTA 
 ```
 #
-
 **cat** can also be used to print the contents of multiple files at once, so we can now try both:
 
 :keyboard:
@@ -416,7 +409,7 @@ If you want to pass multiple file names to a single command, there are some usef
 ```bash
 cat example_sequence_1.fasta example_sequence_2.fasta
 ```
-:keyboard:*
+:keyboard:
 ```bash
 cat example_sequence_?.fasta
 ```
@@ -424,7 +417,7 @@ cat example_sequence_?.fasta
 ```bash
 cat *.fasta
 ```
-*what are the outputs?*
+>what are the outputs?
 #
 So now let's use the **cat** to **merge** our new files together into a single new file. The command below will concatenate the two files into a new file named "**combined.fasta**". Type the following and press Enter:
 
@@ -434,9 +427,8 @@ cat example_sequence_1.fasta example_sequence_2.fasta > combined.fasta
 ```
 
 The output is redirected into combined.fasta by using "**>**" 
-View the contents of combined.fasta using **cat** again:
 
-:keyboard:
+:keyboard:View the contents of combined.fasta using **cat** again:
 ```bash
 cat combined.fasta
 ```
@@ -464,9 +456,8 @@ ATCGGGGTA
 ### 1.4 Searching within files
 Occasionally, you might want to search for particular words, expressions or even an isolate or gene name in a document. Using Microsoft word or excel, you would use 'find' to search for this. An alternative to this in Linux is the **grep** command (Global Regular Expression Print). **grep** is a Linux / Unix command-line tool used to search for a string of characters in a specified file. The text search pattern is called regular expression. When it finds a match, it prints the line with the result. The **grep** command is a very handy when searching through large files.
 #
-Let's try searching for a particular (nucleotide) string in our fasta file:
 
-:keyboard:
+:keyboard: Let's try searching for a particular (nucleotide) string in our fasta file:
 ```bash 
 grep "GTC" example_sequence_1.fasta
 ```
@@ -514,23 +505,18 @@ This will return only the lines that contain the search string ">", i.e. so you 
 grep -c ">" example_sequence_1.fasta
 ```
 
-This should return the number 2. 
-
-:desktop_computer:
+:desktop_computer:This should return the number 2. 
 ```bash 
 2
 ```
 #
-Now try in your combined fasta file:
 
-:keyboard:
+:keyboard:Now try in your combined fasta file:
 ```bash 
 grep -c ">" combined.fasta
 ```
 
-This should return the number 4. 
-
-:desktop_computer:
+:desktop_computer:This should return the number 4. 
 ```bash 
 4
 ```
@@ -538,7 +524,7 @@ This should return the number 4.
 By FASTA format definition, we know that number of sequences in a file should be equal to the number of description lines. So by counting *>* in file, you can count the number of sequences in a fasta file.
 #
 What if you had lots of files and you wanted to perform the same count in all of your files and save the output of this to a new text file?
-You can use grep and the * wildcard to do this!
+You can use grep and the ***** wildcard to do this!
 
 Let's try counting the number of lines that contain ">" in all our files with the.fasta extension, and write/save this output to a new text file:
 
