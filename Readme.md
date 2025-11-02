@@ -43,6 +43,15 @@ you@PC:~$
 >- Paste in Windows Terminal with **Ctrl+V** (some Linux terminals use Ctrl+Shift+V).
 >- The prompt shows your active folder; ~ means your home directory.
 
+> [!Note]
+> If something like this appears:
+> ```r
+> you@PC:/mnt/c/Windows/system32$
+> ```
+> type:
+> ```bash
+> cd
+> ```
 ---
 
 ### 1.2 Creating directories (i.e. folders)
@@ -229,12 +238,12 @@ If you want to work with spaces in directory or file names, you need to 'escape'
 
 :keyboard:
 ```bash
-mkdir "folder two"
+mkdir 'folder two'
 ls 
 ```
 :desktop_computer:
 ```r
-folder two 
+'folder two' 
 ```
 Although the command line can be used to work with files and folders with spaces in their names, the need to escape them with quote marks or backslashes makes things more difficult. You can often tell a person who uses the command line a lot just from their file names: they will tend to stick to letters and numbers, and use underscores ('**_**') or hyphens ('**-**') instead of spaces. Try the following:
 
@@ -396,7 +405,6 @@ cat example_sequence_1.fasta example_sequence_2.fasta
 AAGTCAACCT
 >Seq_2
 ATCGGGGTA
-
 >Seq_1
 AAGTCAACCT
 >Seq_2
@@ -459,12 +467,12 @@ Occasionally, you might want to search for particular words, expressions or even
 
 :keyboard: Let's try searching for a particular (nucleotide) string in our fasta file:
 ```bash 
-grep "GTC" example_sequence_1.fasta
+grep 'GTC' example_sequence_1.fasta
 ```
-This will return the line that contains the search string "GTC", i.e. so you should see "AAGTCAACCT"
+This will return the line that contains the search string 'GTC' (highlighted in red), i.e. so you should see "AAGTCAACCT"
 
 :desktop_computer:
-```bash 
+``` 
 AAGTCAACCT
 ```
 #
@@ -472,7 +480,7 @@ What happens if we change the case used? Is this important?
 
 :keyboard:
 ```bash 
-grep "gtc" example_sequence_1.fasta
+grep 'gtc' example_sequence_1.fasta
 ```
 
 :desktop_computer:
@@ -487,7 +495,7 @@ Now, let's try searching for sequence headers in our fasta file. Remember, seque
 
 :keyboard:
 ```bash 
-grep ">" example_sequence_1.fasta
+grep '>' example_sequence_1.fasta
 ```
 
 This will return only the lines that contain the search string ">", i.e. so you should see > Seq_1 and > Seq_2 printed on your terminal screen.
@@ -502,7 +510,7 @@ This will return only the lines that contain the search string ">", i.e. so you 
 
 :keyboard:
 ```bash 
-grep -c ">" example_sequence_1.fasta
+grep -c '>' example_sequence_1.fasta
 ```
 
 :desktop_computer:This should return the number 2. 
@@ -513,7 +521,7 @@ grep -c ">" example_sequence_1.fasta
 
 :keyboard:Now try in your combined fasta file:
 ```bash 
-grep -c ">" combined.fasta
+grep -c '>' combined.fasta
 ```
 
 :desktop_computer:This should return the number 4. 
@@ -530,7 +538,7 @@ Let's try counting the number of lines that contain ">" in all our files with th
 
 :keyboard:
 ```bash 
-grep -c ">" *.fasta > output.txt
+grep -c '>' *.fasta > output.txt
 ls
 ```
 
@@ -627,7 +635,7 @@ To create our bash script, we can again use the **vi editor**:
 
 :keyboard:
 ```bash 
-vi hellow_word.sh
+vi hellow_world.sh
 ```
 
 As seen previously, this will open up a new file, and you will need to press '**i**' to enter insert mode. 
@@ -635,7 +643,7 @@ As seen previously, this will open up a new file, and you will need to press '**
 :keyboard: Once in insert mode, write the following into your new file:
 ```bash 
 #!bin/bash
-echo "Hello World"
+echo 'Hello World'
 ```
 
 Use **Esc** and **:wq** to save and quit your new file. Test it has been written and saved correctly by using **vi hello_world.sh** to reopen and check.
@@ -725,6 +733,7 @@ Refreshes package lists and upgrades core tools so the installer works smoothly.
 sudo apt update && sudo apt -y upgrade 
 sudo apt -y install wget git 
 ```
+>It will ask for your password
 >You will see lot of lines starting with Get: and Hit: during apt update.
 >A summary such as X upgraded, Y newly installed... for apt -y upgrade.
 >wget and git will show as setting up ... if they were not already installed.
@@ -739,25 +748,28 @@ cd ~
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
+
 You will see a prompt like:
-*In order to continue the installation process, please review the license agreement. Please, press ENTER to continue
->→ Press **ENTER** to show the license text (pages will scroll).*
+*In order to continue the installation process, please review the license agreement. Please, press ENTER to continue* >→ Press **ENTER** to show the license text (pages will scroll).
 
 After the license text:
-*Do you accept the license terms? [yes|no]
-→ Type yes and press **ENTER**.*
+*Do you accept the license terms? [yes|no]*
+→ Type **yes** and press **ENTER**.
 
 Install location prompt (default is your home, e.g. /home/<you>/miniconda3):
-*Press **ENTER** to confirm the location, CTRL-C to abort, or specify a different location
-→ Press **ENTER** to accept the default.*
+*Press **ENTER** to confirm the location, CTRL-C to abort, or specify a different location*
+→ Press **ENTER** to accept the default.
 
 Initialization prompt:
-*Do you wish the installer to initialize Miniconda3 by running conda init? [yes|no]
-→ Type yes and press **ENTER**.*
+*Do you wish the installer to initialize Miniconda3 by running conda init? [yes|no]*
+→ Type **yes** and press **ENTER**.
 
 When it finishes you’ll see something like:
-Thank you for installing Miniconda3!
 
+:desktop_computer:
+```bash 
+Thank you for installing Miniconda3!
+```
 
 Reload your shell so conda is on PATH
 
@@ -765,6 +777,12 @@ Reload your shell so conda is on PATH
 ```bash 
 exec bash
 ```
+
+:desktop_computer:
+```r 
+(base)you@PC:~$
+```
+
 If exec bash isn’t available or you still get “conda: command not found”, run source ~/.bashrc or simply close and reopen the terminal.
 
 Verify the installation
@@ -775,7 +793,7 @@ conda --version
 ```
 :desktop_computer:
 ```bash 
-conda 25.7.0
+conda 25.9.0
 ```
 
 Accept terms of Service (toS)
@@ -805,12 +823,6 @@ conda config --add channels defaults
 conda config --set channel_priority strict
 ```
 
-:desktop_computer:
-```bash
-Solving environment: done
-...
-Writing to /home/<you>/.condarc
-```
 #
 **Create the dtc-bio conda environment**
 
