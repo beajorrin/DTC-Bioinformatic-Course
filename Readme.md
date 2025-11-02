@@ -822,6 +822,8 @@ conda config --add channels bioconda
 conda config --add channels defaults
 conda config --set channel_priority strict
 ```
+>[!WARNING]
+>Explain options
 
 #
 **Create the dtc-bio conda environment**
@@ -868,20 +870,26 @@ python --version
 fastqc --version
 spades.py --version
 kraken2 --version
-bwa 2>&1 | head -n1
-samtools --version | head -n1
+bwa 2>&1 | head -n3 # first line from bwa help
+samtools --version | head -n1 # first line from samtools help
 quast.py --version
 ```
 
-:desktop_computer:❗CHECK!!!!!!!!
+>[!WARNING]
+>Explain options
+
+:desktop_computer:
 ```bash 
-ncbi-genome-download 0.x.x
-Python 3.10.x
-FastQC v0.12.x
-SPAdes genome assembler v4.0.x
-Kraken version 2.1.x
-Program: bwa (alignment)   # first line from bwa help
-samtools 1.1x
+0.3.3 #this corresponds to ncbi-genome-download 
+Python 3.10.14
+FastQC v0.12.1
+SPAdes genome assembler v4.0.0
+Kraken version 2.1.3
+
+Program: bwa (alignment via Burrows-Wheeler transformation)
+Version: 0.7.18-r1243-dirty 
+Copyright 2013-2023, Derrick Wood (dqood@cs.jhu.edu)
+samtools 1.21 
 QUAST v5.2.0
 ```
 #
@@ -1000,12 +1008,13 @@ PSA-2017-01_2_fastq.zip
 
 For each file, **fastQC** has produced both a .zip archive containing all the plots, and a html report. We can open the html files using a web browser: e.g.:
 
->[!WARNING]
->CHECK!!!
 :keyboard:
 ```bash
 explorer.exe PSA-2017-01_1_fastqc.html
 ```
+
+>[!WARNING]
+>Check explanantion
 
 For each position, a boxplot is drawn with:
 
@@ -1085,6 +1094,9 @@ explorer.exe report.html
 ```
 
 Looking at this report we can see there are a total of 864 contigs with a size of >= 1000bp. The total length is ~6.56Mb, which is within the size range we expect for a *P. aeruginosa* genome (5.5Mb - 7Mb). The GC is ~66%, which again is within the GC range we expect for a *P. aeruginosa genome*. The largest contig is ~47,000bp.
+
+>[!WARNING]
+>Explain options
 
 ---
 
