@@ -1060,6 +1060,8 @@ To run **SPAdes** to assemble our paired fastq reads PSA-2017-01_1.fastq.gz and 
 ```bash
 spades.py -1 [location-to-read-1] -2 [location-to-read-2] –-only-assembler -o spades_assembly
 ```
+>[!WARNING]
+>[this willl take 5-10min]
 
 replace the information in [ ] to the path of each fastq file. Wait for the command to run. **SPAdes** should give some output about what it is doing. At the end, you might see an assembly warning about erroneous kmer, that is OK for the sake of this exercise (re. run in assembly mode only).
 
@@ -1103,6 +1105,10 @@ Looking at this report we can see there are a total of 864 contigs with a size o
 ## 3.4 Species identity check
 A final step in our genome quality check is to confirm that the genome and the DNA it is composed of belongs to our species of interest and that it is not contaminated with DNA from another bacterium. There are a number of tools that can do this and this depends on whether you want to check your data before it has been assembled using software such as **KRAKEN** 
 #
+
+>[!WARNING]
+>Navigate to out folder assembly
+
 ### Download *Pseudomonas* type genomes
 
 In order for kraken to work it needs a database of genomes to compare the assembly to. Here we are going to download from the NCBI the genomes of type strain for each species. 
@@ -1117,6 +1123,10 @@ STAGE=~/genomes/pseudomonas_type_fna
 DB=~/dbs/k2_pseudomonas_type
 THREADS=8
 ```
+
+>[!WARNING]
+>Explain what are the PATHS
+
 #
 **Create the corresponding folder to these PATHS**
 
@@ -1124,13 +1134,21 @@ THREADS=8
 ```bash
 mkdir -p "$SRC" "$STAGE" "$DB"/library
 ```
+
+>[!WARNING]
+>Explain that if "SCR" you do mkdir /geno....
+
 #
 **Download the *Pseudomonas* genomes from NCBI**
 
 :keyboard:
 ```bash
-conda run -n base ncbi-genome-download bacteria --section genbank --genera "Pseudomonas" --assembly-levels chromosome,complete,scaffold --type-materials type,neotype,proxytype,synonym --formats fasta --parallel 4 --no-cache --output-folder "$SRC"
+ncbi-genome-download bacteria --section genbank --genera "Pseudomonas" --assembly-levels chromosome,complete,scaffold --type-materials type,neotype,proxytype,synonym --formats fasta --parallel 4 --no-cache --output-folder "$SRC"
 ```
+
+>[!WARNING]
+>Comment: the terminal looked like nothing is happening. This is because is dowloading the data. If you want to go to your physical data, and see if "something" is going on, open PC, linus home xxxxx. Insidfe the folders you will find a compress file and MD5SUMS, which is a code that verufies that everuthing downloaded is correct, by comaprting with the orioignal one.
+
 #
 **Check you have the files**
 
@@ -1142,7 +1160,8 @@ find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) | wc -l
 #
 **Decompress the fastas**
 
-why? Kraken2 needs plain .fna (not fna.gz) when adding to the library. 
+>[!WARNING]
+>why? Kraken2 needs plain .fna (not fna.gz) when adding to the library. 
 Decompress *fna.gz --> .fna using gzip
 
 :keyboard:
@@ -1159,6 +1178,7 @@ done < <(find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) 
 grep -c '^>' "$STAGE"/*.fna | head
 ```
 >Should show counts >0
+> This also needs a bit of explanantion
 #
 ### Build a Kraken2 database
 
@@ -1168,7 +1188,9 @@ Why: index k-mers from your staged genomes + the NCBI taxonomy.
 ```bash
 rm -rf "$DB"; mkdir -p "$DB/library"
 ```
-
+>[!WARNING]
+>explain
+>
 :keyboard:Add staged FASTAs
 ```bash
 find "$STAGE" -type f -name "*.fna" -print0 \
@@ -1179,11 +1201,18 @@ kraken2-build --build --threads "$THREADS" --db "$DB"
 kraken2-build --clean --db "$DB"   # optional
 ```
 
+>[!WARNING]
+>explain [this will take 10min]
+
 :keyboard:Quick verify
 ```bash
 du -sh "$DB"
 kraken2-inspect --db "$DB" | head
 ```
+
+>[!WARNING]
+>There is an output here:  Explain it
+
 #
 ### Classify your assembly
 
@@ -1195,8 +1224,10 @@ Why: assign each contig to a taxon and then read the species-level summary.
 
 :keyboard:
 ```bash
-kraken2 --db "$DB" --threads "$THREADS" --use-names --report k2_pseudo.report --output k2_pseudo.out contigs.fasta
+kraken2 --db "$DB" --threads "$THREADS" --use-names --report k2_pseudo.report --output k2_pseudo.out [path to contigs.fasta]
 ```
+>[!WARNING]
+>explain... Contigs fasta is in another 
 
 :desktop_computer:
 ```bash
@@ -1252,6 +1283,10 @@ Here is an (optional) data analysis exercise you can try to explore your assembl
 **Blast** (command line version) has been installed on the computers + virtual machines (read more here: https://www.ncbi.nlm.nih.gov/books/NBK279690/)
 As with the webserver, you can run **blastn** queries against a database (quick start here: https://www.ncbi.nlm.nih.gov/books/NBK569856/) or against another file.
 To list these options available:
+
+
+>[!WARNING]
+> work a bit on this part, to give some sense. download specific genes 
 
 :keyboard:
 ```bash
