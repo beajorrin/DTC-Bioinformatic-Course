@@ -831,7 +831,7 @@ One clean place with all the tools needed for this practical
 
 :keyboard:
 ```bash 
-conda create -n dtc-bio –y -c conda-forge -c bioconda --strict-channel-priority python=3.10 fastqc spades kraken2 bwa samtools quast=5.2.* ncbi-datasets-cli ncbi-genome-download pigz unzip
+conda create -n test -y -c conda-forge -c bioconda --strict-channel-priority python=3.10 fastqc spades kraken2 bwa samtools quast=5.2.* ncbi-datasets-cli ncbi-genome-download pigz unzip
 ```
 
 :desktop_computer:
@@ -856,7 +856,7 @@ conda activate dtc-bio
 
 :desktop_computer:
 ```bash 
-(dtc-bio) <you>@<machine>:~$
+(dtc-bio) you@PC:~$
 ```
 #
 **Check the tools are available**
