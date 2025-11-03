@@ -976,7 +976,7 @@ The goal of the second part of this practical is to assemble a bacterial genome 
 - [3.4 Species identity check](#34-Species-identity-check)
 - [3.5 Extra - further data analysis](#35-Extra---further-data-analysis)
 
->*Pseudomonas aeruginosa* is a Gram-negative bacterium and opportunistic pathogen. It is a major problem in clinical settings and is as a major caustive pathogen of ventilator-associated pneumonia. *P. aeruginosa* is becoming increasingly resistant to the antibiotics we use to treat it. Genome sequencing data is useful for understanding what the population of *P. aeruginosa* looks like, how many acquired antibiotic resistance genes this pathogen carries, and understanding how *P. aeruginosa* is evolving in clinically relevant environments (such as within ICU patients with pneumonia infections).
+*Pseudomonas aeruginosa* is a Gram-negative bacterium and opportunistic pathogen. It is a major problem in clinical settings and is as a major caustive pathogen of ventilator-associated pneumonia. *P. aeruginosa* is becoming increasingly resistant to the antibiotics we use to treat it. Genome sequencing data is useful for understanding what the population of *P. aeruginosa* looks like, how many acquired antibiotic resistance genes this pathogen carries, and understanding how *P. aeruginosa* is evolving in clinically relevant environments (such as within ICU patients with pneumonia infections).
 
 ---
 
@@ -1176,62 +1176,115 @@ A final step in our genome quality check is to confirm that the genome and the D
 #
 
 >[!WARNING]
->Before runing the following commands go back to your directory by typing "**cd**"
+>Before runing the following commands go back to your directory by typing **cd**
 
 ### Download *Pseudomonas* type genomes
 
-In order for Kraken to work it needs a database of genomes to compare the assembly to. Here we are going to download from the NCBI the genomes of type strain for each *Pseudomonas* species. A type strain is the strain used to define a new species 
+Kraken needs a reference database; we’ll build one by downloading the type-strain genomes for each *Pseudomonas* species from NCBI. The type strain is the official reference that defines a species.
 
 **Create the PATHS**
+
+We’ll keep downloads, intermediate FASTA files, and the Kraken2 database in predictable folders under your home directory. Using variables makes later commands shorter and less error-prone.
+> Define the folders and the number of threads to use.
 
 :keyboard:
 ```bash
 # paths
-SRC=~/genomes/pseudomonas_type
-STAGE=~/genomes/pseudomonas_type_fna
-DB=~/dbs/k2_pseudomonas_type
-THREADS=8
+SRC=~/genomes/pseudomonas_type         # where raw genomes will be saved 
+STAGE=~/genomes/pseudomonas_type_fna   # where we'll stage/extract FASTA files
+DB=~/dbs/k2_pseudomonas_type           # where the Kraken2 database will be built
+THREADS=8                              # how many CPU threads to use
 ```
 
->[!WARNING]
->Explain what are the PATHS
+**What is this important?**
+- These are **shell variables**, not the global **PATH** environment variable
+- **~** expands to your **home directory** (eg /home/you)
+- **THREADS** is just a number we pass to tools that support parallelism (tune it to your machine; on shared machines, keep it modest).
+
+>[!TIP]
+>Always **quote** variables in commands (**"$SRC"**), especially if paths might contain spaces
+
+>[!NOTE]
+>These variables last only for the **current shell** (ie, until you close this terminal window). To keep them for future terminals, add the four lines to your ~/.bashrc (Linux).
 
 #
-**Create the corresponding folder to these PATHS**
+**Create the corresponding folders**
+
+We’ll create the directories pointed to by your variables and a library/ subfolder for Kraken2’s DB.
 
 :keyboard:
 ```bash
 mkdir -p "$SRC" "$STAGE" "$DB"/library
 ```
+**What this does**
+- **-p** creates parent directories as needed (no error if they already exist).
+- **"$SRC"** and "$STAGE" become your download and staging folders.
+- **"$DB"/library** creates the standard subfolder where Kraken2 stores library files.
 
 >[!WARNING]
->Explain that if "SCR" you do mkdir /geno....
+>**Mind the variable names and $**:
+> - If you misspell a variable (e.g., **SCR** instead of **SRC**) and run mkdir -p "$SCR", the variable is empty and you’ll get an error like *mkdir: missing operand*—nothing useful is created. Use the exact names you defined.
+> - If you forget the **$** and write **mkdir -p "SRC"**, you’ll create a folder literally named SRC in the current directory (wrong place).
+> - Keep the quotes: **"$SRC"** prevents paths with spaces from splitting into multiple directories.
+
+>[!NOTE]
+>Prefer **~** (your home) over absolute paths like **/genomes/...** unless you know you have permissions; otherwise you may hit *Permission denied*. On a new terminal, re-run the variable definitions (they don’t persist unless added to your shell startup file).
 
 #
 **Download the *Pseudomonas* genomes from NCBI**
 
-:keyboard:
-```bash
-ncbi-genome-download bacteria --section genbank --genera "Pseudomonas" --assembly-levels chromosome,complete,scaffold --type-materials type,neotype,proxytype,synonym --formats fasta --parallel 4 --no-cache --output-folder "$SRC"
-```
+We’ll fetch **type-strain genomes** for *Pseudomonas* to use later (e.g., for Kraken2). Downloads go into "$SRC".
 
->[!WARNING]
->Comment: the terminal looked like nothing is happening. This is because is dowloading the data. If you want to go to your physical data, and see if "something" is going on, open PC, linus home xxxxx. Insidfe the folders you will find a compress file and MD5SUMS, which is a code that verufies that everuthing downloaded is correct, by comaprting with the orioignal one.
+:keyboard: Run the downloader (use your THREADS if you set it earlier).
+```bash
+ncbi-genome-download bacteria --section genbank --genera "Pseudomonas" --assembly-levels chromosome,complete,scaffold --type-materials type,neotype,proxytype,synonym --formats fasta --parallel "${THREADS:-4}" --no-cache --output-folder "$SRC"
+```
+What the options means:
+- **bacteria** → limit to bacterial genomes.
+- **--section genbank** → pull from GenBank (not RefSeq).
+- **--genera "Pseudomonas"** → only this genus.
+- **--assembly-levels chromosome,complete,scaffold** → choose assembly completeness tiers to include.
+- **--type-materials ...** → only **type/neo/proxy/synonym** type-material strains (good species references).
+- **--formats fasta** → download FASTA sequence files (*.fna.gz).
+- **--parallel N** → use N workers in parallel (speeds downloads).
+- **--no-cache** → don’t reuse stale metadata.
+- **--output-folder "$SRC"** → where files will be saved (ie ~/genomes/pseudomonas_type)
+
+>[!NOTE]
+>“It looks like nothing is happening” — that’s normal
+>The tool may be quiet while it’s communicating with NCBI and downloading. If you want more messages, add -v (verbose) to the command.
+>You can check in your Linux, open home → genomes/pseudomonas_type/
+> You should see compressed FASTA files like *.fna.gz and a checksums file (often MD5SUMS or md5checksums.txt).
 
 #
 **Check you have the files**
+
+This command counts how many FASTA files were downloaded under **"SCR"**
 
 :keyboard:
 ```bash
 find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) | wc -l
 ```
-*It should print **226***
+**What it does**
+- **find "$SRC"**: search recursively inside your download folder.
+- **-type f**: only real files (skip directories).
+- **\( ... -o ... \)**: group an OR match:
+- **-name "*_genomic.fna.gz"** → typical NCBI genomic FASTA names
+- **-name "*.fna.gz"** → catch any other FASTA files
+- **| wc -l**: count the matching files (one line per file ⇒ number of files).
+
+**What to expect**
+For this practical, you should see: 226
+(Counts can change over time if NCBI updates type strains; for class reproducibility we expect 226.)
+
 #
 **Decompress the fastas**
 
->[!WARNING]
->why? Kraken2 needs plain .fna (not fna.gz) when adding to the library. 
-Decompress *fna.gz --> .fna using gzip
+**Why this step?** 
+
+Kraken2’s “add to library” step works best with plain FASTA files (.fna), not compressed *.fna.gz. We’ll unpack the downloads into your staging folder ($STAGE).
+
+**Do this**: decompress every *.fna.gz under "$SRC" into "$STAGE".
 
 :keyboard:
 ```bash
@@ -1240,47 +1293,81 @@ while IFS= read -r -d '' f; do
   gzip -dc -- "$f" > "$out"
 done < <(find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) -print0)
 ```
-> this bit need to be explained
+**What that script is doing** (step-by-step)
+- **find "$SRC" ... -print0**. Searches recursively for *.fna.gz files and prints each match NUL-terminated (safe for spaces/newlines in filenames). 
+- **while IFS= read -r -d '' f; do ... done < <( ... )**. Reads those NUL-separated paths one by one into variable f.
+   - -d '' → read until NUL
+   - -r → don’t treat backslashes specially
+   - IFS= → don’t trim leading/trailing spaces
+- **out="$STAGE/$(basename "$f" .gz)"**. Builds the output path by stripping the trailing .gz and placing the file in "$STAGE", e.g. .../X_genomic.fna.gz → .../pseudomonas_type_fna/X_genomic.fna
+- **gzip -dc -- "$f" > "$out"**. Decompress d (-d) to cstdout (-c) and redirect to the output file. -- ends option parsing (safety).
 
-:keyboard: sanity check
-```bash
-grep -c '^>' "$STAGE"/*.fna | head
-```
->Should show counts >0
-> This also needs a bit of explanantion
-#
-### Build a Kraken2 database
+>[!NOTE]
+>Make sure "$STAGE" exists first: mkdir -p "$STAGE".
 
-Why: index k-mers from your staged genomes + the NCBI taxonomy.
+**Sanity check**do the FASTAs look valid? 
+
+Do this: count the number of FASTA records (headers) per file; the numbers should be > 0.
 
 :keyboard:
 ```bash
+grep -c '^>' "$STAGE"/*.fna | head
+```
+
+What this does
+- **'^>'** matches FASTA headers (each sequence starts with >).
+- **-c** prints a count per file.
+- **head** shows the first few lines to avoid dumping hundreds of entries.
+
+#
+### Build a Kraken2 database
+
+Kraken2 needs two things: (1) your reference sequences (the staged FASTA files) and (2) the NCBI taxonomy. This step indexes the staged genomes into a searchable database keyed by k-mers/minimizers and links them to taxonomy IDs.
+
+:keyboard: Start clean and make the standard folders
+```bash
 rm -rf "$DB"; mkdir -p "$DB/library"
 ```
->[!WARNING]
->explain
->
-:keyboard:Add staged FASTAs
+
+What this does
+- **rm -rf "$DB"** removes any old database so you don’t accidentally mix versions. *Be careful: this permanently deletes that folder*.
+- **mkdir -p "$DB/library"** recreates the database directory with the library/ subfolder where Kraken2 stores input sequences before building.
+
+
+:keyboard: Add the staged FASTAs, download taxonomy, and build.
 ```bash
+# Add every staged FASTA to the Kraken2 library
 find "$STAGE" -type f -name "*.fna" -print0 \
   | xargs -0 -I{} kraken2-build --add-to-library "{}" --db "$DB"
- 
+
+# Get the current NCBI taxonomy for the DB
 kraken2-build --download-taxonomy --db "$DB"
+
+# Build the DB index (uses $THREADS if you set it earlier)
 kraken2-build --build --threads "$THREADS" --db "$DB"
-kraken2-build --clean --db "$DB"   # optional
+
+# Optional: remove temporary files to save space
+kraken2-build --clean --db "$DB"
 ```
 
->[!WARNING]
->explain [this will take 10min]
+**What each command does**
+- **--add-to-library copies** (or links) each **.fna** into **"$DB"/library/** so they’re included in the build.
+- **--download-taxonomy** fetches NCBI taxonomy files (**names.dmp**, **nodes.dmp**, etc.).
+- **--build** creates the search index from your sequences + taxonomy (this step is CPU/disk heavy and can take a while, depending on your machine and the number of genomes).
+-** --clean** deletes intermediate files after a successful build (saves disk space).
 
-:keyboard:Quick verify
+:keyboard: Quick verify
 ```bash
 du -sh "$DB"
 kraken2-inspect --db "$DB" | head
 ```
-
 >[!WARNING]
->There is an output here:  Explain it
+>Check output
+**How to read this output**
+- **du -sh "$DB"** shows the total size of the database directory (a rough sanity check that something substantial was created).
+-** kraken2-inspect --db "$DB" | head** prints the database summary followed by the first taxonomy lines with counts (number of minimizers/k-mers assigned per taxon).
+   - You should see top-level taxa (e.g., “root”, “Bacteria”) and then entries for **Pseudomonas** with non-zero counts.
+   - If you see an empty or tiny report, the library may be empty or the build failed—recheck the steps above.
 
 #
 ### Classify your assembly
