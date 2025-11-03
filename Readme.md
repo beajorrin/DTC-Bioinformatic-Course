@@ -457,7 +457,7 @@ ATCGGGGTA
 #
 >[!NOTE]
 >**EXERCISE**
->*Create your own fasta file using the **vi** editor called '**test_sequence.fasta**' that contains 3 short sequences of your choosing. Use '**head**' and '**cat**' to >explore this file.
+>Create your own fasta file using the **vi** editor called '**test_sequence.fasta**' that contains 3 short sequences of your choosing. Use '**head**' and '**cat**' to >explore this file.
 
 ---
 
@@ -726,9 +726,8 @@ Miniconda is a lightweight installer for conda, an open-source package and envir
 ## 2.1 Install Miniconda
 
 **Update ubuntu**
-Refreshes package lists and upgrades core tools so the installer works smoothly.
 
-:keyboard:
+:keyboard: Refreshes package lists and upgrades core tools so the installer works smoothly.
 ```bash 
 sudo apt update && sudo apt -y upgrade 
 sudo apt -y install wget git 
@@ -740,54 +739,70 @@ sudo apt -y install wget git
 #
 **Download and install miniconda**
 
-We download the Linux installer and start the text-based setup.
-
-:keyboard:
+:keyboard: We download the Linux installer and start the text-based setup.
 ```bash 
 cd ~
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
+\
+:desktop_computer: You will see a prompt like:
+```bash 
+In order to continue the installation process, please review the license agreement. Please, press ENTER to continue
+```
 
-You will see a prompt like:
-*In order to continue the installation process, please review the license agreement. Please, press ENTER to continue* >→ Press **ENTER** to show the license text (pages will scroll).
+\
+Press **ENTER** to show the license text (pages will scroll).
 
-After the license text:
-*Do you accept the license terms? [yes|no]*
-→ Type **yes** and press **ENTER**.
+\
+:desktop_computer: After the license text:
+```bash 
+Do you accept the license terms? [yes|no]
+```
 
-Install location prompt (default is your home, e.g. /home/<you>/miniconda3):
-*Press **ENTER** to confirm the location, CTRL-C to abort, or specify a different location*
-→ Press **ENTER** to accept the default.
+\
+Type **yes** and press **ENTER**.
 
-Initialization prompt:
-*Do you wish the installer to initialize Miniconda3 by running conda init? [yes|no]*
-→ Type **yes** and press **ENTER**.
+\
+:desktop_computer: Install location prompt (default is your home, e.g. /home/<you>/miniconda3):
+```bash 
+Press **ENTER** to confirm the location, CTRL-C to abort, or specify a different location
+```
 
-When it finishes you’ll see something like:
+\
+Press **ENTER** to accept the default.
 
-:desktop_computer:
+\
+:desktop_computer: Initialization prompt:
+```bash 
+Do you wish the installer to initialize Miniconda3 by running conda init? [yes|no]
+```
+
+\
+Type **yes** and press **ENTER**.
+
+\
+:desktop_computer: When it finishes you’ll see something like:
 ```bash 
 Thank you for installing Miniconda3!
 ```
 
-Reload your shell so conda is on PATH
-
-:keyboard:
+\
+:keyboard: Reload your shell so conda is on PATH
 ```bash 
 exec bash
 ```
 
+\
 :desktop_computer:
 ```r 
 (base)you@PC:~$
 ```
 
-If exec bash isn’t available or you still get “conda: command not found”, run source ~/.bashrc or simply close and reopen the terminal.
+>If exec bash isn’t available or you still get “conda: command not found”, run source ~/.bashrc or simply close and reopen the terminal.
 
-Verify the installation
-
-:keyboard:
+\
+:keyboard: Verify the installation
 ```bash 
 conda --version
 ```
@@ -796,40 +811,70 @@ conda --version
 conda 25.9.0
 ```
 
+\
 Accept terms of Service (toS)
-Some installs pull packages from Anaconda’s default channels, which now require ToS acceptance. Safe to do now.
 
-:keyboard:
+:keyboard: Some installs pull packages from Anaconda’s default channels, which now require ToS acceptance. Safe to do now.
 ```bash 
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 ```
-
 ---
 
 ## 2.2 Create a conda environment
 
 **Configure conda**
 
-Why: libmamba is much faster; channels tell conda where to get packages; strict priority avoids mixing.
+Conda needs two things to behave well in bioinformatic course:
+1. Where to look for packages (the *channels*)
+2. How to decide versions quickly and reliably (the *solver*)
+- **Channels**:
+   - **conda-forge** community-maintained, modern compilers; the base for most current builds
+   - **bioconda** bioinformatics packages compiled to work with conda-forge
+   - **defaults** Anaconda’s repository; keep as a fallback
+> The order is important: it controls which repository conda prefers when the same package exists in multiple places.
+-**Strict channel priority** tells conda: “If a package exists in a higher-priority channel, don’t mix in lower-priority builds.” This reduces version conflicts and makes environments more reproducible.
+-The **solver** decides a set of package versions that satisfy all dependencies. libmamba is a drop-in replacement for the classic solver that is much faster and tends to backtrack less, so students spend time learning, not waiting.
+Install the faster solver and set channels with strict priority
 
-:keyboard:
-```bash 
+\
+:keyboard: Install and enable the faster solver
+```bash
 conda install -n base -y conda-libmamba-solver
 conda config --set solver libmamba
+```
+
+\
+:keyboard:Tell conda where to get the packages (in priority)
+```bash 
 conda config --add channels conda-forge
 conda config --add channels bioconda
 conda config --add channels defaults
+```
+
+\
+:keyboard:Avoid mixing packages across channels
+```bash 
 conda config --set channel_priority strict
 ```
->[!WARNING]
->Explain options
+> What this does?
+> - **libmamba solver**: a much faster dependency solver than the classic one.
+> - **Channels**: define the sources; we put conda-forge first (it’s the base for most modern builds), bioconda second (depends on conda-forge), and defaults last as a fallback.
+> - **Strict priority**: prevents mixing packages from lower-priority channels when a higher-priority one provides them—this improves reproducibility.
 
 #
 **Create the dtc-bio conda environment**
 
-One clean place with all the tools needed for this practical
-*(Note the regular hyphen -y, not a long dash.)*
+A conda environment is a clean sandbox with its own packages and versions. For a practical, this means:
+- **Reproducibility**: everyone has the same toolchain.
+- **Isolation**: no conflicts with other projects or the base env.
+- **Portability**: easy to recreate on another machine.
+
+This environment bundles the exact tools you’ll use today:
+- **fastqc** (quality checks), **spades** (assembly), **kraken2** (taxonomic classification), **bwa** (read mapping), **samtools** (BAM/CRAM utilities), **quast** (assembly QC),
+- **NCBI helpers**: ncbi-datasets-cli (the datasets command) and ncbi-genome-download,
+- **Utilities**: pigz (faster gzip), unzip,
+- **python 3.10**: so scripts/examples work consistently.
 
 :keyboard:
 ```bash 
@@ -851,10 +896,13 @@ Executing transaction: done
 #
 **Activate dtc-bio environment**
 
+Conda environments isolate tools and libraries so this practical doesn’t clash with other projects. When an env is active, any python or tool you run comes from that env—not your system install.
 :keyboard:
 ```bash 
 conda activate dtc-bio
 ```
+
+What you should see: your shell prompt gains an (dtc-bio) prefix—this is your visual cue that the env is active.
 
 :desktop_computer:
 ```bash 
@@ -863,7 +911,7 @@ conda activate dtc-bio
 #
 **Check the tools are available**
 
-:keyboard:
+:keyboard: Confirm each command is on your PATH inside the environment
 ```bash 
 ncbi-genome-download --version
 python --version
@@ -874,9 +922,9 @@ bwa 2>&1 | head -n3 # first line from bwa help
 samtools --version | head -n1 # first line from samtools help
 quast.py --version
 ```
-
->[!WARNING]
->Explain options
+> **--version** or help text proves the executable is installed and visible in **current**
+> **bwa** prints help to stderr, so we capture the first lines to show it’s working.
+> **samtools** prints multiple lines; **head -n1** shows the top line only.
 
 :desktop_computer:
 ```bash 
@@ -893,7 +941,7 @@ samtools 1.21
 QUAST v5.2.0
 ```
 #
-** Close conda environment**
+** Deactivate (leave) the environment**
 
 When you finish, deactivate the environment so your shell goes back to its previous PATH.
 
@@ -902,12 +950,17 @@ When you finish, deactivate the environment so your shell goes back to its previ
 conda deactivate
 ```
 
+\
+**What happens**
+
+- Your prompt loses the (*dtc-bio*) prefix (it may show (*base*) or no prefix, depending on your settings).
+- Tools like *python*, *fastqc*, etc., will now be the versions from your base setup (or won’t be found if only installed in *dtc-bio*).
+  
 :desktop_computer:
 ```bash
 (dtc-bio) you@host:~$ conda deactivate
 you@host:~$            # prompt no longer shows (dtc-bio); often switches to (base) or no prefix
 ```
-#
 
 ---
 
@@ -971,6 +1024,8 @@ zcat PSA-2017-01_1.fastq.gz | head -n 20
 
 How does it look like commpare to a fasta file?
 
+---
+
 ## 3.2 Running fastQC
 The tool **fastqc** assesses the quality scores across all of the reads in your data. You can read more about it here: https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf
 First, create a folder to save fastqc results
@@ -1013,9 +1068,6 @@ For each file, **fastQC** has produced both a .zip archive containing all the pl
 explorer.exe PSA-2017-01_1_fastqc.html
 ```
 
->[!WARNING]
->Check explanantion
-
 For each position, a boxplot is drawn with:
 
 • the median value, represented by the central red line
@@ -1028,6 +1080,8 @@ For each position, a boxplot is drawn with:
 
 The y-axis shows the quality scores. The higher the score, the better the base call. The background of the graph divides the y-axis into very good quality scores (green), scores of reasonable quality (orange), and reads of poor quality (red). It is normal with all Illumina sequencers for the median quality score to start lower over the first 5-7 bases and to then rise. The quality of reads on most platforms will drop at the end of the read. This is often due to signal decay or phasing during the sequencing run. We can see that our sequence length is 35-250bp. This makes sense, because this was sequenced with a 250 bp paired-end sequencing run on an Illumina MiSeq sequencer. The sequencing reads have a %GC of 65, this is within the expected
 %GC range for Pseudomonas aeruginosa (which has a highly GC biased genome). Anything above a score of 25 is usually considered good quality, so we can see these are reasonable quality reads.
+
+\
 Check the fastqc reports for both files, which file is of better quality?
 #
 **Optional step: trimming & filtering data**
@@ -1060,14 +1114,14 @@ To run **SPAdes** to assemble our paired fastq reads PSA-2017-01_1.fastq.gz and 
 ```bash
 spades.py -1 [location-to-read-1] -2 [location-to-read-2] –-only-assembler -o spades_assembly
 ```
->[!WARNING]
->[this willl take 5-10min]
 
-replace the information in [ ] to the path of each fastq file. Wait for the command to run. **SPAdes** should give some output about what it is doing. At the end, you might see an assembly warning about erroneous kmer, that is OK for the sake of this exercise (re. run in assembly mode only).
+Replace the information in [ ] to the path of each fastq file. Wait for the command to run. **SPAdes** should give some output about what it is doing. At the end, you might see an assembly warning about erroneous kmer, that is OK for the sake of this exercise (re. run in assembly mode only).
+
+>this willl take 5-10min
 
 Navigate into your spades_assembly output folder and check whats there:
 
-:keyboard:
+:keyboard: 
 ```bash
 cd spades_assembly
 ```
@@ -1088,17 +1142,32 @@ quast.py contigs.fasta
 
 After it has finished running, you should see a new folder with the results in has been created - '**quast_results**'.
 
-Navigate into this folder, and then into the new results (**results_data_hour**) sub-folder. In this folder use '**ls**' to check what is there. We are interested in the '**report.html**' file, which is a summary report file.
+Navigate into this folder, and then into the new results (**results_[data]_[hour]**) sub-folder. In this folder use '**ls**' to check what is there. We are interested in the '**report.html**' file, which is a summary report file.
 
 :keyboard:
 ```bash
 explorer.exe report.html
 ```
+Quck readings order:
+- Total length & GC% – sanity check they match the organism (ballpark genome size and GC).
+   - *P. aeruginosa strans have genomes between 5.5-7 Mb, with GC ~66-67%*
+- Continuity – how fragmented is the assembly? Look at # contigs, N50/L50, largest contig.
+- Accuracy (needs a reference) – genome fraction, misassemblies, mismatches/indels per 100 bp, duplication ratio.
+- Gaps/ambiguity – # N’s per 100 kbp (lower is better).
 
-Looking at this report we can see there are a total of 864 contigs with a size of >= 1000bp. The total length is ~6.56Mb, which is within the size range we expect for a *P. aeruginosa* genome (5.5Mb - 7Mb). The GC is ~66%, which again is within the GC range we expect for a *P. aeruginosa genome*. The largest contig is ~47,000bp.
-
->[!WARNING]
->Explain options
+Key Metrics:
+- **contigs (≥ X bp**): how many pieces your genome is split into. Fewer is better.
+- **Total length (≥ X bp)**: sum of contig lengths. Should be close to the expected genome size (too big → potential contamination/duplication; too small → missing sequence).
+- **Largest contig**: size of the biggest piece. Bigger is better.
+- **N50**: the contig length at which **half** of the assembly is in contigs **at least** that long. Higher = more contiguous.
+- **L50**: the **number** of contigs needed to reach 50% of the assembly when sorted by size. Lower = more contiguous.
+- **NG50 / LG50**: same as N50/L50 but uses an expected **genome size** (from the reference) instead of your assembly size. Useful when assemblies differ in total length.
+- **Genome fraction** (%) (with reference): fraction of the reference covered by your assembly. Higher is better.
+- **Misassemblies** (with reference): structural errors (joins, inversions, relocations) relative to the reference. 0 is ideal; a few may be acceptable.
+- **Mismatches / indels per 100 kbp** (with reference): base-level accuracy. Lower is better.
+- **Duplication ratio** (with reference): aligned bases in the assembly divided by bases covered on the reference; ~**1.0** is ideal. >1 hints at duplicated content.
+- **#N’s per 100 kbp**: number of unknown bases (gaps). Lower is better.
+- **GC** (%): should match the organism’s typical GC content.
 
 ---
 
@@ -1107,11 +1176,11 @@ A final step in our genome quality check is to confirm that the genome and the D
 #
 
 >[!WARNING]
->Navigate to out folder assembly
+>Before runing the following commands go back to your directory by typing "**cd**"
 
 ### Download *Pseudomonas* type genomes
 
-In order for kraken to work it needs a database of genomes to compare the assembly to. Here we are going to download from the NCBI the genomes of type strain for each species. 
+In order for Kraken to work it needs a database of genomes to compare the assembly to. Here we are going to download from the NCBI the genomes of type strain for each *Pseudomonas* species. A type strain is the strain used to define a new species 
 
 **Create the PATHS**
 
