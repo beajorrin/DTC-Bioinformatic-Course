@@ -9,15 +9,31 @@
    - [1.5 Deleting files and folders](#15-Deleting-files-and-folders)
    - [1.6 Writing a bash script](#16-Writing-a-bash-script)
    - [1.7 Manuals](#17-Manuals)
-- [2. Miniconda](#2-Miniconda)
-   - [2.1 Install Miniconda](#21-Install-miniconda)
-   - [2.2 Create a conda environment](#22-Create-a-conda-environment)
+- [2.1 Install Miniconda](#21-Install-miniconda)
+   - [2.1.1 Update Ubuntu](#211-Update-Ubuntu)
+   - [2.1.2. Download and Install Miniconda](#212-Download-and-Install-Miniconda)
+- [2.2 Create a conda environment](#22-Create-a-conda-environment)
+   - [2.1.1 Configure Conda](#221-Configure-Conda)
+   - [2.2.2 Create the dtc-bio conda environment](#222-Create-the-dtc-bio-conda-environment)
+   - [2.2.3 Activate dtc-bio environment](#223-Activate-dtc-bio-environment)
+   - [2.2.4 Check the tools are available](#224-Check-the-tools-are-available)
 - [3. Bacterial genome assembly](#3-Bacterial-genome-assembly)
    - [3.1 Manage data](#31-Manage-data)
    - [3.2 Running fastQC](#32-Running-fastQC)
    - [3.3 Genome assembly](#33-Genome-assembly)
    - [3.4 Species identity check](#34-Species-identity-check)
    - [3.5 Extra - further data analysis](#35-Extra---further-data-analysis)
+- [4. Species identity check](#4-Species-identity-check)
+   - [4.1 Download *Pseudomonas* type genomes](#41Download-Pseudomonas-type-genomes)
+   - [4.1.1 Create the PATHS](#411-Create-the-PATHS)
+   - [4.1.2 Create the corresponding folders](#412-Create-the-corresponding-folders)
+   - [4.1.3 Download the *Pseudomonas* genomes from NCBI](#413-Download-the-Pseudomonas-genomes-from-NCBI)
+   - [4.1.4 Check you have the files](#414-Check-you-have-the-files)
+   - [4.1.4 Decompress the fastas](#414-Decompress-the-fastas)
+- [4.2 Build a Kraken2 database](#42-Build-a-Kraken2-database)
+- [4.3 Classify your assembly](#43-Classify-your-assembly)
+   - [4.3.1 Maximise hits](#431-Maximise-hits)
+   - [4.3.2 “Stricter” classification](#432-“Stricter”-classification) 
 
 ---
 
@@ -717,15 +733,21 @@ Miniconda is a lightweight installer for conda, an open-source package and envir
 
 ---
 
-## **TABLE OF CONTENTS**
+### **TABLE OF CONTENTS**
 - [2.1 Install Miniconda](#21-Install-miniconda)
+   - [2.1.1 Update Ubuntu](#211-Update-Ubuntu)
+   - [2.1.2. Download and Install Miniconda](#212-Download-and-Install-Miniconda)
 - [2.2 Create a conda environment](#22-Create-a-conda-environment)
+   - [2.1.1 Configure Conda](#221-Configure-Conda)
+   - [2.2.2 Create the dtc-bio conda environment](#222-Create-the-dtc-bio-conda-environment)
+   - [2.2.3 Activate dtc-bio environment](#223-Activate-dtc-bio-environment)
+   - [2.2.4 Check the tools are available](#224-Check-the-tools-are-available)
 
 ---
 
 ## 2.1 Install Miniconda
 
-**Update ubuntu**
+### 2.1.1 Update Ubuntu
 
 :keyboard: Refreshes package lists and upgrades core tools so the installer works smoothly.
 ```bash 
@@ -737,7 +759,7 @@ sudo apt -y install wget git
 >A summary such as X upgraded, Y newly installed... for apt -y upgrade.
 >wget and git will show as setting up ... if they were not already installed.
 #
-**Download and install miniconda**
+### 2.1.2. Download and Install Miniconda
 
 :keyboard: We download the Linux installer and start the text-based setup.
 ```bash 
@@ -823,7 +845,7 @@ conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
 ## 2.2 Create a conda environment
 
-**Configure conda**
+### 2.1.1 Configure Conda
 
 Conda needs two things to behave well in bioinformatic course:
 1. Where to look for packages (the *channels*)
@@ -863,7 +885,7 @@ conda config --set channel_priority strict
 > - **Strict priority**: prevents mixing packages from lower-priority channels when a higher-priority one provides them—this improves reproducibility.
 
 #
-**Create the dtc-bio conda environment**
+### 2.2.2 Create the dtc-bio conda environment
 
 A conda environment is a clean sandbox with its own packages and versions. For a practical, this means:
 - **Reproducibility**: everyone has the same toolchain.
@@ -894,7 +916,7 @@ Verifying transaction: done
 Executing transaction: done
 ```
 #
-**Activate dtc-bio environment**
+### 2.2.3 Activate dtc-bio environment
 
 Conda environments isolate tools and libraries so this practical doesn’t clash with other projects. When an env is active, any python or tool you run comes from that env—not your system install.
 :keyboard:
@@ -909,7 +931,7 @@ What you should see: your shell prompt gains an (dtc-bio) prefix—this is your 
 (dtc-bio) you@PC:~$
 ```
 #
-**Check the tools are available**
+### 2.2.4 Check the tools are available
 
 :keyboard: Confirm each command is on your PATH inside the environment
 ```bash 
@@ -969,7 +991,7 @@ The goal of the second part of this practical is to assemble a bacterial genome 
 
 ---
 
-## **TABLE OF CONTENTS**
+### **TABLE OF CONTENTS**
 - [3.1 Manage data](#31-Manage-data)
 - [3.2 Running fastQC](#32-Running-fastQC)
 - [3.3 Genome assembly](#33-Genome-assembly)
@@ -1171,18 +1193,32 @@ Key Metrics:
 
 ---
 
-## 3.4 Species identity check
+# 4. Species identity check
 A final step in our genome quality check is to confirm that the genome and the DNA it is composed of belongs to our species of interest and that it is not contaminated with DNA from another bacterium. There are a number of tools that can do this and this depends on whether you want to check your data before it has been assembled using software such as **KRAKEN** 
 #
-
 >[!WARNING]
 >Before runing the following commands go back to your directory by typing **cd**
+#
+### **TABLE OF CONTENTS**
+- [4.1 Download *Pseudomonas* type genomes](#41Download-Pseudomonas-type-genomes)
+   - [4.1.1 Create the PATHS](#411-Create-the-PATHS)
+   - [4.1.2 Create the corresponding folders](#412-Create-the-corresponding-folders)
+   - [4.1.3 Download the *Pseudomonas* genomes from NCBI](#413-Download-the-Pseudomonas-genomes-from-NCBI)
+   - [4.1.4 Check you have the files](#414-Check-you-have-the-files)
+   - [4.1.4 Decompress the fastas](#414-Decompress-the-fastas)
+- [4.2 Build a Kraken2 database](#42-Build-a-Kraken2-database)
+- [4.3 Classify your assembly](#43-Classify-your-assembly)
+   - [4.3.1 Maximise hits](#431-Maximise-hits)
+   - [4.3.2 “Stricter” classification](#432-“Stricter”-classification)
+#
 
-### Download *Pseudomonas* type genomes
+## 4.1 Download *Pseudomonas* type genomes
 
 Kraken needs a reference database; we’ll build one by downloading the type-strain genomes for each *Pseudomonas* species from NCBI. The type strain is the official reference that defines a species.
 
-**Create the PATHS**
+#
+
+### 4.1.1 Create the PATHS
 
 We’ll keep downloads, intermediate FASTA files, and the Kraken2 database in predictable folders under your home directory. Using variables makes later commands shorter and less error-prone.
 > Define the folders and the number of threads to use.
@@ -1190,10 +1226,11 @@ We’ll keep downloads, intermediate FASTA files, and the Kraken2 database in pr
 :keyboard:
 ```bash
 # paths
-SRC=~/genomes/pseudomonas_type         # where raw genomes will be saved 
-STAGE=~/genomes/pseudomonas_type_fna   # where we'll stage/extract FASTA files
-DB=~/dbs/k2_pseudomonas_type           # where the Kraken2 database will be built
-THREADS=8                              # how many CPU threads to use
+SRC=~/genomes/pseudomonas_type                 # where raw genomes will be saved 
+STAGE=~/genomes/pseudomonas_type_fna           # where we'll stage/extract FASTA files
+DB=~/dbs/k2_pseudomonas_type                   # where the Kraken2 database will be built
+ASMB=~/assembly/spades_assembly/contigs.fasta  # where contigs.fasta file is
+THREADS=8                                      # how many CPU threads to use
 ```
 
 **What is this important?**
@@ -1208,7 +1245,7 @@ THREADS=8                              # how many CPU threads to use
 >These variables last only for the **current shell** (ie, until you close this terminal window). To keep them for future terminals, add the four lines to your ~/.bashrc (Linux).
 
 #
-**Create the corresponding folders**
+### 4.1.2 Create the corresponding folders
 
 We’ll create the directories pointed to by your variables and a library/ subfolder for Kraken2’s DB.
 
@@ -1231,7 +1268,7 @@ mkdir -p "$SRC" "$STAGE" "$DB"/library
 >Prefer **~** (your home) over absolute paths like **/genomes/...** unless you know you have permissions; otherwise you may hit *Permission denied*. On a new terminal, re-run the variable definitions (they don’t persist unless added to your shell startup file).
 
 #
-**Download the *Pseudomonas* genomes from NCBI**
+### 4.1.3 Download the *Pseudomonas* genomes from NCBI
 
 We’ll fetch **type-strain genomes** for *Pseudomonas* to use later (e.g., for Kraken2). Downloads go into "$SRC".
 
@@ -1257,7 +1294,7 @@ What the options means:
 > You should see compressed FASTA files like *.fna.gz and a checksums file (often MD5SUMS or md5checksums.txt).
 
 #
-**Check you have the files**
+### 4.1.4 Check you have the files
 
 This command counts how many FASTA files were downloaded under **"SCR"**
 
@@ -1278,7 +1315,7 @@ For this practical, you should see: 226
 (Counts can change over time if NCBI updates type strains; for class reproducibility we expect 226.)
 
 #
-**Decompress the fastas**
+### 4.1.4 Decompress the fastas
 
 **Why this step?** 
 
@@ -1320,21 +1357,26 @@ What this does
 - **head** shows the first few lines to avoid dumping hundreds of entries.
 
 #
-### Build a Kraken2 database
+#
+
+## 4.2 Build a Kraken2 database
 
 Kraken2 needs two things: (1) your reference sequences (the staged FASTA files) and (2) the NCBI taxonomy. This step indexes the staged genomes into a searchable database keyed by k-mers/minimizers and links them to taxonomy IDs.
 
-:keyboard: Start clean and make the standard folders
+**Start clean and make the standard folders**
+
+:keyboard: 
 ```bash
 rm -rf "$DB"; mkdir -p "$DB/library"
 ```
 
-What this does
+**What this does**
 - **rm -rf "$DB"** removes any old database so you don’t accidentally mix versions. *Be careful: this permanently deletes that folder*.
 - **mkdir -p "$DB/library"** recreates the database directory with the library/ subfolder where Kraken2 stores input sequences before building.
 
+**Add the staged FASTAs, download taxonomy, and build.**
 
-:keyboard: Add the staged FASTAs, download taxonomy, and build.
+:keyboard: 
 ```bash
 # Add every staged FASTA to the Kraken2 library
 find "$STAGE" -type f -name "*.fna" -print0 \
@@ -1356,7 +1398,9 @@ kraken2-build --clean --db "$DB"
 - **--build** creates the search index from your sequences + taxonomy (this step is CPU/disk heavy and can take a while, depending on your machine and the number of genomes).
 -** --clean** deletes intermediate files after a successful build (saves disk space).
 
-:keyboard: Quick verify
+**Quick verify**
+
+:keyboard: 
 ```bash
 du -sh "$DB"
 kraken2-inspect --db "$DB" | head
@@ -1383,11 +1427,11 @@ kraken2-inspect --db "$DB" | head
    - If you see an empty or tiny report, the library may be empty or the build failed—recheck the steps above.
 
 #
-### Classify your assembly
+## 4.3 Classify your assembly
 
 Kraken2 assigns each contig to a taxon by matching its k-mers to your database. We’ll first classify with no confidence filter (maximise hits), then show how to add one.
 
-**Step 1) Maximise hits (no confidence filter yet)** 
+### 4.3.1 Maximise hits
 
 :keyboard:
 ```bash
@@ -1445,7 +1489,7 @@ grep $'\tS\t' k2_pseudo.report | sort -nr -k1,1 | head
 
 So “92.29” means 92.29% of contigs fall within the P. aeruginosa clade.
 #
-**Step 2) “Stricter” classification with a confidence filter**
+### 4.3.2 “Stricter” classification
 
 We’ll re-run Kraken2 with options that reduce weak/ambiguous assignments. You should see slightly fewer classified contigs but a cleaner top species.
 
