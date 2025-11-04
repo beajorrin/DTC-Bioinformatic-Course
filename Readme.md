@@ -1372,18 +1372,25 @@ kraken2-inspect --db "$DB" | head
 #
 ### Classify your assembly
 
-Why: assign each contig to a taxon and then read the species-level summary.
-
-> I need to explain here the kraken options as done with spades
+Kraken2 assigns each contig to a taxon by matching its k-mers to your database. We’ll first classify with no confidence filter (maximise hits), then show how to add one.
 
 **Step 1) Maximise hits (no confidence filter yet)** 
 
 :keyboard:
 ```bash
-kraken2 --db "$DB" --threads "$THREADS" --use-names --report k2_pseudo.report --output k2_pseudo.out [path to contigs.fasta]
+# Replace this with your assembler’s output path, e.g. SPAdes:
+# ASMB="spades_output/contigs.fasta"
+ASMB="[path to contigs.fasta]"
+
+kraken2 --db "$DB" --threads "$THREADS" --use-names --report k2_pseudo.report --output k2_pseudo.out "$ASMB"
 ```
->[!WARNING]
->explain... Contigs fasta is in another 
+**What the options mean**
+- **--db "$DB"**: the Kraken2 DB you built (taxonomy + your staged genomes).
+- **--threads "$THREADS"**: parallelism.
+- **--use-names**: show scientific names (not just NCBI taxids).
+- **--report k2_pseudo.report**: machine-readable summary table by taxon.
+- **--output k2_pseudo.out**: per-contig classifications (each line = one contig).
+- Final arg = your **contigs FASTA** (e.g., spades_output/contigs.fasta).
 
 :desktop_computer:
 ```bash
@@ -1392,8 +1399,12 @@ Loading database information... done.
   2385 sequences classified (96.79%)
   79 sequences unclassified (3.21%)
 ```
+- **classified**: contigs asigned to some taxon
+- **unclassified**: contigs with no match
+#
+**Read the species level summary**
 
-:keyboard:Show the top species lines (column 1 is % of contigs)
+:keyboard:Show the top species (S) lines sorted by % of contigs)
 ```bash
 grep $'\tS\t' k2_pseudo.report | sort -nr -k1,1 | head
 ```
@@ -1411,6 +1422,15 @@ grep $'\tS\t' k2_pseudo.report | sort -nr -k1,1 | head
   0.08  2       2       S       2320867                   Pseudomonas cavernae
   0.08  2       0       S       76759                       Pseudomonas monteilii
 ```
+**How to read the report (columns)**
+1. % of sequences (contigs) in this clade.
+2. # in clade (this taxon + all descendants).
+3. # in taxon (assigned directly to this taxon).
+4. Rank (S = species, G = genus, …).
+5. NCBI taxid.
+6. Scientific name (indented in the full report to show hierarchy).
+
+So “92.29” means 92.29% of contigs fall within the P. aeruginosa clade.
 #
 **Step 2) Strict, confidence filter on 0.1**
 
