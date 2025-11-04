@@ -1432,12 +1432,23 @@ grep $'\tS\t' k2_pseudo.report | sort -nr -k1,1 | head
 
 So “92.29” means 92.29% of contigs fall within the P. aeruginosa clade.
 #
-**Step 2) Strict, confidence filter on 0.1**
+**Step 2) “Stricter” classification with a confidence filter**
 
-:keyboard:
+We’ll re-run Kraken2 with options that reduce weak/ambiguous assignments. You should see slightly fewer classified contigs but a cleaner top species.
+
+:keyboard: Run with a confidence cutoff, require multiple hit groups, and use quick mode.
 ```bash
-kraken2 --db "$DB" --threads "$THREADS" --use-names –quick --confidence 0.1 --minimum-hit-groups 3 -report k2_pseudo_fast.report --output k2_pseudo_fast.out contigs.fasta
+# Set your contigs path if you haven't already
+ASMB="[path to contigs.fasta]"   # e.g. spades_output/contigs.fasta
+kraken2 --db "$DB" --threads "$THREADS" --use-names –quick --confidence 0.1 --minimum-hit-groups 3 -report k2_pseudo_fast.report --output k2_pseudo_fast.out "$ASMB"
 ```
+Copy/paste gotchas: make sure --quick uses two ASCII hyphens, and --report has two hyphens (not -report).
+
+**What these options do**
+- **--confidence 0.1** → require at least 10% of a read/contig’s k-mer evidence to support the assigned taxon. Filters out very weak matches.
+- **--minimum-hit-groups 3** → need support from ≥3 distinct hit groups (independent k-mer/minimizer groups) before assigning; reduces one-off spurious hits.
+- **--quick** → faster pass that stops searching once sufficient evidence is found; tends to lower sensitivity a bit but speeds up classification.
+- Reports/outputs are written to new files (**k2_pseudo_fast.***) so you can compare with Step 1.
 
 :desktop_computer:
 ```bash
@@ -1448,7 +1459,11 @@ kraken2 --db "$DB" --threads "$THREADS" --use-names –quick --confidence 0.1 --
   0.04  1       1       S       53408                       Pseudomonas citronellolis
 ```
 
->Does the output match your expectations? (*Pseudomonas aeruginosa*)
+**How to interpret**
+- The top line means ~89.6% of contigs fall in the P. aeruginosa clade after filtering.
+- Compared to Step 1 (no filter), you should expect slightly lower % classified (some marginal contigs drop to “unclassified”) but a similar top species if your assembly is truly *P. aeruginosa*.
+
+>Does the filtered result still point to *Pseudomonas aeruginosa* as the dominant species? If not, which parameters changed the outcome?
 
 ---
 
