@@ -1361,8 +1361,21 @@ kraken2-build --clean --db "$DB"
 du -sh "$DB"
 kraken2-inspect --db "$DB" | head
 ```
->[!WARNING]
->Check output
+:desktop_computer:
+```bash
+1.5G    /home/teaching/dbs/k2_pseudomonas_type
+# Database options: nucleotide db, k = 35, l = 31
+# Spaced mask = 11111111111111111111111111111111110011001100110011001100110011
+# Toggle mask = 1110001101111110001010001100010000100111000110110101101000101101
+# Total taxonomy nodes: 213
+# Table size: 239895392
+# Table capacity: 381643337
+# Min clear hash value = 0
+100.00  239895392       0       R       1       root
+100.00  239895392       0       R1      131567    cellular organisms
+100.00  239895392       0       R2      2           Bacteria
+```
+
 **How to read this output**
 - **du -sh "$DB"** shows the total size of the database directory (a rough sanity check that something substantial was created).
 -** kraken2-inspect --db "$DB" | head** prints the database summary followed by the first taxonomy lines with counts (number of minimizers/k-mers assigned per taxon).
