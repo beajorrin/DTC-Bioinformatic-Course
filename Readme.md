@@ -33,10 +33,10 @@
    - [4.3 Classify your assembly](#43-Classify-your-assembly)
       - [4.3.1 Maximise hits](#431-Maximise-hits)
       - [4.3.2 Stricter classification](#432-Stricter-classification)
-   - [4.5 Evidence of AMR genes in your genome](#45-Evidence-of-AMR-genes-in-your-genome) 
-      - [4.5.1 Find cadidate AR genes](#451-Find-cadidate-AR-genes)
-      - [4.5.2 Make your genome searchable](#452-Make-your-genome-searchable)
-      - [4.5.3 Search your AR genes against your genome](#453-Search-your-AR-genes-against-your-genome)
+- [5 Evidence of AMR genes in your genome](#45-Evidence-of-AMR-genes-in-your-genome) 
+   - [5.1 Find cadidate AR genes](#51-Find-cadidate-AR-genes)
+   - [5.2 Make your genome searchable](#52-Make-your-genome-searchable)
+   - [5.3 Search your AR genes against your genome](#53-Search-your-AR-genes-against-your-genome)
 ---
 
 ## 1 Introduction to command line
@@ -1187,10 +1187,7 @@ A final step in our genome quality check is to confirm that the genome and the D
 - [4.3 Classify your assembly](#43-Classify-your-assembly)
    - [4.3.1 Maximise hits](#431-Maximise-hits)
    - [4.3.2 Stricter classification](#432-Stricter-classification)
-- [4.5 Evidence of AMR genes in your genome](#45-Evidence-of-AMR-genes-in-your-genome)
-   - [4.5.1 Find cadidate AR genes](#451-Find-cadidate-AR-genes)
-   - [4.5.2 Make your genome searchable](#452-Make-your-genome-searchable)
-   - [4.5.3 Search your AR genes against your genome](#453-Search-your-AR-genes-against-your-genome)
+
 #
 
 ## 4.1 Download *Pseudomonas* type genomes
@@ -1495,9 +1492,11 @@ Copy/paste gotchas: make sure --quick uses two ASCII hyphens, and --report has t
 
 >Does the filtered result still point to *Pseudomonas aeruginosa* as the dominant species? If not, which parameters changed the outcome?
 
+[↑ Back to top](#DTC-Bioinformatic-Course)
+
 ---
 
-## 4.5 Evidence of AMR genes in your genome
+# 5 Evidence of AMR genes in your genome
 
 Here is an **optional** data analysis exercise you can try to explore your assembled genome:
 
@@ -1507,7 +1506,7 @@ Here is an **optional** data analysis exercise you can try to explore your assem
 3. Use blastn with sensible thresholds; read and summarise the results.
 
 #
-### 4.5.1 Find cadidate AR genes
+### 5.1 Find cadidate AR genes
 
 Pick 3–5 acquired genes relevant to *Pseudomonas* (e.g., β-lactamases, aminoglycoside mods, sulfonamide/tetracycline genes). Get nucleotide FASTA for each gene from a curated source:
 - CARD (Comprehensive Antibiotic Resistance Database) — browse and download gene FASTA.
@@ -1521,7 +1520,7 @@ Collect your chosen sequences into one file, e.g. **arg_candidates.fna** (multip
 
 #
 
-### 4.5.2 Make your genome searchable
+### 5.2 Make your genome searchable
 
 Create a nucleotide BLAST database from your assembled contigs (this is faster and more flexible than using -subject for many queries). Use **makeblastdb** with your **contigs.fasta**; the BLAST+ manual/help page covers this.
 
@@ -1537,7 +1536,7 @@ makeblastdb -in <path/to/contigs.fasta> -dbtype nucl -parse_seqids -out <genome_
 
 #
 
-### 4.5.3 Search your AR genes against your genome
+### 5.3 Search your AR genes against your genome
 
 Run **blastn** with thresholds that balance sensitivity and specificity for acquired genes.
 
