@@ -34,7 +34,9 @@
       - [4.3.1 Maximise hits](#431-Maximise-hits)
       - [4.3.2 Stricter classification](#432-Stricter-classification)
    - [4.5 Evidence of AMR genes in your genome](#45-Evidence-of-AMR-genes-in-your-genome) 
-
+      - [4.5.1 Find cadidate AR genes](#451-Find-cadidate-AR-genes)
+      - [4.5.2 Make your genome searchable](#452-Make-your-genome-searchable)
+      - [4.5.3 Search your AR genes against your genome](#453-Search-your-AR-genes-against-your-genome)
 ---
 
 ## 1 Introduction to command line
@@ -1490,7 +1492,8 @@ Copy/paste gotchas: make sure --quick uses two ASCII hyphens, and --report has t
 ---
 
 ## 4.5 Evidence of AMR genes in your genome
-Here is an optional data analysis exercise you can try to explore your assembled genome:
+
+Here is an **optional** data analysis exercise you can try to explore your assembled genome:
 
 **Learning goals**:
 1. Find curated antibiotic-resistance (AR) genes to test.
