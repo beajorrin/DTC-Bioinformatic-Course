@@ -970,7 +970,7 @@ The goal of the second part of this practical is to assemble a bacterial genome 
 - [3.1 Manage data](#31-Manage-data)
 - [3.2 Running fastQC](#32-Running-fastQC)
 - [3.3 Genome assembly](#33-Genome-assembly)
-- [3.4 Quality assesment of your assembly](34-Quality-assesment-of-your-assembly)
+- [3.4 Quality assesment of your assembly](#34-Quality-assesment-of-your-assembly)
 
 *Pseudomonas aeruginosa* is a Gram-negative bacterium and opportunistic pathogen. It is a major problem in clinical settings and is as a major caustive pathogen of ventilator-associated pneumonia. *P. aeruginosa* is becoming increasingly resistant to the antibiotics we use to treat it. Genome sequencing data is useful for understanding what the population of *P. aeruginosa* looks like, how many acquired antibiotic resistance genes this pathogen carries, and understanding how *P. aeruginosa* is evolving in clinically relevant environments (such as within ICU patients with pneumonia infections).
 
