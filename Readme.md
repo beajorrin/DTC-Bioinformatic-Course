@@ -36,7 +36,7 @@
 
 ---
 
-## 1. Introduction to command line (with WSL)
+## 1 Introduction to command line (with WSL)
 Just like Windows and macOS, Linux is an operating system (OS). It is hugely popular in bioinformatics because most tools are built for Unix-like systems. Linux comes in many versions called distributions (“distros”). In this course we will use Ubuntu—a widely used distro—running inside Windows Subsystem for Linux (WSL). WSL gives you a real Ubuntu environment on your Windows machine without a virtual machine.
 You will interact with Ubuntu using the command line (also called the terminal or shell): instead of pointing and clicking, you type commands. This is powerful because bioinformatics programs share similar Unix conventions, so you can chain them together and make reproducible workflows. You will also write a bash script—a text file containing a series of commands that bash executes line by line—so you do not have to retype long command sequences.
 >From now on, run commands in the Ubuntu (WSL) terminal, not in PowerShell or CMD, unless the instructions say otherwise.
