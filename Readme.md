@@ -33,7 +33,7 @@
    - [4.3 Classify your assembly](#43-Classify-your-assembly)
       - [4.3.1 Maximise hits](#431-Maximise-hits)
       - [4.3.2 Stricter classification](#432-Stricter-classification)
-   - [4.5 Optional: Evidence of AMR genes in your genome](#45-Optional:Evidence-of-AMR-genes-in-your-genome) 
+   - [4.5 Evidence of AMR genes in your genome](#45-Evidence-of-AMR-genes-in-your-genome) 
 
 ---
 
@@ -1179,7 +1179,7 @@ A final step in our genome quality check is to confirm that the genome and the D
 - [4.3 Classify your assembly](#43-Classify-your-assembly)
    - [4.3.1 Maximise hits](#431-Maximise-hits)
    - [4.3.2 Stricter classification](#432-Stricter-classification)
-- [4.5 Optional: Evidence of AMR genes in your genome](#45-Optional:-Evidence-of-AMR-genes-in-your-genome)
+- [4.5 Evidence of AMR genes in your genome](#45-Evidence-of-AMR-genes-in-your-genome)
    - [4.5.1 Find cadidate AR genes](#451-Find-cadidate-AR-genes)
    - [4.5.2 Make your genome searchable](#452-Make-your-genome-searchable)
    - [4.5.3 Search your AR genes against your genome](#453-Search-your-AR-genes-against-your-genome)
@@ -1489,7 +1489,7 @@ Copy/paste gotchas: make sure --quick uses two ASCII hyphens, and --report has t
 
 ---
 
-## 4.5 Optional: Evidence of AMR genes in your genome
+## 4.5 Evidence of AMR genes in your genome
 Here is an optional data analysis exercise you can try to explore your assembled genome:
 
 **Learning goals**:
