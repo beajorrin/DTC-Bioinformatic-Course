@@ -13,7 +13,7 @@
    - [2.1.1 Update Ubuntu](#211-Update-Ubuntu)
    - [2.1.2. Download and Install Miniconda](#212-Download-and-Install-Miniconda)
 - [2.2 Create a conda environment](#22-Create-a-conda-environment)
-   - [2.1.1 Configure Conda](#221-Configure-Conda)
+   - [2.2.1 Configure Conda](#221-Configure-Conda)
    - [2.2.2 Create the dtc-bio conda environment](#222-Create-the-dtc-bio-conda-environment)
    - [2.2.3 Activate dtc-bio environment](#223-Activate-dtc-bio-environment)
    - [2.2.4 Check the tools are available](#224-Check-the-tools-are-available)
@@ -713,9 +713,9 @@ Miniconda is a lightweight installer for conda, an open-source package and envir
 ### **TABLE OF CONTENTS**
 - [2.1 Install Miniconda](#21-Install-miniconda)
    - [2.1.1 Update Ubuntu](#211-Update-Ubuntu)
-   - [2.1.2. Download and Install Miniconda](#212-Download-and-Install-Miniconda)
+   - [2.1.2 Download and Install Miniconda](#212-Download-and-Install-Miniconda)
 - [2.2 Create a conda environment](#22-Create-a-conda-environment)
-   - [2.1.1 Configure Conda](#221-Configure-Conda)
+   - [2.2.1 Configure Conda](#221-Configure-Conda)
    - [2.2.2 Create the dtc-bio conda environment](#222-Create-the-dtc-bio-conda-environment)
    - [2.2.3 Activate dtc-bio environment](#223-Activate-dtc-bio-environment)
    - [2.2.4 Check the tools are available](#224-Check-the-tools-are-available)
@@ -736,7 +736,7 @@ sudo apt -y install wget git
 >A summary such as X upgraded, Y newly installed... for apt -y upgrade.
 >wget and git will show as setting up ... if they were not already installed.
 #
-### 2.1.2. Download and Install Miniconda
+### 2.1.2 Download and Install Miniconda
 
 :keyboard: We download the Linux installer and start the text-based setup.
 ```bash 
@@ -822,7 +822,7 @@ conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
 ## 2.2 Create a conda environment
 
-### 2.1.1 Configure Conda
+### 2.2.1 Configure Conda
 
 Conda needs two things to behave well in bioinformatic course:
 1. Where to look for packages (the *channels*)
