@@ -1,9 +1,9 @@
 # DTC-Bioinformatic-Course
 
 ## **TABLE OF CONTENTS**
-- [1. Introduction to command line (with WSL)](#1-Introduction-to-command-line-(with-WSL))
-   - [1.1 Open the Ubuntu (WSL) terminal](#11-Open-the-Ubuntu-(WSL)-terminal)
-   - [1.2 Creating directories (ie folders)](#12-Creating-directories-(ie-folders))
+- [1. Introduction to command line](#1-Introduction-to-command-line)
+   - [1.1 Open the Ubuntu terminal](#11-Open-the-Ubuntu-terminal)
+   - [1.2 Creating directories](#12-Creating-directories)
    - [1.3 Creating files](#13-Creating-files)
    - [1.4 Searching within files](#14-Searching-within-files)
    - [1.5 Deleting files and folders](#15-Deleting-files-and-folders)
@@ -36,14 +36,14 @@
 
 ---
 
-## 1 Introduction to command line (with WSL)
+## 1 Introduction to command line
 Just like Windows and macOS, Linux is an operating system (OS). It is hugely popular in bioinformatics because most tools are built for Unix-like systems. Linux comes in many versions called distributions (“distros”). In this course we will use Ubuntu—a widely used distro—running inside Windows Subsystem for Linux (WSL). WSL gives you a real Ubuntu environment on your Windows machine without a virtual machine.
 You will interact with Ubuntu using the command line (also called the terminal or shell): instead of pointing and clicking, you type commands. This is powerful because bioinformatics programs share similar Unix conventions, so you can chain them together and make reproducible workflows. You will also write a bash script—a text file containing a series of commands that bash executes line by line—so you do not have to retype long command sequences.
 >From now on, run commands in the Ubuntu (WSL) terminal, not in PowerShell or CMD, unless the instructions say otherwise.
 
 ---
 
-### 1.1 Open the Ubuntu (WSL) terminal
+### 1.1 Open the Ubuntu terminal
 Pick any one of these:
 - Start menu: Press Win → type Ubuntu → open Ubuntu.
 - Start menu: Press Win → type WSL → open WSL.
@@ -70,7 +70,7 @@ you@PC:~$
 
 ---
 
-### 1.2 Creating directories (ie folders)
+### 1.2 Creating directories
 
 First, let's work out where we are. As said above, the terminal is just another way of interacting with your computer. So like how you can use your mouse and clicking to navigate through your folders, you can use your terminal to do the same thing.
 
