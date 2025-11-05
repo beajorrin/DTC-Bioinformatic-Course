@@ -24,15 +24,16 @@
    - [3.4 Quality assesment of your assembly](#34-Quality-assesment-of-your-assembly)
 - [4. Species identity check](#4-Species-identity-check)
    - [4.1 Download *Pseudomonas* type genomes](#41-Download-Pseudomonas-type-genomes)
-   - [4.1.1 Create the PATHS](#411-Create-the-PATHS)
-   - [4.1.2 Create the corresponding folders](#412-Create-the-corresponding-folders)
-   - [4.1.3 Download the *Pseudomonas* genomes from NCBI](#413-Download-the-Pseudomonas-genomes-from-NCBI)
-   - [4.1.4 Check you have the files](#414-Check-you-have-the-files)
-   - [4.1.5 Decompress the fastas](#415-Decompress-the-fastas)
-- [4.2 Build a Kraken2 database](#42-Build-a-Kraken2-database)
-- [4.3 Classify your assembly](#43-Classify-your-assembly)
-   - [4.3.1 Maximise hits](#431-Maximise-hits)
-   - [4.3.2 Stricter classification](#432-Stricter-classification) 
+      - [4.1.1 Create the PATHS](#411-Create-the-PATHS)
+      - [4.1.2 Create the corresponding folders](#412-Create-the-corresponding-folders)
+      - [4.1.3 Download the *Pseudomonas* genomes from NCBI](#413-Download-the-Pseudomonas-genomes-from-NCBI)
+      - [4.1.4 Check you have the files](#414-Check-you-have-the-files)
+      - [4.1.5 Decompress the fastas](#415-Decompress-the-fastas)
+   - [4.2 Build a Kraken2 database](#42-Build-a-Kraken2-database)
+   - [4.3 Classify your assembly](#43-Classify-your-assembly)
+      - [4.3.1 Maximise hits](#431-Maximise-hits)
+      - [4.3.2 Stricter classification](#432-Stricter-classification)
+   - [4.5 Optional: Evidence of AMR genes in your genome](#45-Optional:Evidence-of-AMR-genes-in-your-genome) 
 
 ---
 
@@ -1178,6 +1179,10 @@ A final step in our genome quality check is to confirm that the genome and the D
 - [4.3 Classify your assembly](#43-Classify-your-assembly)
    - [4.3.1 Maximise hits](#431-Maximise-hits)
    - [4.3.2 Stricter classification](#432-Stricter-classification)
+- [4.5 Optional: Evidence of AMR genes in your genome](#45-Optional:Evidence-of-AMR-genes-in-your-genome)
+   - [4.5.1 Find cadidate AR genes](#451-Find-cadidate-AR-genes)
+   - [4.5.2 Make your genome searchable](#452-Make-your-genome-searchable)
+   - [4.5.3 Search your AR genes against your genome](#453-Search-your-AR-genes-against-your-genome)
 #
 
 ## 4.1 Download *Pseudomonas* type genomes
@@ -1484,7 +1489,7 @@ Copy/paste gotchas: make sure --quick uses two ASCII hyphens, and --report has t
 
 ---
 
-## 3.5 Extra - further data analysis
+## 4.5 Optional: Evidence of AMR genes in your genome
 Here is an optional data analysis exercise you can try to explore your assembled genome:
 
 **Learning goals**:
@@ -1493,7 +1498,7 @@ Here is an optional data analysis exercise you can try to explore your assembled
 3. Use blastn with sensible thresholds; read and summarise the results.
 
 #
-### 1. Find cadidate AR genes (from curated sources)
+### 4.5.1 Find cadidate AR genes
 
 Pick 3–5 acquired genes relevant to *Pseudomonas* (e.g., β-lactamases, aminoglycoside mods, sulfonamide/tetracycline genes). Get nucleotide FASTA for each gene from a curated source:
 - CARD (Comprehensive Antibiotic Resistance Database) — browse and download gene FASTA.
@@ -1507,7 +1512,7 @@ Collect your chosen sequences into one file, e.g. **arg_candidates.fna** (multip
 
 #
 
-### 2. Make your genome searchable (BLAST DB)
+### 4.5.2 Make your genome searchable
 
 Create a nucleotide BLAST database from your assembled contigs (this is faster and more flexible than using -subject for many queries). Use **makeblastdb** with your **contigs.fasta**; the BLAST+ manual/help page covers this.
 
@@ -1523,7 +1528,7 @@ makeblastdb -in <path/to/contigs.fasta> -dbtype nucl -parse_seqids -out <genome_
 
 #
 
-### 3. Search your AR genes against your genome
+### 4.5.3 Search your AR genes against your genome
 
 Run **blastn** with thresholds that balance sensitivity and specificity for acquired genes.
 
