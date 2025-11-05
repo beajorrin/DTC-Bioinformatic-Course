@@ -77,7 +77,7 @@ First, let's work out where we are. As said above, the terminal is just another 
 ```bash
 pwd
 ```
->**pwd** is an abbreviation of 'print working directory'. All it does is print out the shell's current working directory. You should see a directory path printed out, something like '**/home/YOUR_USERNAME**'.
+**pwd** is an abbreviation of 'print working directory'. All it does is print out the shell's current working directory. You should see a directory path printed out, something like '**/home/YOUR_USERNAME**'.
 
 :desktop_computer:
 ```r
@@ -86,13 +86,14 @@ pwd
 #
 **Now let's create a new directory** (i.e. folder) to work in. 
 
-:keyboard:Type the following command then press the **Enter** key to run it: 
+:keyboard:Type the following command then press the **Enter** key to run it:
 ```bash
 mkdir intro
 ```
->This should create a new directory (mkdir - '**mk** (make) **dir** (directory)') within the directory you are currently in called '**intro**'. 
+This should create a new directory (mkdir - '**mk** (make) **dir** (directory)') within the directory you are currently in called '**intro**'. 
 #
-**Now let's check it is there**. 
+**Now let's check it is there**.
+
 :keyboard:We can list everything contained within our current directory using the **ls** (list).
 ```bash
 ls
@@ -103,45 +104,39 @@ ls
 intro
 ```
 #
-You can **change directories** using the **cd** (change directory) command.
 
-:keyboard:
+:keyboard: You can **change directories** using the **cd** (change directory) command.
 ```bash
 cd intro
 ```
-We can check we have successfully changed directory by using **pwd** again:
 
-:keyboard:
+:keyboard: We can check we have successfully changed directory by using **pwd** again:
 ```bash
 pwd
 ```
-You should see a directory path printed out, which now ends in intro, something like '**/home/$USER/intro**'.
 
-:desktop_computer:
+:desktop_computer: You should see a directory path printed out, which now ends in intro, something like '**/home/$USER/intro**'.
 ```r
 /home/$USER/intro
 ```
 #
-If we try using the **ls** (list):
 
-:keyboard:
+:keyboard: If we try using the **ls** (list):
 ```bash
 ls
 ```
-You should see your terminal return an empty directory, because you have not added anything to your intro directory.
 
-:desktop_computer:
+:desktop_computer: You should see your terminal return an empty directory, because you have not added anything to your intro directory.
 ```r
 
 ```
 #
-To move back up one directory (i.e. back to '/home/$USER'), we can use '**cd**':
 
-:keyboard:
+:keyboard: To move back up one directory (i.e. back to '/home/$USER'), we can use '**cd**':
 ```bash
 cd ..
 ```
->Using '**cd ..**' makes you move back up one directory. You can use **ls** or **pwd** to check that you are now back in the directory that contains your intro folder, e.g.:
+Using '**cd ..**' makes you move back up one directory. You can use **ls** or **pwd** to check that you are now back in the directory that contains your intro folder, e.g.:
 
 :keyboard:
 ```bash
@@ -152,24 +147,24 @@ pwd
 ```r
 /home/$USER
 ```
->The two full stops after '**cd ..**' are important, and say to only go back one. If you leave out the two full stops and just use '**cd**', it goes to your 'upper most' directory (i.e. /home/$USER). 
+
+The two full stops after '**cd ..**' are important, and say to only go back one. If you leave out the two full stops and just use '**cd**', it goes to your 'upper most' directory (i.e. /home/$USER). 
 
 You can also use **cd** to specify a directory to move to using the path description as is given by **pwd** (e.g. cd /home/$USER/intro). Play with 'cd', 'cd ..' and 'cd /home/$USER/intro'
 
 #
 
-:keyboard:Move back into your intro folder:
+:keyboard: Move back into your intro folder:
 ```bash
 cd intro
 ```
 
-:keyboard:Check you are there:
+:keyboard: Check you are there:
 ```bash
 pwd
 ```
->You should see a directory path printed out, which now ends in intro, something like '/home/$USER/intro'.
 
-:desktop_computer:
+:desktop_computer: You should see a directory path printed out, which now ends in intro, something like '/home/$USER/intro'.
 ```r
 /home/bea/intro
 ```
@@ -187,19 +182,17 @@ mkdir dir1 dir2 dir3
 ```bash
 ls
 ```
->You should see your terminal return the names of the three new directories you made just now (*dir1*, *dir2*, *dir3*).
 
-:desktop_computer:
+:desktop_computer: You should see your terminal return the names of the three new directories you made just now (*dir1*, *dir2*, *dir3*).
 ```r
 dir1 dir2 dir3
 ```
-You can get more information if:
 
-:keyboard:
+:keyboard: You can get more information if:
 ```bash
 ls -l
 ```
-> ls -l shows a **long** listing: one file per line with the file type and permissions, link count, owner, group, size (bytes), last-modified time, and then the filename.
+ls -l shows a **long** listing: one file per line with the file type and permissions, link count, owner, group, size (bytes), last-modified time, and then the filename.
 
 :desktop_computer:
 ```r
@@ -208,7 +201,8 @@ drwxr-xr-x 2 bea staff 64 28 Nov 15:25 dir1
 drwxr-xr-x 2 bea staff 64 28 Nov 15:25 dir2
 drwxr-xr-x 2 bea staff 64 28 Nov 15:25 dir3
 ```
->Notice that mkdir created all the folders in one directory. It did not create *dir3* inside *dir2* inside *dir1*, or any other nested structure. But sometimes it is handy to be able to do exactly that, and **mkdir** does have a way
+
+Notice that mkdir created all the folders in one directory. It did not create *dir3* inside *dir2* inside *dir1*, or any other nested structure. But sometimes it is handy to be able to do exactly that, and **mkdir** does have a way
 #
 **Create nested directories**
 
@@ -222,20 +216,23 @@ ls
 ```r
 dir1 dir2 dir3 dir4
 ```
+
 This time you will see that only *dir4* has been added to the list, because *dir5* is inside it, and *dir6* is inside *dir5*.
 >The '**-p**' that we used is called an option or a switch (in this case it means 'create the parent directories too, and do not give an error if the directories already exist'). Options are used to modify the way in which a command operates, allowing a single command to behave in a variety of different ways. Options can take different forms in different commands. You will often see them as single characters preceded by a hyphen (as in this case), or as longer words preceded by two hyphens.
 #
-**Navigate in your terminal** [e.g. using 'cd' 'pwd' and 'cd ..'] to enter *dir4* and *dir5* and check the appropriate folders are there.
+>[!Note]
+>**Navigate in your terminal** [e.g. using 'cd' 'pwd' and 'cd ..'] to enter *dir4* and *dir5* and check the appropriate folders are there.
+>
+>:keyboard: Make sure you return back to within your intro folder before proceeding, e.g.:
+>```bash
+>cd /home/$USER/intro
+>```
+>
+>:desktop_computer:
+>```r
+>/home/$USER/intro
+>```
 
-:keyboard:Make sure you return back to within your intro folder before proceeding, e.g.:
-```bash
-cd /home/$USER/intro
-```
-
-:desktop_computer:
-```r
-/home/$USER/intro
-```
 #
 **What happens if you want to create a directory with a space in its name?** Let's try it:
 
@@ -1481,10 +1478,10 @@ grep $'\tS\t' k2_pseudo.report | sort -nr -k1,1 | head
 ```
 **How to read the report (columns)**
 1. % of sequences (contigs) in this clade.
-2. # in clade (this taxon + all descendants).
-3. # in taxon (assigned directly to this taxon).
-4. Rank (S = species, G = genus, …).
-5. NCBI taxid.
+2. Number of fragments covered by the clade rooted at this taxon
+3. Number of fragments covered by the clade rooted at this taxon
+4. Rank ((U)nclassified, (R)oot, (D)omain, (K)ingdom, (P)hylum, (C)lass, (O)rder, (F)amily, (G)enus, or (S)pecies).
+5. NCBI taxonomic ID number.
 6. Scientific name (indented in the full report to show hierarchy).
 
 So “92.29” means 92.29% of contigs fall within the P. aeruginosa clade.
