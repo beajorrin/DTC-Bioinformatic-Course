@@ -21,7 +21,7 @@
    - [3.1 Manage data](#31-Manage-data)
    - [3.2 Running fastQC](#32-Running-fastQC)
    - [3.3 Genome assembly](#33-Genome-assembly)
-   - [3.4 Quality assesment of your assembly](34-Quality-assesment-of-your-assembly)
+   - [3.4 Quality assesment of your assembly](#34-Quality-assesment-of-your-assembly)
 - [4. Species identity check](#4-Species-identity-check)
    - [4.1 Download *Pseudomonas* type genomes](#41Download-Pseudomonas-type-genomes)
    - [4.1.1 Create the PATHS](#411-Create-the-PATHS)
