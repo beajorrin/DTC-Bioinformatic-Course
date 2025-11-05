@@ -297,9 +297,7 @@ So, **let's use vi** to create and open a new file named 'example_sequence.fasta
 vi example_sequence_1.fasta
 ```
 
-You should see your terminal change to a largely blank file box, with "example_sequence_1.fasta" [New] at the bottom. 
-
-:desktop_computer:
+:desktop_computer: You should see your terminal change to a largely blank file box, with "example_sequence_1.fasta" [New] at the bottom. 
 ```r
 ~
 ~
@@ -308,15 +306,13 @@ You should see your terminal change to a largely blank file box, with "example_s
 ~
 "example_sequence_1.fasta" [New] 
 ```
-We need to use '**i**' to switch to **Insert mode**, which will allow us to write in this new file. Press the "**i**" on your keyboard, [you do not need to press Enter afterwards]
 
-:keyboard:
+:keyboard: We need to use '**i**' to switch to **Insert mode**, which will allow us to write in this new file. Press the'**i**' on your keyboard, [you do not need to press Enter afterwards]
 ```bash
 i
 ```
-At the bottom of your terminal, you should now see it is in Insert mode "-- INSERT -- ".
 
-:desktop_computer:
+:desktop_computer:At the bottom of your terminal, you should now see it is in Insert mode "-- INSERT -- ".
 ```r
 ~
 ~
@@ -325,26 +321,24 @@ At the bottom of your terminal, you should now see it is in Insert mode "-- INSE
 ~
 --INSERT-- 
 ```
-Type the following into your file (i.e. two sequence headers followed by short sequences, seperated by lines):
 
-:keyboard:
+:keyboard: Type the following into your file (i.e. two sequence headers followed by short sequences, seperated by lines):
 ```bash
 > Seq_1
 AAGTCAACCT
 > Seq_2
 ATCGGGGTA
 ```
-We now want to switch to **command mode**, to save and quit our new file. To do this, press the **Esc key**. You will see "**--INSERT--**" has disappeared from the bottom of your terminal. Now type **:wq**, which means save and quit, and then press the **Enter key**:
+We now want to switch to **command mode**, to save and quit our new file. To do this, press the **Esc key**. You will see "**--INSERT--**" has disappeared from the bottom of your terminal. 
 
-:keyboard:
+:keyboard: Now type **:wq**, which means save and quit, and then press the **Enter key**:
 ```bash
 :wq
 ```
 #
 You will now see you are out of the file, and back into your previous directory in the terminal. You can use **ls** again to check your new file is there.
-To check the contents of your new file have been saved properly and are correct, you can use the **cat** (concatenate) command, which will print the specified file. Try:
 
-:keyboard:
+:keyboard: To check the contents of your new file have been saved properly and are correct, you can use the **cat** (concatenate) command, which will print the specified file. Try:
 ```bash
 cat example_sequence_1.fasta
 ```
@@ -369,22 +363,18 @@ head -1 example_sequence_1.fasta
 > Seq_1 
 ```
 
->The **cat** (concatenate) command is more than just a file viewer - the name comes from concatenate, meaning to link together. 
-#
-**Let's try copying this file** to create a second fasta file, and using cat to merge the two together.
-To copy something we can use the **cp** (copy) command, where we specify what we want to copy and where we want to copy it to. 
+The **cat** (concatenate) command is more than just a file viewer - the name comes from concatenate, meaning to link together. 
 
-:keyboard:
+#
+
+**Let's try copying this file** to create a second fasta file, and using cat to merge the two together.
+
+:keyboard: To copy something we can use the **cp** (copy) command, where we specify what we want to copy and where we want to copy it to. 
 ```bash
 cp example_sequence_1.fasta example_sequence_2.fasta
 ```
 
 The above command copies 'example_sequence_1.fasta' to a new file, named example_sequence_2.fasta, and using '**ls**' you should now see it exists within your directory.
-
-:keyboard:
-```bash
-ls
-```
 
 :desktop_computer:
 ```r
@@ -454,9 +444,7 @@ The output is redirected into combined.fasta by using "**>**"
 cat combined.fasta
 ```
 
-You should see the one file (**combined.fasta**) has two copies of Seq_1 and Seq_2.
-
-:desktop_computer:
+:desktop_computer: You should see the one file (**combined.fasta**) has two copies of Seq_1 and Seq_2.
 ```r
 >Seq_1
 AAGTCAACCT
@@ -482,16 +470,14 @@ Occasionally, you might want to search for particular words, expressions or even
 ```bash 
 grep 'GTC' example_sequence_1.fasta
 ```
-This will return the line that contains the search string 'GTC' (highlighted in red), i.e. so you should see "AAGTCAACCT"
 
-:desktop_computer:
+:desktop_computer: This will return the line that contains the search string 'GTC', i.e. so you should see "AAGTCAACCT"
 ``` 
 AAGTCAACCT
 ```
 #
-What happens if we change the case used? Is this important?
 
-:keyboard:
+:keyboard: What happens if we change the case used? Is this important?
 ```bash 
 grep 'gtc' example_sequence_1.fasta
 ```
@@ -504,7 +490,7 @@ grep 'gtc' example_sequence_1.fasta
 Unix systems are case-sensitive, that is, they consider "GTC" and "gtc" to be different. This applies to file and folder names too.
 This leads to an important point however, in that you should avoid creating files and folders whose name only varies by case. Not only will it avoid confusion, but it will also prevent problems when working with different operating systems. Windows, for example, is case-insensitive, so it would treat file names that differ by case as a single file, potentially causing data loss or other problems. You might be tempted to just hit the Caps Lock key and use upper case for all your file names. But the **vast majority of shell commands are lower case**, so you would end up frequently having to turn it on and off as you type. Most seasoned command line users tend to stick primarily to lower case names for their files and directories so that they rarely have to worry about file name clashes, or which case to use for each letter in the name.
 #
-Now, let's try searching for sequence headers in our fasta file. Remember, sequence headers always begin with a '**>**' in fasta file format, which gives us an easy search term. Type the following and press Enter:
+Now, let's try searching for sequence headers in our fasta file. Remember, sequence headers always begin with a '**>**' in fasta file format, which gives us an easy search term. 
 
 :keyboard:
 ```bash 
@@ -614,9 +600,7 @@ Using '**ls**' you should now be able to see that the *example_sequence_2.fasta*
 rm folder_two
 ```
 
-When you press Enter, you should see your terminal return:
-
-:desktop_computer:
+:desktop_computer: When you press Enter, you should see your terminal return:
 ```bash 
 rm folder_two: is a directory
 ```
@@ -644,9 +628,8 @@ By naming conventions, bash scipts end with a **.sh** file extension. Scripts ar
 /bin/bash). This is known as a shebang statement, and will be the first line of the script.
 We are going to create a very simple **bash script** to give you a taste of how they work. We are going to create a script that when executed **echos Hello World** to the terminal console.
 #
-To create our bash script, we can again use the **vi editor**:
 
-:keyboard:
+:keyboard: To create our bash script, we can again use the **vi editor**:
 ```bash 
 vi hellow_world.sh
 ```
@@ -661,18 +644,14 @@ echo 'Hello World'
 
 Use **Esc** and **:wq** to save and quit your new file. Test it has been written and saved correctly by using **vi hello_world.sh** to reopen and check.
 
-In order to execute the script the file needs to be made **executable** by the use of **chmod u+x** filename:
-
-:keyboard:
+:keyboard: In order to execute the script the file needs to be made **executable** by the use of **chmod u+x** filename:
 ```bash 
 chmod u+x hellow_world.sh
 ```
 
->**chmod** modifies the existing rights of a file for a particular user. We are adding **+x** (make executable) to user **u**.
+**chmod** modifies the existing rights of a file for a particular user. We are adding **+x** (make executable) to user **u**.
 
-You can now run the script in the following ways:
-
-:keyboard:
+:keyboard: You can now run the script in the following ways:
 ```bash 
 ./hellow_world.sh 
 ```
@@ -876,10 +855,10 @@ conda config --add channels defaults
 ```bash 
 conda config --set channel_priority strict
 ```
-> What this does?
-> - **libmamba solver**: a much faster dependency solver than the classic one.
-> - **Channels**: define the sources; we put conda-forge first (it’s the base for most modern builds), bioconda second (depends on conda-forge), and defaults last as a fallback.
-> - **Strict priority**: prevents mixing packages from lower-priority channels when a higher-priority one provides them—this improves reproducibility.
+**What this does?**
+- **libmamba solver**: a much faster dependency solver than the classic one.
+- **Channels**: define the sources; we put conda-forge first (it’s the base for most modern builds), bioconda second (depends on conda-forge), and defaults last as a fallback.
+- **Strict priority**: prevents mixing packages from lower-priority channels when a higher-priority one provides them—this improves reproducibility.
 
 #
 ### 2.2.2 Create the dtc-bio conda environment
@@ -916,14 +895,13 @@ Executing transaction: done
 ### 2.2.3 Activate dtc-bio environment
 
 Conda environments isolate tools and libraries so this practical doesn’t clash with other projects. When an env is active, any python or tool you run comes from that env—not your system install.
+
 :keyboard:
 ```bash 
 conda activate dtc-bio
 ```
 
-What you should see: your shell prompt gains an (dtc-bio) prefix—this is your visual cue that the env is active.
-
-:desktop_computer:
+:desktop_computer: your shell prompt gains an (dtc-bio) prefix—this is your visual cue that the env is active.
 ```bash 
 (dtc-bio) you@PC:~$
 ```
@@ -960,7 +938,8 @@ samtools 1.21
 QUAST v5.2.0
 ```
 #
-** Deactivate (leave) the environment**
+
+**Deactivate (leave) the environment**
 
 When you finish, deactivate the environment so your shell goes back to its previous PATH.
 
@@ -992,8 +971,7 @@ The goal of the second part of this practical is to assemble a bacterial genome 
 - [3.1 Manage data](#31-Manage-data)
 - [3.2 Running fastQC](#32-Running-fastQC)
 - [3.3 Genome assembly](#33-Genome-assembly)
-- [3.4 Species identity check](#34-Species-identity-check)
-- [3.5 Extra - further data analysis](#35-Extra---further-data-analysis)
+- [3.4 Quality assesment of your assembly](34-Quality-assesment-of-your-assembly)
 
 *Pseudomonas aeruginosa* is a Gram-negative bacterium and opportunistic pathogen. It is a major problem in clinical settings and is as a major caustive pathogen of ventilator-associated pneumonia. *P. aeruginosa* is becoming increasingly resistant to the antibiotics we use to treat it. Genome sequencing data is useful for understanding what the population of *P. aeruginosa* looks like, how many acquired antibiotic resistance genes this pathogen carries, and understanding how *P. aeruginosa* is evolving in clinically relevant environments (such as within ICU patients with pneumonia infections).
 
@@ -1001,9 +979,7 @@ The goal of the second part of this practical is to assemble a bacterial genome 
 
 ## 3.1 Manage data
 
-Let's first create a new directory (within our intro folder) to work in:
-
-:keyboard:
+:keyboard: Let's first create a new directory (within our intro folder) to work in:
 ```bash
 mkdir assembly
 cd assembly
@@ -1012,9 +988,8 @@ cd assembly
 Check you are now in your new folder.
 
 For the purposes of this practical, we will be using a pair of forward and reverse fastq.gz (comparessed gzipped fastq) files from *P. aeruginosa* available from the European Nucleotide Archive. 
-You can download this data using the command wget followed by the address to that file(s)
 
-:keyboard:
+:keyboard: You can download this data using the command wget followed by the address to that file(s)
 ```bash
 wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_1.fastq.gz
 wget ftp.sra.ebi.ac.uk/vol1/run/ERR549/ERR5490552/PSA-2017-01_2.fastq.gz
@@ -1034,29 +1009,25 @@ PSA-2017-01_1.fastq.gz
 PSA-2017-01_2.fastq.gz
 ```
 
-We can use a combination of commands to view the first few lines of a compressed files. 
-:keyboard:
+:keyboard: We can use a combination of commands to view the first few lines of a compressed files. 
 ```bash
 zcat PSA-2017-01_1.fastq.gz | head -n 20
 ```
 **zcat** decompress the file and shows it in the terminal. However, **fastq** files contained millions of reads, and we want to avoid “seing” the whole file in the terminal. In order to avoid this, we add another command, in this case head, after the symbol | which pipes the output zcat as an input of the next command head -n 20. In the end, you’ll see only the first 20 lines of the fastq.gz file. 
 
-How does it look like commpare to a fasta file?
+**How does it look like commpare to a fasta file?**
 
 ---
 
 ## 3.2 Running fastQC
 The tool **fastqc** assesses the quality scores across all of the reads in your data. You can read more about it here: https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf
-First, create a folder to save fastqc results
 
-:keyboard:
+:keyboard: First, create a folder to save fastqc results
 ```bash
 mkdir fq-results
 ```
 
-Let’s run fastqc on our 2 samples:
-
-:keyboard:
+:keyboard: Let’s run fastqc on our 2 samples:
 ```bash
 fastqc PSA-2017-01_1.fastq.gz -o fq-results
 fastqc PSA-2017-01_2.fastq.gz -o fq-results
@@ -1064,9 +1035,7 @@ fastqc PSA-2017-01_2.fastq.gz -o fq-results
 
 **-o**: output directory. Location where the files will save.
 
-View the files that have been generated:
-
-:keyboard:
+:keyboard: View the files that have been generated:
 ```bash
 cd fq-results
 ls *fastqc*
@@ -1080,9 +1049,9 @@ PSA-2017-01_2_fastq.html
 PSA-2017-01_2_fastq.zip
 ```
 
-For each file, **fastQC** has produced both a .zip archive containing all the plots, and a html report. We can open the html files using a web browser: e.g.:
+For each file, **fastQC** has produced both a .zip archive containing all the plots, and a html report. 
 
-:keyboard:
+:keyboard: We can open the html files using a web browser: e.g.:
 ```bash
 explorer.exe PSA-2017-01_1_fastqc.html
 ```
@@ -1101,7 +1070,8 @@ The y-axis shows the quality scores. The higher the score, the better the base c
 %GC range for Pseudomonas aeruginosa (which has a highly GC biased genome). Anything above a score of 25 is usually considered good quality, so we can see these are reasonable quality reads.
 
 \
-Check the fastqc reports for both files, which file is of better quality?
+**Check the fastqc reports for both files, which file is of better quality?**
+
 #
 **Optional step: trimming & filtering data**
 
@@ -1113,7 +1083,9 @@ We will not do this today, but you should be aware of it for genome assemblies i
 
 ## 3.3 Genome assembly
 **SPAdes** is one of a number of de novo assemblers that uses short read sets as input (e.g. Illumina Reads). When a genome is sequenced, it is fragmented into lots of short sequencing fragments called ‘**reads**’. Assembling the genome means putting the pieces back together. The assembly method **SPAdes** uses is based on de Bruijn graphs, which you can read about on wikipedia: they use overlaps between reads to build up the genome.
+
 So in simple words, assembling a genome means putting together the sequenced random fragments (known as **reads**) into longer sequences (called **contigs**).
+
 The **SPAdes** program has several options (read more here: https://github.com/ablab/spades), which can be listed if you test **spades.py** and press **Enter**. The most basic options to specify are:
 
 - **-1** is input file of forward reads
@@ -1127,32 +1099,30 @@ As a pipeline, SPAdes will perform both a read error corection step and then an 
 
 For the sake of time, we are going to run **SPAdes** in assembler mode only (running both would take >1 hour). This will likely effect the downstream quality of our genome (e.g. a higher number of contigs!), so is not something you would generally want to do, but will allow us to produce assembled genomes which we can continue the practical with.
 
-To run **SPAdes** to assemble our paired fastq reads PSA-2017-01_1.fastq.gz and PSA-2017-01_2.fastq.gz in assembly mode only:
-
-:keyboard:
+:keyboard: To run **SPAdes** to assemble our paired fastq reads PSA-2017-01_1.fastq.gz and PSA-2017-01_2.fastq.gz in assembly mode only:
 ```bash
 spades.py -1 [location-to-read-1] -2 [location-to-read-2] –-only-assembler -o spades_assembly
 ```
 
-Replace the information in [ ] to the path of each fastq file. Wait for the command to run. **SPAdes** should give some output about what it is doing. At the end, you might see an assembly warning about erroneous kmer, that is OK for the sake of this exercise (re. run in assembly mode only).
+Replace the information in **[ ]** to the path of each fastq file. Wait for the command to run. **SPAdes** should give some output about what it is doing. At the end, you might see an assembly warning about erroneous kmer, that is OK for the sake of this exercise (re. run in assembly mode only).
 
->this willl take 5-10min
+>this will take 5-10min
 
-Navigate into your spades_assembly output folder and check whats there:
-
-:keyboard: 
+:keyboard: Navigate into your spades_assembly output folder and check whats there:
 ```bash
 cd spades_assembly
 ```
 
-The file '*contigs.fasta*' is the contig file produced from the reads, and what we will be working with. You can read more about what the other files are on the GitHub page: https://github.com/ablab/spades
+The file *contigs.fasta* is the contig file produced from the reads, and what we will be working with. You can read more about what the other files are on the GitHub page: https://github.com/ablab/spades
 
 #
-Exercice
-How many contigs (sequences) have the result of the assembly (*contigs.fasta*)  
-#
+**Exercice**
 
-We can run *QUAST* (QUality ASsessment Tool) for an overview of our assembly metrics. You can read more about QUAST here: https://quast.sourceforge.net/docs/manual.html:
+How many contigs (sequences) have the result of the assembly (*contigs.fasta*)? 
+#
+## 3.4 Quality assesment of your assembly 
+
+We can run **QUAST** (QUality ASsessment Tool) for an overview of our assembly metrics. You can read more about QUAST here: https://quast.sourceforge.net/docs/manual.html:
 
 :keyboard:
 ```bash
@@ -1193,7 +1163,7 @@ Key Metrics:
 # 4. Species identity check
 A final step in our genome quality check is to confirm that the genome and the DNA it is composed of belongs to our species of interest and that it is not contaminated with DNA from another bacterium. There are a number of tools that can do this and this depends on whether you want to check your data before it has been assembled using software such as **KRAKEN** 
 #
->[!WARNING]
+>[!NOTE]
 >Before runing the following commands go back to your directory by typing **cd**
 #
 ### **TABLE OF CONTENTS**
@@ -1218,7 +1188,8 @@ Kraken needs a reference database; we’ll build one by downloading the type-str
 ### 4.1.1 Create the PATHS
 
 We’ll keep downloads, intermediate FASTA files, and the Kraken2 database in predictable folders under your home directory. Using variables makes later commands shorter and less error-prone.
-> Define the folders and the number of threads to use.
+
+Define the folders and the number of threads to use.
 
 :keyboard:
 ```bash
@@ -1308,7 +1279,9 @@ find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) | wc -l
 - **| wc -l**: count the matching files (one line per file ⇒ number of files).
 
 **What to expect**
+
 For this practical, you should see: 226
+
 (Counts can change over time if NCBI updates type strains; for class reproducibility we expect 226.)
 
 #
@@ -1318,9 +1291,7 @@ For this practical, you should see: 226
 
 Kraken2’s “add to library” step works best with plain FASTA files (.fna), not compressed *.fna.gz. We’ll unpack the downloads into your staging folder ($STAGE).
 
-**Do this**: decompress every *.fna.gz under "$SRC" into "$STAGE".
-
-:keyboard:
+:keyboard: decompress every *.fna.gz under "$SRC" into "$STAGE".
 ```bash
 while IFS= read -r -d '' f; do
   out="$STAGE/$(basename "$f" .gz)"
@@ -1339,11 +1310,9 @@ done < <(find "$SRC" -type f \( -name "*_genomic.fna.gz" -o -name "*.fna.gz" \) 
 >[!NOTE]
 >Make sure "$STAGE" exists first: mkdir -p "$STAGE".
 
-**Sanity check**do the FASTAs look valid? 
+**Sanity check** do the FASTAs look valid? 
 
-Do this: count the number of FASTA records (headers) per file; the numbers should be > 0.
-
-:keyboard:
+:keyboard: count the number of FASTA records (headers) per file; the numbers should be > 0.
 ```bash
 grep -c '^>' "$STAGE"/*.fna | head
 ```
@@ -1354,15 +1323,12 @@ What this does
 - **head** shows the first few lines to avoid dumping hundreds of entries.
 
 #
-#
 
 ## 4.2 Build a Kraken2 database
 
-Kraken2 needs two things: (1) your reference sequences (the staged FASTA files) and (2) the NCBI taxonomy. This step indexes the staged genomes into a searchable database keyed by k-mers/minimizers and links them to taxonomy IDs.
+**Kraken2** needs two things: (1) your reference sequences (the staged FASTA files) and (2) the NCBI taxonomy. This step indexes the staged genomes into a searchable database keyed by k-mers/minimizers and links them to taxonomy IDs.
 
-**Start clean and make the standard folders**
-
-:keyboard: 
+:keyboard: Start clean and make the standard folders
 ```bash
 rm -rf "$DB"; mkdir -p "$DB/library"
 ```
@@ -1371,9 +1337,7 @@ rm -rf "$DB"; mkdir -p "$DB/library"
 - **rm -rf "$DB"** removes any old database so you don’t accidentally mix versions. *Be careful: this permanently deletes that folder*.
 - **mkdir -p "$DB/library"** recreates the database directory with the library/ subfolder where Kraken2 stores input sequences before building.
 
-**Add the staged FASTAs, download taxonomy, and build.**
-
-:keyboard: 
+:keyboard: Add the staged FASTAs, download taxonomy, and build.
 ```bash
 # Add every staged FASTA to the Kraken2 library
 find "$STAGE" -type f -name "*.fna" -print0 \
@@ -1395,9 +1359,7 @@ kraken2-build --clean --db "$DB"
 - **--build** creates the search index from your sequences + taxonomy (this step is CPU/disk heavy and can take a while, depending on your machine and the number of genomes).
 -** --clean** deletes intermediate files after a successful build (saves disk space).
 
-**Quick verify**
-
-:keyboard: 
+:keyboard: Quick verify
 ```bash
 du -sh "$DB"
 kraken2-inspect --db "$DB" | head
@@ -1419,7 +1381,7 @@ kraken2-inspect --db "$DB" | head
 
 **How to read this output**
 - **du -sh "$DB"** shows the total size of the database directory (a rough sanity check that something substantial was created).
--** kraken2-inspect --db "$DB" | head** prints the database summary followed by the first taxonomy lines with counts (number of minimizers/k-mers assigned per taxon).
+- ** kraken2-inspect --db "$DB" | head** prints the database summary followed by the first taxonomy lines with counts (number of minimizers/k-mers assigned per taxon).
    - You should see top-level taxa (e.g., “root”, “Bacteria”) and then entries for **Pseudomonas** with non-zero counts.
    - If you see an empty or tiny report, the library may be empty or the build failed—recheck the steps above.
 
@@ -1522,27 +1484,82 @@ Copy/paste gotchas: make sure --quick uses two ASCII hyphens, and --report has t
 ---
 
 ## 3.5 Extra - further data analysis
-Here is an (optional) data analysis exercise you can try to explore your assembled genome:
+Here is an optional data analysis exercise you can try to explore your assembled genome:
 
-1. Does your assembled genome contain any acquired antibiotic resistance genes? (hint: try finding some antibiotic resistance gene databases and blasting these gene fasta sequences against your genome using blastn in command line)
-**Blast** (command line version) has been installed on the computers + virtual machines (read more here: https://www.ncbi.nlm.nih.gov/books/NBK279690/)
-As with the webserver, you can run **blastn** queries against a database (quick start here: https://www.ncbi.nlm.nih.gov/books/NBK569856/) or against another file.
-To list these options available:
+**Learning goals**:
+1. Find curated antibiotic-resistance (AR) genes to test.
+2. Build a local BLAST database from your assembly.
+3. Use blastn with sensible thresholds; read and summarise the results.
 
+#
+### 1. Find cadidate AR genes (from curated sources)
 
->[!WARNING]
-> work a bit on this part, to give some sense. download specific genes 
+Pick 3–5 acquired genes relevant to *Pseudomonas* (e.g., β-lactamases, aminoglycoside mods, sulfonamide/tetracycline genes). Get nucleotide FASTA for each gene from a curated source:
+- CARD (Comprehensive Antibiotic Resistance Database) — browse and download gene FASTA.
+- ResFinder (DTU) — web and downloadable database for acquired genes.
+- (Optional) NCBI AMRFinderPlus — curated AMR gene set and tool; good for reference and cross-checking. 
 
-:keyboard:
+>[!TIP]
+>Prefer acquired genes (e.g., *blaVIM*, *blaNDM*, *aadA*, *sul1*, *tetA*), not broad intrinsic systems (big efflux pumps), to keep interpretation simple.
+
+Collect your chosen sequences into one file, e.g. **arg_candidates.fna** (multiple FASTA entries).
+
+#
+
+### 2. Make your genome searchable (BLAST DB)
+
+Create a nucleotide BLAST database from your assembled contigs (this is faster and more flexible than using -subject for many queries). Use **makeblastdb** with your **contigs.fasta**; the BLAST+ manual/help page covers this.
+
+:keyboard: 
 ```bash
-blastn -help
+makeblastdb -in <path/to/contigs.fasta> -dbtype nucl -parse_seqids -out <genome_db_prefix>
+```
+- **-dbtype nucl** → nucleotide DB
+- **-parse_seqids** keeps your contig IDs intact (handy for locating hits).
+
+>**Sanity Check**
+>after running, you should see several index files sharing the <genome_db_prefix>.* names.
+
+#
+
+### 3. Search your AR genes against your genome
+
+Run **blastn** with thresholds that balance sensitivity and specificity for acquired genes.
+
+:keyboard: **Template** (fill in; not a turnkey command):
+```bash
+blastn -query <arg_candidates.fna> -db <genome_db_prefix> -out <results.tsv> -outfmt '6 qseqid sseqid pident length qcovs evalue bitscore sstart send' -perc_identity <e.g.,95> -qcov_hsp_perc <e.g.,90> -max_target_seqs 1 -num_threads <N>
 ```
 
-A basic quickstart on how to query one file (e.g. an antibiotic resistance gene) against another (e.g. a genome):
+- **-perc_identity** sets the % identity cutoff.
+- **-qcov_hsp_perc** sets query coverage per HSP (how much of the gene aligns). (This maps to BLAST’s qcov_hsp_perc parameter in docs.)
 
-:keyboard:
-```bash
-blastn -query queryfilename.fasta – subject subjectfilename.fasta -out outputfilename.txt
-```
+**Interpreting hits** (suggested rules of thumb)
 
-You can specify search options, e.g. "-perc_identity 95 -qcov_hsp_perc 95 - num_alignments 1".
+- **Likely present**: identity ≥ **95–98%** and coverage ≥ **90–100%** (single, clean HSP).
+- **Maybe**: identity **90–95%** or coverage **70–90%** → check gene family, partial hits, or frameshifts.
+- **No**: below thresholds or only very short fragments.
+
+Open the TSV in a spreadsheet. Sort by **pident** and **qcovs**; note the top hit per gene and the **contig ID**/coordinates.
+
+>**Copy/paste warning**:
+>options start with ASCII hyphens **-** (not long dashes), and options like **-subject** have no space after the dash.
+
+#
+
+**Stretch ideas (pick one)**
+
+- If a hit is partial, inspect the contig in a genome viewer (**Quast output: ICARUS**) and check for truncations or assembly gaps nearby.
+- Try a stricter search (**-perc_identity 98 -qcov_hsp_perc 95**) and see what drops out.
+- Compare two databases (e.g., **CARD** vs **ResFinder**) and reconcile differences.
+
+#
+
+**Questions** 
+
+1. Which AR genes you queried (source + accession).
+2. Top hit(s) per gene with % identity, % coverage, contig, coordinates.
+3. Your call: present/absent/ambiguous, and why (justify with thresholds).
+4. One caveat you considered (e.g., gene families, partial matches, plasmid vs chromosome).
+
+---
