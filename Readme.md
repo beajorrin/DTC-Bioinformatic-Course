@@ -33,7 +33,7 @@
    - [4.3 Classify your assembly](#43-Classify-your-assembly)
       - [4.3.1 Maximise hits](#431-Maximise-hits)
       - [4.3.2 Stricter classification](#432-Stricter-classification)
-- [5 Evidence of AMR genes in your genome](#45-Evidence-of-AMR-genes-in-your-genome) 
+- [5. Evidence of AMR genes in your genome](#5-Evidence-of-AMR-genes-in-your-genome) 
    - [5.1 Find cadidate AR genes](#51-Find-cadidate-AR-genes)
    - [5.2 Make your genome searchable](#52-Make-your-genome-searchable)
    - [5.3 Search your AR genes against your genome](#53-Search-your-AR-genes-against-your-genome)
