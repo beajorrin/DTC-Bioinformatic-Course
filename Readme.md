@@ -1,8 +1,8 @@
 # DTC-Bioinformatic-Course
 
 ## **TABLE OF CONTENTS**
-- [1. Introduction to command line](#1-Introduction-to-command-line)
-   - [1.1 Find and launch your terminal](#11-Find-and-launch-your-terminal)
+- [1. Introduction to command line (with WSL)](#1-Introduction-to-command-line-(with-WSL))
+   - [1.1 Open the Ubuntu (WSL) terminal](#11-Open-the-Ubuntu-(WSL)-terminal)
    - [1.2 Creating directories (i.e. folders)](#12-Creating-directories-(i.e.-folders))
    - [1.3 Creating files](#13-Creating-files)
    - [1.4 Searching within files](#14-Searching-within-files)
@@ -23,16 +23,16 @@
    - [3.3 Genome assembly](#33-Genome-assembly)
    - [3.4 Quality assesment of your assembly](#34-Quality-assesment-of-your-assembly)
 - [4. Species identity check](#4-Species-identity-check)
-   - [4.1 Download *Pseudomonas* type genomes](#41Download-Pseudomonas-type-genomes)
+   - [4.1 Download *Pseudomonas* type genomes](#41-Download-Pseudomonas-type-genomes)
    - [4.1.1 Create the PATHS](#411-Create-the-PATHS)
    - [4.1.2 Create the corresponding folders](#412-Create-the-corresponding-folders)
    - [4.1.3 Download the *Pseudomonas* genomes from NCBI](#413-Download-the-Pseudomonas-genomes-from-NCBI)
    - [4.1.4 Check you have the files](#414-Check-you-have-the-files)
-   - [4.1.4 Decompress the fastas](#414-Decompress-the-fastas)
+   - [4.1.5 Decompress the fastas](#415-Decompress-the-fastas)
 - [4.2 Build a Kraken2 database](#42-Build-a-Kraken2-database)
 - [4.3 Classify your assembly](#43-Classify-your-assembly)
    - [4.3.1 Maximise hits](#431-Maximise-hits)
-   - [4.3.2 “Stricter” classification](#432-“Stricter”-classification) 
+   - [4.3.2 Stricter classification](#432-Stricter-classification) 
 
 ---
 
@@ -1171,11 +1171,11 @@ A final step in our genome quality check is to confirm that the genome and the D
    - [4.1.2 Create the corresponding folders](#412-Create-the-corresponding-folders)
    - [4.1.3 Download the *Pseudomonas* genomes from NCBI](#413-Download-the-Pseudomonas-genomes-from-NCBI)
    - [4.1.4 Check you have the files](#414-Check-you-have-the-files)
-   - [4.1.4 Decompress the fastas](#414-Decompress-the-fastas)
+   - [4.1.5 Decompress the fastas](#415-Decompress-the-fastas)
 - [4.2 Build a Kraken2 database](#42-Build-a-Kraken2-database)
 - [4.3 Classify your assembly](#43-Classify-your-assembly)
    - [4.3.1 Maximise hits](#431-Maximise-hits)
-   - [4.3.2 “Stricter” classification](#432-“Stricter”-classification)
+   - [4.3.2 Stricter classification](#432-Stricter-classification)
 #
 
 ## 4.1 Download *Pseudomonas* type genomes
@@ -1284,7 +1284,7 @@ For this practical, you should see: 226
 (Counts can change over time if NCBI updates type strains; for class reproducibility we expect 226.)
 
 #
-### 4.1.4 Decompress the fastas
+### 4.1.5 Decompress the fastas
 
 **Why this step?** 
 
@@ -1447,7 +1447,7 @@ grep $'\tS\t' k2_pseudo.report | sort -nr -k1,1 | head
 
 So “92.29” means 92.29% of contigs fall within the P. aeruginosa clade.
 #
-### 4.3.2 “Stricter” classification
+### 4.3.2 Stricter classification
 
 We’ll re-run Kraken2 with options that reduce weak/ambiguous assignments. You should see slightly fewer classified contigs but a cleaner top species.
 
