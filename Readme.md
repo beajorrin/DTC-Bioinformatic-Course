@@ -966,6 +966,8 @@ conda deactivate
 you@host:~$            # prompt no longer shows (dtc-bio); often switches to (base) or no prefix
 ```
 
+[↑ Back to top](#DTC-Bioinformatic-Course)
+
 ---
 
 # 3. Bacterial genome assembly
@@ -1163,6 +1165,8 @@ Key Metrics:
 - **Duplication ratio** (with reference): aligned bases in the assembly divided by bases covered on the reference; ~**1.0** is ideal. >1 hints at duplicated content.
 - **#N’s per 100 kbp**: number of unknown bases (gaps). Lower is better.
 - **GC** (%): should match the organism’s typical GC content.
+
+[↑ Back to top](#DTC-Bioinformatic-Course)
 
 ---
 
@@ -1572,5 +1576,9 @@ Open the TSV in a spreadsheet. Sort by **pident** and **qcovs**; note the top hi
 2. Top hit(s) per gene with % identity, % coverage, contig, coordinates.
 3. Your call: present/absent/ambiguous, and why (justify with thresholds).
 4. One caveat you considered (e.g., gene families, partial matches, plasmid vs chromosome).
+
+#
+
+[↑ Back to top](#DTC-Bioinformatic-Course)
 
 ---
