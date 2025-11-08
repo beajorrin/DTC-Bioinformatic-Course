@@ -1508,15 +1508,13 @@ Here is an **optional** data analysis exercise you can try to explore your assem
 #
 ## 5.1 Find cadidate AR genes
 
-Pick 3–5 acquired genes relevant to *Pseudomonas* (e.g., β-lactamases, aminoglycoside mods, sulfonamide/tetracycline genes). Get nucleotide FASTA for each gene from a curated source:
-- CARD (Comprehensive Antibiotic Resistance Database) — browse and download gene FASTA.
-- ResFinder (DTU) — web and downloadable database for acquired genes.
-- (Optional) NCBI AMRFinderPlus — curated AMR gene set and tool; good for reference and cross-checking. 
-
->[!TIP]
->Prefer acquired genes (e.g., *blaVIM*, *blaNDM*, *aadA*, *sul1*, *tetA*), not broad intrinsic systems (big efflux pumps), to keep interpretation simple.
-
-Collect your chosen sequences into one file, e.g. **arg_candidates.fna** (multiple FASTA entries).
+Get nucleotide FASTA for a small set of acquired resistance genes:
+- go to CARD (Comprehensive Antibiotic Resistance Database) 
+- browse/search for *Pseudomonas aeruginosa*
+- choose ~5 acquired genes (*orpD*, *gyrA*...)
+- Creat a file and paste the DNA sequence
+   - Terminal editoe: **vim arg_candidates.fna**
+   - paste DNA sequences
 
 #
 
@@ -1542,11 +1540,14 @@ Run **blastn** with thresholds that balance sensitivity and specificity for acqu
 
 :keyboard: **Template** (fill in; not a turnkey command):
 ```bash
-blastn -query <arg_candidates.fna> -db <genome_db_prefix> -out <results.tsv> -outfmt '6 qseqid sseqid pident length qcovs evalue bitscore sstart send' -perc_identity <e.g.,95> -qcov_hsp_perc <e.g.,90> -max_target_seqs 1 -num_threads <N>
+blastn -query <arg_candidates.fna> -db <genome_db_prefix> -out <results.txt> -perc_identity <e.g.,90> -qcov_hsp_perc <e.g.,70> -max_target_seqs 1 -outfmt '6 qseqid sseqid pident length qcovs evalue bitscore sstart send'
 ```
 
 - **-perc_identity** sets the % identity cutoff.
 - **-qcov_hsp_perc** sets query coverage per HSP (how much of the gene aligns). (This maps to BLAST’s qcov_hsp_perc parameter in docs.)
+- **-outfmt 6 … qcovhsp …** prints a tidy TSV matching the coverage metric you’re filtering on
+
+>If you remove -outfmt …, BLAST prints a human-readable alignment
 
 **Interpreting hits** (suggested rules of thumb)
 
@@ -1565,7 +1566,6 @@ Open the TSV in a spreadsheet. Sort by **pident** and **qcovs**; note the top hi
 
 - If a hit is partial, inspect the contig in a genome viewer (**Quast output: ICARUS**) and check for truncations or assembly gaps nearby.
 - Try a stricter search (**-perc_identity 98 -qcov_hsp_perc 95**) and see what drops out.
-- Compare two databases (e.g., **CARD** vs **ResFinder**) and reconcile differences.
 
 #
 
